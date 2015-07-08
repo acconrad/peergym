@@ -1,40 +1,32 @@
-<div class="jumbotron">
-  <h2>Welcome to Phoenix!!!!!</h2>
-  <p class="lead">Most frameworks make you choose between speed and a productive environment. <a href="http://phoenixframework.org">Phoenix</a> and <a href="http://elixir-lang.org">Elixir</a> give you both.</p>
-</div>
+<h1>Use a home gym from local owners with <span class="logo">Peer<span class="logo-accent">Gym</span></span></h1>
 
-<div class="row marketing">
+<div class="row">
   <div class="col-lg-6">
-    <h4>Resources</h4>
-    <ul>
+    <ol>
       <li>
-        <a href="http://phoenixframework.org/docs/overview">Guides</a>
+        <p><strong>Discover Home Gyms</strong></p>
+        <p>Find owners with home gym equipment, like benches, treadmills, and even pools.</p>
       </li>
       <li>
-        <a href="http://hexdocs.pm/phoenix">Docs</a>
+        <p><strong>Book Your Gym Time</strong></p>
+        <p>Connect with owners, confirm your training schedule, and pay — all through PeerGym's trusted services.</p>
       </li>
       <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
+        <p><strong>Work Out</strong></p>
+        <p>Get in a great workout without the lame contracts. Pay only for what you use, and never be stuck again.</p>
       </li>
-    </ul>
-  </div>
-
-  <div class="col-lg-6">
-    <h4>Help</h4>
-    <ul>
-      <li>
-        <a href="http://groups.google.com/group/phoenix-talk">Mailing list</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/issues?state=open">Issues</a>
-      </li>
-      <li>
-        <a href="irc://irc.freenode.net/elixir-lang">#elixir-lang on freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">@elixirphoenix</a>
-      </li>
-    </ul>
+    </ol>
   </div>
 </div>
 
+<form class="form-inline">
+  <select class="form-control">
+    <option>Where do you want to work out?</option>
+    <option>Boston</option>
+    <option>San Francisco</option>
+    <option>New York City</option>
+    <option>Los Angeles</option>
+  </select>
+
+  <button class="btn btn-info" type="submit">Find a Gym</button>
+</form>
