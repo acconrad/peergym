@@ -1,32 +1,34 @@
-<h1>Use a home gym from local owners with <span class="logo">Peer<span class="logo-accent">Gym</span></span></h1>
+<div class="hero fluid-container text-center">
+  <h1>Work out in a home gym from local owners with <span class="logo">Peer<span class="logo-accent">Gym</span></span></h1>
 
-<div class="row">
-  <div class="col-lg-6">
-    <ol>
-      <li>
-        <p><strong>Discover Home Gyms</strong></p>
-        <p>Find owners with home gym equipment, like benches, treadmills, and even pools.</p>
-      </li>
-      <li>
-        <p><strong>Book Your Gym Time</strong></p>
-        <p>Connect with owners, confirm your training schedule, and pay — all through PeerGym's trusted services.</p>
-      </li>
-      <li>
-        <p><strong>Work Out</strong></p>
-        <p>Get in a great workout without the lame contracts. Pay only for what you use, and never be stuck again.</p>
-      </li>
-    </ol>
-  </div>
+  <form class="form-inline">
+    <select class="form-control">
+      <option>Where do you want to work out?</option>
+      <option>Boston</option>
+      <option>San Francisco</option>
+      <option>New York City</option>
+      <option>Los Angeles</option>
+    </select>
+    <a href="<%= user_path @conn, :new %>" class="btn btn-info" type="submit">Find a Gym</a>
+  </form>
 </div>
 
-<form class="form-inline">
-  <select class="form-control">
-    <option>Where do you want to work out?</option>
-    <option>Boston</option>
-    <option>San Francisco</option>
-    <option>New York City</option>
-    <option>Los Angeles</option>
-  </select>
-
-  <button class="btn btn-info" type="submit">Find a Gym</button>
-</form>
+<div class="container">
+  <div class="row text-center">
+    <div class="col-md-4">
+      <p><i class="fa fa-5x text-info fa-search"></i></p>
+      <h2>Discover Home Gyms</h2>
+      <p>Find owners with home gym equipment, like benches, treadmills, and even pools.</p>
+    </div>
+    <div class="col-md-4">
+      <p><i class="fa fa-5x text-info fa-ticket"></i></p>
+      <h2>Book Your Gym Time</h2>
+      <p>Connect with owners, confirm your training schedule, and pay — all through PeerGym's trusted services.</p>
+    </div>
+    <div class="col-md-4">
+      <p><i class="fa fa-5x text-info fa-bicycle"></i></p>
+      <h2>Work Out</h2>
+      <p>Get in a great workout without the lame contracts. Pay only for what you use, and never be stuck again.</p>
+    </div>
+  </div>
+</div>
