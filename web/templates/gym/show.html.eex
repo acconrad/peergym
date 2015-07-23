@@ -1,0 +1,97 @@
+<h2>Show gym</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @gym.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @gym.description %>
+  </li>
+
+  <li>
+    <strong>Treadmill:</strong>
+    <%= @gym.treadmill %>
+  </li>
+
+  <li>
+    <strong>Bicycle:</strong>
+    <%= @gym.bicycle %>
+  </li>
+
+  <li>
+    <strong>Stepper:</strong>
+    <%= @gym.stepper %>
+  </li>
+
+  <li>
+    <strong>Elliptical:</strong>
+    <%= @gym.elliptical %>
+  </li>
+
+  <li>
+    <strong>FreeWeights:</strong>
+    <%= @gym.free_weights %>
+  </li>
+
+  <li>
+    <strong>Machines:</strong>
+    <%= @gym.machines %>
+  </li>
+
+  <li>
+    <strong>Trx:</strong>
+    <%= @gym.trx %>
+  </li>
+
+  <li>
+    <strong>Pool:</strong>
+    <%= @gym.pool %>
+  </li>
+
+  <li>
+    <strong>Classes:</strong>
+    <%= @gym.classes %>
+  </li>
+
+  <li>
+    <strong>PersonalTraining:</strong>
+    <%= @gym.personal_training %>
+  </li>
+
+  <li>
+    <strong>DumbbellsUpTo:</strong>
+    <%= @gym.dumbbells_up_to %>
+  </li>
+
+  <li>
+    <strong>Powerlifting:</strong>
+    <%= @gym.powerlifting %>
+  </li>
+
+  <li>
+    <strong>Weightlifting:</strong>
+    <%= @gym.weightlifting %>
+  </li>
+
+  <li>
+    <strong>Strongman:</strong>
+    <%= @gym.strongman %>
+  </li>
+
+  <li>
+    <strong>Basketball:</strong>
+    <%= @gym.basketball %>
+  </li>
+
+  <li>
+    <strong>Squash:</strong>
+    <%= @gym.squash %>
+  </li>
+
+</ul>
+
+<%= link "Back", to: gym_path(@conn, :index) %>

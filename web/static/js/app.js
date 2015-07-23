@@ -1,13 +1,5 @@
-import {Socket} from "phoenix"
+import {Maps} from './peergym';
 
-// let socket = new Socket("/ws")
-// socket.connect()
-// let chan = socket.chan("topic:subtopic", {})
-// chan.join().receive("ok", chan => {
-//   console.log("Success!")
-// })
-
-let App = {
-}
-
-export default App
+document.addEventListener( 'DOMContentLoaded', () => {
+  new Maps();
+});

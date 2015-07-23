@@ -221,6 +221,8 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 // The `Socket` constructor takes the mount point of the socket
 // as well as options that can be found in the Socket docs,
 // such as configuring the `LongPoller` transport, and heartbeat.
+// Socket params can also be passed as an option for default, but
+// overridable channel params to apply to all channels.
 //
 //
 // ## Channels
@@ -257,7 +259,7 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 //
 // ## Pushing Messages
 //
-// From the prevoius example, we can see that pushing messages to the server
+// From the previous example, we can see that pushing messages to the server
 // can be done with `chan.push(eventName, payload)` and we can optionally
 // receive responses from the push. Additionally, we can use
 // `after(millsec, callback)` to abort waiting for our `receive` hooks and
@@ -456,19 +458,22 @@ var Channel = exports.Channel = (function () {
     this.joinedOnce = false;
     this.joinPush = new Push(this, CHAN_EVENTS.join, this.params);
     this.pushBuffer = [];
-
+    this.rejoinTimer = new Timer(function () {
+      return _this.rejoinUntilConnected();
+    }, this.socket.reconnectAfterMs);
     this.joinPush.receive("ok", function () {
       _this.state = CHAN_STATES.joined;
+      _this.rejoinTimer.reset();
     });
     this.onClose(function () {
+      _this.socket.log("channel", "close " + _this.topic);
       _this.state = CHAN_STATES.closed;
       _this.socket.remove(_this);
     });
     this.onError(function (reason) {
+      _this.socket.log("channel", "error " + _this.topic, reason);
       _this.state = CHAN_STATES.errored;
-      setTimeout(function () {
-        return _this.rejoinUntilConnected();
-      }, _this.socket.reconnectAfterMs);
+      _this.rejoinTimer.setTimeout();
     });
     this.on(CHAN_EVENTS.reply, function (payload, ref) {
       _this.trigger(_this.replyEventName(ref), payload);
@@ -478,17 +483,9 @@ var Channel = exports.Channel = (function () {
   _prototypeProperties(Channel, null, {
     rejoinUntilConnected: {
       value: function rejoinUntilConnected() {
-        var _this = this;
-
-        if (this.state !== CHAN_STATES.errored) {
-          return;
-        }
+        this.rejoinTimer.setTimeout();
         if (this.socket.isConnected()) {
           this.rejoin();
-        } else {
-          setTimeout(function () {
-            return _this.rejoinUntilConnected();
-          }, this.socket.reconnectAfterMs);
         }
       },
       writable: true,
@@ -497,7 +494,7 @@ var Channel = exports.Channel = (function () {
     join: {
       value: function join() {
         if (this.joinedOnce) {
-          throw "tried to join mulitple times. 'join' can only be called a singe time per channel instance";
+          throw "tried to join multiple times. 'join' can only be called a single time per channel instance";
         } else {
           this.joinedOnce = true;
         }
@@ -582,9 +579,20 @@ var Channel = exports.Channel = (function () {
         var _this = this;
 
         return this.push(CHAN_EVENTS.leave).receive("ok", function () {
+          _this.log("channel", "leave " + _this.topic);
           _this.trigger(CHAN_EVENTS.close, "leave");
         });
       },
+      writable: true,
+      configurable: true
+    },
+    onMessage: {
+
+      // Overridable message hook
+      //
+      // Receives all events for specialized message handling
+
+      value: function onMessage(event, payload, ref) {},
       writable: true,
       configurable: true
     },
@@ -619,6 +627,7 @@ var Channel = exports.Channel = (function () {
     },
     trigger: {
       value: function trigger(triggerEvent, payload, ref) {
+        this.onMessage(triggerEvent, payload, ref);
         this.bindings.filter(function (bind) {
           return bind.event === triggerEvent;
         }).map(function (bind) {
@@ -650,32 +659,47 @@ var Socket = exports.Socket = (function () {
   // opts - Optional configuration
   //   transport - The Websocket Transport, ie WebSocket, Phoenix.LongPoller.
   //               Defaults to WebSocket with automatic LongPoller fallback.
+  //   params - The defaults for all channel params, ie `{user_id: userToken}`
   //   heartbeatIntervalMs - The millisec interval to send a heartbeat message
-  //   reconnectAfterMs - The millisec interval to reconnect after connection loss
+  //   reconnectAfterMs - The optional function that returns the millsec
+  //                      reconnect interval. Defaults to stepped backoff of:
+  //
+  //     function(tries){
+  //       return [1000, 5000, 10000][tries - 1] || 10000
+  //     }
+  //
   //   logger - The optional function for specialized logging, ie:
-  //            `logger: function(msg){ console.log(msg) }`
-  //   longpoller_timeout - The maximum timeout of a long poll AJAX request.
+  //     `logger: (kind, msg, data) => { console.log(`${kind}: ${msg}`, data) }
+  //
+  //   longpollerTimeout - The maximum timeout of a long poll AJAX request.
   //                        Defaults to 20s (double the server long poll timer).
   //
   // For IE8 support use an ES5-shim (https://github.com/es-shims/es5-shim)
   //
 
   function Socket(endPoint) {
+    var _this = this;
+
     var opts = arguments[1] === undefined ? {} : arguments[1];
 
     _classCallCheck(this, Socket);
 
     this.stateChangeCallbacks = { open: [], close: [], error: [], message: [] };
-    this.reconnectTimer = null;
     this.channels = [];
     this.sendBuffer = [];
     this.ref = 0;
     this.transport = opts.transport || window.WebSocket || LongPoller;
     this.heartbeatIntervalMs = opts.heartbeatIntervalMs || 30000;
-    this.reconnectAfterMs = opts.reconnectAfterMs || 5000;
+    this.reconnectAfterMs = opts.reconnectAfterMs || function (tries) {
+      return [1000, 5000, 10000][tries - 1] || 10000;
+    };
+    this.reconnectTimer = new Timer(function () {
+      return _this.connect();
+    }, this.reconnectAfterMs);
     this.logger = opts.logger || function () {}; // noop
-    this.longpoller_timeout = opts.longpoller_timeout || 20000;
+    this.longpollerTimeout = opts.longpollerTimeout || 20000;
     this.endPoint = this.expandEndpoint(endPoint);
+    this.params = opts.params || {};
   }
 
   _prototypeProperties(Socket, null, {
@@ -722,7 +746,7 @@ var Socket = exports.Socket = (function () {
 
         this.disconnect(function () {
           _this.conn = new _this.transport(_this.endPoint);
-          _this.conn.timeout = _this.longpoller_timeout;
+          _this.conn.timeout = _this.longpollerTimeout;
           _this.conn.onopen = function () {
             return _this.onConnOpen();
           };
@@ -744,8 +768,8 @@ var Socket = exports.Socket = (function () {
 
       // Logs the message. Override `this.logger` for specialized logging. noops by default
 
-      value: function log(msg) {
-        this.logger(msg);
+      value: function log(kind, msg, data) {
+        this.logger(kind, msg, data);
       },
       writable: true,
       configurable: true
@@ -790,8 +814,9 @@ var Socket = exports.Socket = (function () {
       value: function onConnOpen() {
         var _this = this;
 
+        this.log("transport", "connected to " + this.endPoint, this.transport);
         this.flushSendBuffer();
-        clearInterval(this.reconnectTimer);
+        this.reconnectTimer.reset();
         if (!this.conn.skipHeartbeat) {
           clearInterval(this.heartbeatTimer);
           this.heartbeatTimer = setInterval(function () {
@@ -807,16 +832,10 @@ var Socket = exports.Socket = (function () {
     },
     onConnClose: {
       value: function onConnClose(event) {
-        var _this = this;
-
-        this.log("WS close:");
-        this.log(event);
+        this.log("transport", "close", event);
         this.triggerChanError();
-        clearInterval(this.reconnectTimer);
         clearInterval(this.heartbeatTimer);
-        this.reconnectTimer = setInterval(function () {
-          return _this.connect();
-        }, this.reconnectAfterMs);
+        this.reconnectTimer.setTimeout();
         this.stateChangeCallbacks.close.forEach(function (callback) {
           return callback(event);
         });
@@ -826,8 +845,7 @@ var Socket = exports.Socket = (function () {
     },
     onConnError: {
       value: function onConnError(error) {
-        this.log("WS error:");
-        this.log(error);
+        this.log("transport", error);
         this.triggerChanError();
         this.stateChangeCallbacks.error.forEach(function (callback) {
           return callback(error);
@@ -878,8 +896,18 @@ var Socket = exports.Socket = (function () {
       configurable: true
     },
     chan: {
-      value: function chan(topic, params) {
-        var chan = new Channel(topic, params, this);
+      value: function chan(topic) {
+        var chanParams = arguments[1] === undefined ? {} : arguments[1];
+
+        var mergedParams = {};
+        for (var key in this.params) {
+          mergedParams[key] = this.params[key];
+        }
+        for (var key in chanParams) {
+          mergedParams[key] = chanParams[key];
+        }
+
+        var chan = new Channel(topic, mergedParams, this);
         this.channels.push(chan);
         return chan;
       },
@@ -890,9 +918,15 @@ var Socket = exports.Socket = (function () {
       value: function push(data) {
         var _this = this;
 
+        var topic = data.topic;
+        var event = data.event;
+        var payload = data.payload;
+        var ref = data.ref;
+
         var callback = function () {
           return _this.conn.send(JSON.stringify(data));
         };
+        this.log("push", "" + topic + " " + event + " (" + ref + ")", payload);
         if (this.isConnected()) {
           callback();
         } else {
@@ -940,14 +974,13 @@ var Socket = exports.Socket = (function () {
     },
     onConnMessage: {
       value: function onConnMessage(rawMessage) {
-        this.log("message received:");
-        this.log(rawMessage);
         var msg = JSON.parse(rawMessage.data);
         var topic = msg.topic;
         var event = msg.event;
         var payload = msg.payload;
         var ref = msg.ref;
 
+        this.log("receive", "" + (payload.status || "") + " " + topic + " " + event + " " + (ref && "(" + ref + ")" || ""), payload);
         this.channels.filter(function (chan) {
           return chan.isMember(topic);
         }).forEach(function (chan) {
@@ -969,7 +1002,6 @@ var LongPoller = exports.LongPoller = (function () {
   function LongPoller(endPoint) {
     _classCallCheck(this, LongPoller);
 
-    this.retryInMs = 5000;
     this.endPoint = null;
     this.token = null;
     this.sig = null;
@@ -995,7 +1027,7 @@ var LongPoller = exports.LongPoller = (function () {
     },
     endpointURL: {
       value: function endpointURL() {
-        return this.pollEndpoint + ("?token=" + encodeURIComponent(this.token) + "&sig=" + encodeURIComponent(this.sig));
+        return this.pollEndpoint + ("?token=" + encodeURIComponent(this.token) + "&sig=" + encodeURIComponent(this.sig) + "&format=json");
       },
       writable: true,
       configurable: true
@@ -1172,31 +1204,228 @@ var Ajax = exports.Ajax = (function () {
 })();
 
 Ajax.states = { complete: 4 };
+
+// Creates a timer that accepts a `timerCalc` function to perform
+// calculated timeout retries, such as exponential backoff.
+//
+// ## Examples
+//
+//    let reconnectTimer = new Timer(() => this.connect(), function(tries){
+//      return [1000, 5000, 10000][tries - 1] || 10000
+//    })
+//    reconnectTimer.setTimeout() // fires after 1000
+//    reconnectTimer.setTimeout() // fires after 5000
+//    reconnectTimer.reset()
+//    reconnectTimer.setTimeout() // fires after 1000
+//
+
+var Timer = (function () {
+  function Timer(callback, timerCalc) {
+    _classCallCheck(this, Timer);
+
+    this.callback = callback;
+    this.timerCalc = timerCalc;
+    this.timer = null;
+    this.tries = 0;
+  }
+
+  _prototypeProperties(Timer, null, {
+    reset: {
+      value: function reset() {
+        this.tries = 0;
+        clearTimeout(this.timer);
+      },
+      writable: true,
+      configurable: true
+    },
+    setTimeout: {
+
+      // Cancels any previous setTimeout and schedules callback
+
+      value: (function (_setTimeout) {
+        var _setTimeoutWrapper = function setTimeout() {
+          return _setTimeout.apply(this, arguments);
+        };
+
+        _setTimeoutWrapper.toString = function () {
+          return _setTimeout.toString();
+        };
+
+        return _setTimeoutWrapper;
+      })(function () {
+        var _this = this;
+
+        clearTimeout(this.timer);
+
+        this.timer = setTimeout(function () {
+          _this.tries = _this.tries + 1;
+          _this.callback();
+        }, this.timerCalc(this.tries + 1));
+      }),
+      writable: true,
+      configurable: true
+    }
+  });
+
+  return Timer;
+})();
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
  }});
 if(typeof(window) === 'object' && !window.Phoenix){ window.Phoenix = require('phoenix') };
-require.register("web/static/js/app", function(exports, require, module) {
-"use strict";
 
-Object.defineProperty(exports, "__esModule", {
+require.register("web/static/js/app", function(exports, require, module) {
+'use strict';
+
+var _peergym = require('./peergym');
+
+document.addEventListener('DOMContentLoaded', function () {
+  new _peergym.Maps();
+});
+});
+
+require.register("web/static/js/peergym", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _phoenix = require("phoenix");
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-// let socket = new Socket("/ws")
-// socket.connect()
-// let chan = socket.chan("topic:subtopic", {})
-// chan.join().receive("ok", chan => {
-//   console.log("Success!")
-// })
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-var App = {};
+var Maps = (function () {
+  function Maps() {
+    _classCallCheck(this, Maps);
 
-exports["default"] = App;
-module.exports = exports["default"];
+    var initialize = document.body.className.match(/page/) ? this.initializeSearch : this.initializeMap;
+    google.maps.event.addDomListener(window, 'load', initialize);
+  }
+
+  _createClass(Maps, [{
+    key: 'changeBounds',
+    value: function changeBounds() {
+      service.radarSearch({ bounds: map.getBounds(), keyword: 'gyms' }, this.searchCallback);
+    }
+  }, {
+    key: 'changePlace',
+    value: function changePlace() {
+      var place = autocomplete.getPlace(),
+          address = '';
+
+      infowindow.close();
+      marker.setVisible(false);
+
+      if (!place.geometry) {
+        window.alert('Autocomplete returned place contains no geometry ');
+        return;
+      }
+
+      if (place.geometry.viewport) {
+        map.fitBounds(place.geometry.viewport);
+      } else {
+        map.setCenter(place.geometry.location);
+        map.setZoom(17);
+      }
+
+      marker.setIcon({
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(35, 35)
+      });
+      marker.setPosition(place.geometry.location);
+      marker.setVisible(true);
+
+      if (place.address_components) {
+        address = [place.address_components[0] && place.address_components[0].short_name || '', place.address_components[1] && place.address_components[1].short_name || '', place.address_components[2] && place.address_components[2].short_name || ''].join(' ');
+      }
+
+      infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+      infowindow.open(map, marker);
+    }
+  }, {
+    key: 'createMarker',
+    value: function createMarker(place) {
+      var marker = new google.maps.Marker({ map: map, position: place.geometry.location });
+
+      google.maps.event.addListener(marker, 'click', function () {
+        service.getDetails(place, function (result, status) {
+          if (status != google.maps.places.PlacesServiceStatus.OK) {
+            alert(status);
+            return;
+          }
+
+          infoWindow.setContent('<a href="/gyms/1">' + result.name + '</a>');
+          infoWindow.open(map, marker);
+        });
+      });
+    }
+  }, {
+    key: 'searchCallback',
+    value: function searchCallback(results, status) {
+      var _this = this;
+
+      if (status != google.maps.places.PlacesServiceStatus.OK) {
+        alert(status);
+        return;
+      }
+
+      results.forEach(function (result) {
+        _this.createMarker(result);
+      });
+    }
+  }, {
+    key: 'initializeMap',
+    value: function initializeMap() {
+      var map = new google.maps.Map(document.getElementById('map-canvas'), {
+        center: new google.maps.LatLng(42.3601, -71.0589),
+        zoom: 13,
+        styles: [{
+          stylers: [{ visibility: 'simplified' }]
+        }, {
+          elementType: 'labels',
+          stylers: [{ visibility: 'off' }]
+        }]
+      }),
+          infoWindow = new google.maps.InfoWindow(),
+          service = new google.maps.places.PlacesService(map);
+
+      google.maps.event.addListenerOnce(map, 'bounds_changed', this.changeBounds);
+    }
+  }, {
+    key: 'initializeSearch',
+    value: function initializeSearch() {
+      var mapOptions = {
+        center: new google.maps.LatLng(42.3601, -71.0589),
+        zoom: 13
+      },
+          map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions),
+          input = document.getElementById('pac-input'),
+          types = document.getElementById('type-selector'),
+          autocomplete = new google.maps.places.Autocomplete(input),
+          infowindow = new google.maps.InfoWindow(),
+          marker = new google.maps.Marker({ map: map, anchorPoint: new google.maps.Point(0, -29) });
+
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+      autocomplete.bindTo('bounds', map);
+
+      google.maps.event.addListener(autocomplete, 'place_changed', this.changePlace);
+
+      autocomplete.setTypes([]);
+    }
+  }]);
+
+  return Maps;
+})();
+
+exports.Maps = Maps;
 });
 
 ;

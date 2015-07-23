@@ -5150,8 +5150,17 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700; }
 
+/* line 16, stdin */
+.map-container {
+  position: relative;
+  width: 67%; }
+
+/* line 21, stdin */
+#map-canvas {
+  height: 20rem; }
+
 /* Phoenix flash messages */
-/* line 17, stdin */
+/* line 26, stdin */
 .alert {
   border-radius: 0;
   font-size: 16px;
@@ -5159,39 +5168,39 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   top: 50px;
   width: 100%; }
-  /* line 25, stdin */
+  /* line 34, stdin */
   .alert:empty {
     display: none; }
 
-/* line 29, stdin */
+/* line 38, stdin */
 .page.index .navbar-static-top {
   background-color: transparent;
   border: 0 none;
   color: #fff; }
-  /* line 34, stdin */
+  /* line 43, stdin */
   .page.index .navbar-static-top .navbar-nav > li > a {
     color: #fff; }
 
-/* line 40, stdin */
+/* line 49, stdin */
 .logo {
   display: inline-block;
   font-family: 'Lato', sans-serif;
   font-size: 36px;
   font-weight: 900;
   margin-bottom: 1em; }
-  /* line 47, stdin */
+  /* line 56, stdin */
   .page.index .logo {
     color: #fff; }
 
-/* line 51, stdin */
+/* line 60, stdin */
 .logo-accent {
   color: #5bc0de; }
 
-/* line 54, stdin */
+/* line 63, stdin */
 .logo-small {
   font-size: 24px; }
 
-/* line 58, stdin */
+/* line 67, stdin */
 .hero {
   background-image: url("/images/background.jpg");
   background-position: top center;
@@ -5202,7 +5211,7 @@ h1, h2, h3, h4, h5, h6 {
   min-height: 400px;
   padding-top: 120px;
   padding-bottom: 60px; }
-  /* line 69, stdin */
+  /* line 78, stdin */
   .hero h1 {
     font-weight: 400; }
 

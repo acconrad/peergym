@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   </head>
 
-  <body class="<%= Phoenix.Controller.controller_module(@conn) |> Atom.to_string |> String.split(".") |> List.last |> String.replace("Controller", "") |> String.downcase %> <%= Phoenix.Controller.action_name @conn %>">
+  <body class="<%= Phoenix.Naming.resource_name(Phoenix.Controller.controller_module(@conn), "Controller") %> <%= Phoenix.Controller.action_name @conn %>">
     <nav class="navbar navbar-default navbar-static-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -49,6 +49,7 @@
       © 2015 PeerGym. All rights reserved.
     </footer>
 
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
     <script>require("web/static/js/app")</script>
   </body>

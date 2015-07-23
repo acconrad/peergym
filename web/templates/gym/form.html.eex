@@ -1,0 +1,106 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if f.errors != [] do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below:</p>
+      <ul>
+        <%= for {attr, message} <- f.errors do %>
+          <li><%= humanize(attr) %> <%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <label>Name</label>
+    <%= text_input f, :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Description</label>
+    <%= text_input f, :description, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Treadmill</label>
+    <%= checkbox f, :treadmill, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Bicycle</label>
+    <%= checkbox f, :bicycle, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Stepper</label>
+    <%= checkbox f, :stepper, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Elliptical</label>
+    <%= checkbox f, :elliptical, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>FreeWeights</label>
+    <%= checkbox f, :free_weights, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Machines</label>
+    <%= checkbox f, :machines, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Trx</label>
+    <%= checkbox f, :trx, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Pool</label>
+    <%= checkbox f, :pool, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Classes</label>
+    <%= checkbox f, :classes, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>PersonalTraining</label>
+    <%= checkbox f, :personal_training, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>DumbbellsUpTo</label>
+    <%= number_input f, :dumbbells_up_to, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Powerlifting</label>
+    <%= checkbox f, :powerlifting, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Weightlifting</label>
+    <%= checkbox f, :weightlifting, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Strongman</label>
+    <%= checkbox f, :strongman, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Basketball</label>
+    <%= checkbox f, :basketball, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Squash</label>
+    <%= checkbox f, :squash, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
