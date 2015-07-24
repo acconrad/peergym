@@ -1,13 +1,12 @@
 defmodule Peergym.GymController do
   use Peergym.Web, :controller
-
   alias Peergym.Gym
 
   plug :scrub_params, "gym" when action in [:create, :update]
 
-  def index(conn, _params) do
-    gyms = Repo.all(Gym)
-    render(conn, "index.html", gyms: gyms)
+  def index(conn, params) do
+    place = params["search"]["place"]
+    render(conn, "index.html", place: place)
   end
 
   def new(conn, _params) do

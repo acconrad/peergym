@@ -5214,6 +5214,9 @@ h1, h2, h3, h4, h5, h6 {
   /* line 78, stdin */
   .hero h1 {
     font-weight: 400; }
+  /* line 82, stdin */
+  .hero input[type="text"] {
+    color: #333; }
 
 
 /*# sourceMappingURL=app.css.map*/
