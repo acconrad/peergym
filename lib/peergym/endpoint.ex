@@ -33,5 +33,5 @@ defmodule Peergym.Endpoint do
     key: "_peergym_key",
     signing_salt: "NzJOUrL8"
 
-  plug :router, Peergym.Router
+  plug Peergym.Router
 end
