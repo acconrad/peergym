@@ -16,8 +16,33 @@
   </div>
 
   <div class="form-group">
-    <label>Description</label>
-    <%= text_input f, :description, class: "form-control" %>
+    <label>Address</label>
+    <%= text_input f, :address, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Phone Number</label>
+    <%= text_input f, :phone, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Hours</label>
+    <%= text_input f, :hours, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Latitude</label>
+    <%= text_input f, :latitude, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Longitude</label>
+    <%= text_input f, :longitude, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Google Place ID</label>
+    <%= text_input f, :google_place_id, class: "form-control" %>
   </div>
 
   <div class="form-group">

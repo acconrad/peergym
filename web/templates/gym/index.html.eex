@@ -1,3 +1,5 @@
 <div class="map-container">
   <div id="map-canvas" data-place-id="<%= @place %>"></div>
 </div>
+<ul id="gyms-list">
+</ul>

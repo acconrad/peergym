@@ -29,11 +29,12 @@ defmodule Peergym.Mixfile do
   #
   # Type `mix help deps` for examples and options
   defp deps do
-    [{:phoenix, "~> 0.15"},
-     {:phoenix_html, "~> 1.4"},
-     {:phoenix_ecto, "~> 0.8"},
-     {:postgrex, ">= 0.0.0"},
-     {:phoenix_live_reload, "~> 0.5", only: :dev},
+    [{:phoenix, "~> 1.0.0"},
+     {:phoenix_html, "~> 2.2.0"},
+     {:phoenix_ecto, "~> 1.2.0"},
+     {:postgrex, ">= 0.9.1"},
+     {:geo, "~> 0.15.0"},
+     {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"}]
   end
 end

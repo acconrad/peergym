@@ -9,7 +9,7 @@ defmodule Peergym.GymController do
     render(conn, "index.html", place: place)
   end
 
-  def new(conn, _params) do
+  def new(conn, params) do
     changeset = Gym.changeset(%Gym{})
     render(conn, "new.html", changeset: changeset)
   end
@@ -29,8 +29,14 @@ defmodule Peergym.GymController do
   end
 
   def show(conn, %{"id" => id}) do
-    gym = Repo.get(Gym, id)
-    render(conn, "show.html", gym: gym)
+    gym = Repo.get_by(Gym, place_id: id)
+
+    if gym do
+      render(conn, "show.html", gym: gym)
+    else
+      conn
+      |> redirect(to: gym_path(conn, :new, name: conn.query_string))
+    end
   end
 
   def edit(conn, %{"id" => id}) do

@@ -11,7 +11,7 @@ config :peergym, Peergym.Endpoint,
   debug_errors: true,
   code_reloader: true,
   cache_static_lookup: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch"]]
+  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]]
 
 # Watch static and templates for browser reloading.
 config :peergym, Peergym.Endpoint,
@@ -32,4 +32,5 @@ config :peergym, Peergym.Repo,
   username: "postgres",
   password: "postgres",
   database: "peergym_dev",
-  size: 10 # The amount of database connections in the pool
+  pool_size: 10, # The amount of database connections in the pool
+  extensions: [{Geo.PostGIS.Extension, library: Geo}]

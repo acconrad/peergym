@@ -44,6 +44,23 @@ h1, h2, h3, h4, h5, h6 {
       color: #fff;
     }
   }
+
+  .form-group {
+    width: 25%;
+
+    .form-control {
+      width: 100%;
+    }
+  }
+
+  footer {
+    border-top: 0 none;
+    color: #fff;
+
+    hr {
+      display: none;
+    }
+  }
 }
 
 .logo {
@@ -68,12 +85,12 @@ h1, h2, h3, h4, h5, h6 {
   background-image: url("/images/background.jpg");
   background-position: top center;
   background-repeat: no-repeat;
+  background-size: cover;
   color: #fff;
+  height: 100vh;
   margin-top: -70px;
-  margin-bottom: 60px;
-  min-height: 400px;
+  margin-bottom: -60px;
   padding-top: 120px;
-  padding-bottom: 60px;
 
   h1 {
     font-weight: 400;

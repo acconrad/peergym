@@ -43,18 +43,35 @@ export class Maps {
                 }
 
                 places.forEach( place => {
-                  var marker = new google.maps.Marker({ map: map, position: place.geometry.location });
+                  var marker = new google.maps.Marker({ map: map, position: place.geometry.location })
+                    , placeDetails, addr;
 
-                  google.maps.event.addListener( marker, 'click', () => {
-                    service.getDetails( place, (result, status) => {
-                      if ( status != google.maps.places.PlacesServiceStatus.OK ) {
-                        alert(status);
-                        return;
+                  service.getDetails( place, (result, status) => {
+                    if ( status != google.maps.places.PlacesServiceStatus.OK ) {
+                      alert( status );
+                      return;
+                    }
+
+                    placeDetails = result;
+                    addr = place.address_components.map( component => {
+                      if ( component.types[0].match( /country|suffix/i ) ) {
+                        return false;
                       }
 
-                      infoWindow.setContent( `<a href="/gyms/1">${result.name}</a>` );
-                      infoWindow.open(map, marker);
-                    });
+                      return component.short_name;
+                    }).filter( component => { return component; }).join( ', ' );
+
+                    document.getElementById( 'gyms-list' ).innerHTML = `
+                      <li>
+                        <h2>${place.name}</h2>
+                        <p>${addr}</p>
+                        <p>${place.formatted_phone_number}</p>
+                      </li>`;
+                  });
+
+                  google.maps.event.addListener( marker, 'click', () => {
+                    infoWindow.setContent( `<a href="/gyms/${placeDetails.place_id}?name=${placeDetails.name}">${placeDetails.name}</a>` );
+                    infoWindow.open( map, marker );
                   });
                 });
               });

@@ -3,7 +3,7 @@ defmodule Peergym.Gym do
 
   schema "gyms" do
     field :name, :string
-    field :description, :string
+
     field :treadmill, :boolean, default: false
     field :bicycle, :boolean, default: false
     field :stepper, :boolean, default: false
@@ -21,11 +21,19 @@ defmodule Peergym.Gym do
     field :basketball, :boolean, default: false
     field :squash, :boolean, default: false
 
+    field :google_place_id, :string
+    field :address, :string
+    field :phone, :string
+    field :hours, :string
+    field :latitude, :float
+    field :longitude, :float
+    field :geographic_point, Geo.Point
+
     timestamps
   end
 
-  @required_fields ~w(name description treadmill bicycle stepper elliptical free_weights machines trx pool classes personal_training dumbbells_up_to powerlifting weightlifting strongman basketball squash)
-  @optional_fields ~w()
+  @required_fields ~w(name google_place_id address phone hours latitude longitude treadmill bicycle stepper elliptical free_weights machines trx pool classes personal_training dumbbells_up_to powerlifting weightlifting strongman basketball squash)
+  @optional_fields ~w(geographic_point)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

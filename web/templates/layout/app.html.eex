@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Use a home gym from local owners with PeerGym.">
 
-    <title>Home gym rentals by the hour, day, or month - PeerGym</title>
+    <title>On demand gym memberships by the day, week, or month - PeerGym</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet" type="text/css">
@@ -31,10 +31,10 @@
           <form class="navbar-form navbar-right" role="search">
             <a class="btn btn-info" href="<%= user_path @conn, :new %>">List Your Gym</a>
           </form>
-          <ul class="nav navbar-nav navbar-right">
+          <!-- V2 <ul class="nav navbar-nav navbar-right">
             <li><a href="<%= user_path @conn, :new %>">Sign Up</a></li>
             <li><a href="<%= user_path @conn, :new %>">Log In</a></li>
-          </ul>
+          </ul> -->
         </div>
       </div>
     </nav>
@@ -51,6 +51,5 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-    <script>require("web/static/js/app")</script>
   </body>
 </html>

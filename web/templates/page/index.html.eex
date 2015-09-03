@@ -3,6 +3,7 @@
   <%= render "form.html", changeset: @conn, action: gym_path(@conn, :index) %>
 </div>
 
+<!-- v2
 <div class="container">
   <div class="row text-center">
     <div class="col-md-4">
@@ -21,4 +22,4 @@
       <p>Get in a great workout without the forms and mess. Pay only for what you use.</p>
     </div>
   </div>
-</div>
+</div> -->
