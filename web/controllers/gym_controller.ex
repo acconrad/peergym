@@ -1,15 +1,25 @@
 defmodule Peergym.GymController do
   use Peergym.Web, :controller
   alias Peergym.Gym
+  import Geo.PostGIS
 
   plug :scrub_params, "gym" when action in [:create, :update]
 
   def index(conn, params) do
+    curr_lng = String.to_float(params["search"]["lng"])
+    curr_lat = String.to_float(params["search"]["lat"])
     place = params["search"]["place"]
-    render(conn, "index.html", place: place)
+    point = %Geo.Point{ coordinates: { curr_lng, curr_lat }, srid: 4326 }
+
+    query = from g in Gym,
+            where: st_dwithin(g.geographic_point, ^point, 8046.7),
+            select: g
+
+    gyms = Repo.all(query)
+    render(conn, "index.html", gyms: gyms, place: place)
   end
 
-  def new(conn, params) do
+  def new(conn, _params) do
     changeset = Gym.changeset(%Gym{})
     render(conn, "new.html", changeset: changeset)
   end
@@ -20,9 +30,15 @@ defmodule Peergym.GymController do
     if changeset.valid? do
       Repo.insert(changeset)
 
+      gym = Repo.get_by(Gym, google_place_id: gym_params["google_place_id"])
+      new_point = %Geo.Point{ coordinates: { gym.longitude, gym.latitude }, srid: 4326 }
+
+      from(g in Gym, where: g.id == ^gym.id, update: [set: [geographic_point: ^new_point]])
+      |> Repo.update_all([])
+
       conn
       |> put_flash(:info, "Gym created successfully.")
-      |> redirect(to: gym_path(conn, :index))
+      |> redirect(to: gym_path(conn, :edit, gym.id))
     else
       render(conn, "new.html", changeset: changeset)
     end

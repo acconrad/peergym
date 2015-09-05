@@ -1180,26 +1180,6 @@ var Maps = (function () {
                       placeDetails,
                       addr;
 
-                  service.getDetails(place, function (result, status) {
-                    if (status != google.maps.places.PlacesServiceStatus.OK) {
-                      alert(status);
-                      return;
-                    }
-
-                    placeDetails = result;
-                    addr = place.address_components.map(function (component) {
-                      if (component.types[0].match(/country|suffix/i)) {
-                        return false;
-                      }
-
-                      return component.short_name;
-                    }).filter(function (component) {
-                      return component;
-                    }).join(', ');
-
-                    document.getElementById('gyms-list').innerHTML = '\n                      <li>\n                        <h2>' + place.name + '</h2>\n                        <p>' + addr + '</p>\n                        <p>' + place.formatted_phone_number + '</p>\n                      </li>';
-                  });
-
                   google.maps.event.addListener(marker, 'click', function () {
                     infoWindow.setContent('<a href="/gyms/' + placeDetails.place_id + '?name=' + placeDetails.name + '">' + placeDetails.name + '</a>');
                     infoWindow.open(map, marker);
@@ -1229,6 +1209,8 @@ var Maps = (function () {
 
         new google.maps.Geocoder().geocode({ 'address': location.value }, function (results, status) {
           if (status === google.maps.GeocoderStatus.OK) {
+            document.getElementById('search_lng').value = results[0].geometry.location.G;
+            document.getElementById('search_lat').value = results[0].geometry.location.K;
             document.getElementById('search_place').value = results[0].place_id;
             form.submit();
           } else {

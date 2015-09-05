@@ -2,4 +2,7 @@
   <div id="map-canvas" data-place-id="<%= @place %>"></div>
 </div>
 <ul id="gyms-list">
+  <%= for gym <- @gyms do %>
+    <li><%= gym.name %></li>
+  <% end %>
 </ul>
