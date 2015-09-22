@@ -1,17 +1,15 @@
-<%= form_for @changeset, @action, [class: "form-inline"], fn f -> %>
-  <%= if f.errors != [] do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below:</p>
-      <ul>
-        <%= for {attr, message} <- f.errors do %>
-          <li><%= humanize(attr) %> <%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_tag @action, [method: :post, "data-remote": true, id: "register"] do %>
+  <div class="form-group">
+    <label>E-Mail</label>
+    <input type="email" name="email" class="form-control">
+  </div>
 
   <div class="form-group">
-    <%= email_input f, :email, class: "form-control", placeholder: "Email" %>
+    <label>Password</label>
+    <input type="password" name="password" class="form-control">
   </div>
-  <%= submit "Keep Me Posted!", class: "btn btn-info" %>
+
+  <div class="form-group">
+    <%= submit "Sign Up", class: "btn btn-primary" %>
+  </div>
 <% end %>

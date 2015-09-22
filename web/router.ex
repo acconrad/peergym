@@ -1,4 +1,5 @@
 defmodule Peergym.Router do
+  use Addict.RoutesHelper
   use Peergym.Web, :router
 
   pipeline :browser do
@@ -19,6 +20,7 @@ defmodule Peergym.Router do
     get "/", PageController, :index
     resources "/gyms", GymController
     resources "/users", UserController
+    addict :routes
   end
 
   # Other scopes may use custom stacks.

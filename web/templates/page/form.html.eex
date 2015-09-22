@@ -1,4 +1,4 @@
-<%= form_for @changeset, @action, [id: "gym-search-form",class: "form-inline", name: :search, method: "get"], fn f -> %>
+<%= form_for @changeset, @action, [id: "gym-search-form", class: "form-inline", name: :search, method: "get"], fn f -> %>
   <%= hidden_input f, :lng %>
   <%= hidden_input f, :lat %>
   <%= hidden_input f, :place %>
