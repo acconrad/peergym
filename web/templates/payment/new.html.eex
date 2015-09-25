@@ -1,0 +1,6 @@
+<div class="container">
+  <h2>Claim your FREE pass to <%= @gym.name %></h2>
+
+  <%= render "form.html", changeset: @changeset,
+                          action: gym_payment_path(@conn, :create, @gym.id) %>
+</div>

@@ -18,9 +18,11 @@ defmodule Peergym.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    resources "/gyms", GymController
-    resources "/users", UserController
     addict :routes
+    resources "users", UserController
+    resources "gyms", GymController do
+      resources "payments", PaymentController
+    end
   end
 
   # Other scopes may use custom stacks.

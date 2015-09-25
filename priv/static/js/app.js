@@ -1157,7 +1157,8 @@ var Maps = (function () {
           if (results[0]) {
             map = new google.maps.Map(canvas, {
               center: results[0].geometry.location,
-              zoom: 13,
+              zoom: 14,
+              disableDefaultUI: true,
               styles: [{
                 stylers: [{ visibility: 'simplified' }]
               }, {
@@ -1208,10 +1209,13 @@ var Maps = (function () {
         event.preventDefault();
 
         new google.maps.Geocoder().geocode({ 'address': location.value }, function (results, status) {
+          var result, latlng;
           if (status === google.maps.GeocoderStatus.OK) {
-            document.getElementById('search_lng').value = results[0].geometry.location.G;
-            document.getElementById('search_lat').value = results[0].geometry.location.K;
-            document.getElementById('search_place').value = results[0].place_id;
+            result = results[0];
+            latlng = result.geometry.location.toString().slice(1, -1).split(', ');
+            document.getElementById('search_lng').value = latlng[0];
+            document.getElementById('search_lat').value = latlng[1];
+            document.getElementById('search_place').value = result.place_id;
             form.submit();
           } else {
             alert('Geocode was not successful for the following reason: ' + status);

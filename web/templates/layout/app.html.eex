@@ -8,8 +8,7 @@
 
     <title>On demand gym memberships by the day, week, or month - PeerGym</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   </head>
 
@@ -29,12 +28,12 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <form class="navbar-form navbar-right" role="search">
-            <a class="btn btn-info" href="<%= user_path @conn, :new %>">List Your Gym</a>
+            <%= link "List Your Gym", to: gym_path(@conn, :new), class: "btn btn-info" %>
           </form>
-          <!-- V2 <ul class="nav navbar-nav navbar-right">
-            <li><a href="<%= user_path @conn, :new %>">Sign Up</a></li>
-            <li><a href="<%= user_path @conn, :new %>">Log In</a></li>
-          </ul> -->
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link "Sign Up", to: user_path(@conn, :new) %></li>
+            <li><%= link "Sign In", to: user_path(@conn, :new) %></li>
+          </ul>
         </div>
       </div>
     </nav>

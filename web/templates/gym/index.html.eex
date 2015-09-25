@@ -1,8 +1,14 @@
-<div class="map-container">
-  <div id="map-canvas" data-place-id="<%= @place %>"></div>
-</div>
-<ul id="gyms-list">
-  <%= for gym <- @gyms do %>
-    <li><%= gym.name %></li>
-  <% end %>
-</ul>
+<section class="container">
+  <div class="row">
+    <ul class="col-md-8 list-unstyled" id="gyms-list">
+      <%= for gym <- @gyms do %>
+        <%= render "item.html", item: gym,
+                                to_pay: gym_payment_path(@conn, :new, gym.id),
+                                to_show: gym_path(@conn, :show, gym.id) %>
+      <% end %>
+    </ul>
+    <div class="col-md-4">
+      <div id="map-canvas" data-place-id="<%= @place %>"></div>
+    </div>
+  </div>
+</section>
