@@ -27,13 +27,12 @@ defmodule Peergym.Gym do
     field :hours, :string
     field :latitude, :float
     field :longitude, :float
-    field :geographic_point, Geo.Point
 
     timestamps
   end
 
   @required_fields ~w(name google_place_id address phone hours latitude longitude treadmill bicycle stepper elliptical free_weights machines trx pool classes personal_training dumbbells_up_to powerlifting weightlifting strongman basketball squash)
-  @optional_fields ~w(geographic_point)
+  @optional_fields ~w()
 
   @doc """
   Creates a changeset based on the `model` and `params`.

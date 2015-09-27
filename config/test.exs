@@ -15,5 +15,4 @@ config :peergym, Peergym.Repo,
   username: "postgres",
   password: "postgres",
   database: "peergym_test",
-  pool_size: 1, # Use a single connection for transactional tests
-  extensions: [{Geo.PostGIS.Extension, library: Geo}]
+  pool_size: 1 # Use a single connection for transactional tests

@@ -32,5 +32,4 @@ config :peergym, Peergym.Repo,
   username: "postgres",
   password: "postgres",
   database: "peergym_dev",
-  pool_size: 10, # The amount of database connections in the pool
-  extensions: [{Geo.PostGIS.Extension, library: Geo}]
+  pool_size: 10 # The amount of database connections in the pool
