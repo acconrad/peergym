@@ -35,6 +35,7 @@ defmodule Peergym.Mixfile do
      {:postgrex, ">= 0.9.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
-     {:addict, github: "trenpixster/addict", override: true}]
+     {:addict, github: "trenpixster/addict", override: true},
+     {:poison, "~> 1.5"}]
   end
 end
