@@ -5183,17 +5183,24 @@ h1, h2, h3, h4, h5, h6 {
   /* line 49, stdin */
   .page.index .form-group .form-control {
     width: 100%; }
+/* line 54, stdin */
+.page.index footer {
+  background-color: #f0f0f0;
+  padding: 35px 0; }
+  /* line 58, stdin */
+  .page.index footer hr {
+    display: none; }
 
-/* line 55, stdin */
+/* line 62, stdin */
 .logo {
   display: inline-block;
   font-size: 36px;
   margin-bottom: 1em; }
-  /* line 60, stdin */
+  /* line 67, stdin */
   .page.index .logo {
     color: #fff; }
 
-/* line 64, stdin */
+/* line 71, stdin */
 .logo-accent {
   background-color: #5bc0de;
   border-radius: 3px;
@@ -5202,26 +5209,47 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 3px;
   padding: 3px; }
 
-/* line 72, stdin */
+/* line 79, stdin */
 .logo-small {
   font-size: 24px; }
 
-/* line 76, stdin */
+/* line 83, stdin */
 .hero {
   background-image: url("/images/background.jpg");
   background-position: top center;
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
-  margin: -70px 0 70px;
+  margin-top: -70px;
+  min-height: 66vh;
   padding: 120px 0; }
-  /* line 85, stdin */
+  /* line 93, stdin */
   .hero h1 {
     font-weight: 300;
-    letter-spacing: 1px; }
-  /* line 90, stdin */
+    letter-spacing: 1px;
+    padding-bottom: 20px; }
+  /* line 99, stdin */
   .hero input[type="text"] {
     color: #333; }
+  /* line 103, stdin */
+  .hero input[type="submit"] {
+    margin-left: 10px; }
+
+/* line 109, stdin */
+.hero, .how-it-works {
+  margin-bottom: 70px; }
+
+/* line 113, stdin */
+.awesome-gyms {
+  padding: 70px 0; }
+
+/* line 117, stdin */
+.benefit {
+  height: 110px;
+  margin-bottom: 70px; }
+  /* line 121, stdin */
+  .benefit i {
+    margin-top: 20px; }
 
 
 /*# sourceMappingURL=app.css.map*/

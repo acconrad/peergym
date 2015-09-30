@@ -50,6 +50,13 @@ h1, h2, h3, h4, h5, h6 {
       width: 100%;
     }
   }
+
+  footer {
+    background-color: #f0f0f0;
+    padding: 35px 0;
+
+    hr { display: none; }
+  }
 }
 
 .logo {
@@ -79,15 +86,39 @@ h1, h2, h3, h4, h5, h6 {
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
-  margin: -70px 0 70px;
+  margin-top: -70px;
+  min-height: 66vh;
   padding: 120px 0;
 
   h1 {
     font-weight: 300;
     letter-spacing: 1px;
+    padding-bottom: 20px;
   }
 
   input[type="text"] {
     color: #333;
+  }
+
+  input[type="submit"] {
+    margin-left: 10px;
+  }
+}
+
+.hero,
+.how-it-works {
+  margin-bottom: 70px;
+}
+
+.awesome-gyms {
+  padding: 70px 0;
+}
+
+.benefit {
+  height: 110px;
+  margin-bottom: 70px;
+
+  i {
+    margin-top: 20px;
   }
 }

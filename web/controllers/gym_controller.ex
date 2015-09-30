@@ -1,12 +1,28 @@
 defmodule Peergym.GymController do
   use Peergym.Web, :controller
   alias Peergym.Gym
+  require IEx
 
   plug :scrub_params, "gym" when action in [:create, :update]
 
   def index(conn, params) do
-    gyms = Repo.all(address: params["address"])
-    render(conn, "index.html", gyms: gyms)
+    delta = 0.0724146667
+    curr_lng = String.to_float(params["search"]["lng"])
+    curr_lat = String.to_float(params["search"]["lat"])
+    place = params["search"]["place"]
+    min_lng = curr_lng - delta
+    max_lng = curr_lng + delta
+    min_lat = curr_lat - delta
+    max_lat = curr_lat + delta
+
+    IEx.pry
+
+    query = from g in Gym,
+            where: g.latitude >= ^min_lat and g.latitude <= ^max_lat and g.longitude >= ^min_lng and g.longitude <= ^max_lng,
+            select: g
+
+    gyms = Repo.all(query)
+    render(conn, "index.html", gyms: gyms, place: place)
   end
 
   def new(conn, _params) do
@@ -31,7 +47,7 @@ defmodule Peergym.GymController do
   end
 
   def show(conn, %{"id" => id}) do
-    gym = Repo.get_by(Gym, place_id: id)
+    gym = Repo.get(Gym, id)
 
     if gym do
       render(conn, "show.html", gym: gym)

@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Use a home gym from local owners with PeerGym.">
+    <meta name="description" content="Buy drop-in passes to great gyms without the painful contracts.">
 
-    <title>On demand gym memberships by the day, week, or month - PeerGym</title>
+    <title>Buy drop-in passes to great gyms without the painful contracts - PeerGym</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   </head>
 
   <body class="<%= Phoenix.Naming.resource_name(Phoenix.Controller.controller_module(@conn), "Controller") %> <%= Phoenix.Controller.action_name @conn %>">
@@ -43,9 +43,11 @@
 
     <%= @inner %>
 
-    <footer class="container">
-      <hr>
-      © 2015 PeerGym. All rights reserved.
+    <footer>
+      <div class="container">
+        <hr>
+        © 2015 PeerGym. All rights reserved.
+      </div>
     </footer>
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
