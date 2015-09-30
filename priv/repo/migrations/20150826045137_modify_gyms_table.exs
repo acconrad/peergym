@@ -11,7 +11,6 @@ defmodule Peergym.Repo.Migrations.ModifyGymsTable do
       add :hours, :text
       add :latitude, :float
       add :longitude, :float
-      add :geographic_point, :geometry
     end
   end
 end
