@@ -3,7 +3,7 @@
   <%= hidden_input f, :lat %>
   <%= hidden_input f, :place %>
   <div class="form-group">
-    <%= text_input f, :location, class: "form-control", placeholder: "Enter a location" %>
+    <%= text_input f, :location, class: "form-control input-lg", placeholder: "Enter a location" %>
   </div>
-  <%= submit "Find a Gym", class: "btn btn-info" %>
+  <%= submit "Find a Gym", class: "btn btn-lg btn-success" %>
 <% end %>

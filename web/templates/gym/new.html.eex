@@ -1,8 +1,6 @@
 <div class="container">
-  <h2>New gym</h2>
+  <h2>List your gym on the PeerGym Network</h2>
 
   <%= render "form.html", changeset: @changeset,
                           action: gym_path(@conn, :create) %>
-
-  <%= link "Back", to: gym_path(@conn, :index) %>
 </div>

@@ -1,5 +1,5 @@
 <section class="hero fluid-container text-center">
-  <h1>Buy drop-in passes to great gyms without the painful contracts</h1>
+  <h1 class="shadow">Buy drop-in passes to great gyms without the painful contracts</h1>
   <%= render "form.html", changeset: @conn, action: gym_path(@conn, :index) %>
 </section>
 
@@ -8,24 +8,24 @@
 
   <div class="row text-center">
     <div class="col-md-4">
-      <p><i class="fa fa-5x text-info fa-search"></i></p>
+      <p><i class="fa fa-5x text-primary fa-search"></i></p>
       <h3>Find a Qualified Gym</h3>
       <p>We only list exceptional gyms with the equipment you need to get in a great workout.</p>
     </div>
     <div class="col-md-4">
-      <p><i class="fa fa-5x text-info fa-ticket"></i></p>
+      <p><i class="fa fa-5x text-primary fa-ticket"></i></p>
       <h3>Book Your Gym Time</h3>
       <p>Purchase day or multi drop-in passes online — all through PeerGym's trusted services.</p>
     </div>
     <div class="col-md-4">
-      <p><i class="fa fa-5x text-info fa-bicycle"></i></p>
+      <p><i class="fa fa-5x text-primary fa-bicycle"></i></p>
       <h3>Work Out</h3>
       <p>Get in a great workout without the forms and mess. Pay only for what you use.</p>
     </div>
   </div>
 </section>
 
-<section class="container-fluid bg-primary awesome-gyms">
+<section class="container-fluid bg-primary-gradient awesome-gyms">
   <div class="text-center">
     <h2>What Makes our Gyms Awesome?</h2>
     <p class="lead">We've hand-selected the best gyms in your area to help you get in an effective workout.</p>
@@ -34,7 +34,7 @@
   <div class="container">
     <div class="row benefit">
       <div class="col-md-3 col-md-offset-2 text-center">
-        <i class="fa fa-5x text-info fa-plus-square"></i>
+        <i class="fa fa-5x fa-plus-square"></i>
       </div>
       <div class="col-md-5">
         <h3>Power Racks on Racks</h3>
@@ -48,13 +48,13 @@
         <p>Your old gym giving you a hard time for dropping weights? These gyms have Olympic platforms with bumper plates so you can deadlift and power clean as much as you want.</p>
       </div>
       <div class="col-md-3 text-center">
-        <i class="fa fa-5x text-info fa-cube"></i>
+        <i class="fa fa-5x fa-cube"></i>
       </div>
     </div>
 
     <div class="row benefit">
       <div class="col-md-3 col-md-offset-2 text-center">
-        <i class="fa fa-5x text-info fa-hand-paper-o"></i>
+        <i class="fa fa-5x fa-hand-paper-o"></i>
       </div>
       <div class="col-md-5">
         <h3>Walk the Walk, Chalk the Chalk</h3>
@@ -68,13 +68,13 @@
         <p>Tired of curling pink dumbbells? These gyms have 100, 150, even 200-lb dumbbells to keep up with your monster strength.</p>
       </div>
       <div class="col-md-3 text-center">
-        <i class="fa fa-5x text-info fa-sort-amount-asc fa-rotate-180"></i>
+        <i class="fa fa-5x fa-sort-amount-asc fa-rotate-180"></i>
       </div>
     </div>
 
     <div class="row benefit">
       <div class="col-md-3 col-md-offset-2 text-center">
-        <i class="fa fa-5x text-info fa-check-circle"></i>
+        <i class="fa fa-5x fa-check-circle"></i>
       </div>
       <div class="col-md-5">
         <h3>And so much more!</h3>

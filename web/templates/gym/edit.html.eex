@@ -1,6 +1,6 @@
-<h2>Edit gym</h2>
+<div class="container">
+  <h2>Edit your gym</h2>
 
-<%= render "form.html", changeset: @changeset,
-                        action: gym_path(@conn, :update, @gym) %>
-
-<%= link "Back", to: gym_path(@conn, :index) %>
+  <%= render "form.html", changeset: @changeset,
+                          action: gym_path(@conn, :update, @gym) %>
+</div>

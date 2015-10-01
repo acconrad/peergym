@@ -12,12 +12,52 @@
 
   <div class="form-group">
     <label>Name</label>
-    <%= text_input f, :name, class: "form-control" %>
+    <%= text_input f, :name, class: "form-control", required: true %>
   </div>
 
   <div class="form-group">
-    <label>Address</label>
-    <%= text_input f, :address, class: "form-control" %>
+    <label>Display Address</label>
+    <%= text_input f, :address, class: "form-control", required: true %>
+  </div>
+
+  <div class="form-group">
+    <label>Latitude</label>
+    <%= text_input f, :latitude, class: "form-control", required: true %>
+  </div>
+
+  <div class="form-group">
+    <label>Longitude</label>
+    <%= text_input f, :longitude, class: "form-control", required: true %>
+  </div>
+
+  <div class="form-group">
+    <label>Street Name</label>
+    <%= text_input f, :street, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>City</label>
+    <%= text_input f, :city, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>State / Province</label>
+    <%= text_input f, :state, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Zip Code</label>
+    <%= text_input f, :zip, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Country Code</label>
+    <%= text_input f, :country, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Email Contact</label>
+    <%= text_input f, :email, class: "form-control" %>
   </div>
 
   <div class="form-group">
@@ -26,103 +66,23 @@
   </div>
 
   <div class="form-group">
+    <label>Homepage</label>
+    <%= text_input f, :url, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
     <label>Hours</label>
     <%= text_input f, :hours, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <label>Latitude</label>
-    <%= text_input f, :latitude, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Longitude</label>
-    <%= text_input f, :longitude, class: "form-control" %>
+    <label>Description</label>
+    <%= text_input f, :description, class: "form-control" %>
   </div>
 
   <div class="form-group">
     <label>Google Place ID</label>
     <%= text_input f, :google_place_id, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Treadmill</label>
-    <%= checkbox f, :treadmill, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Bicycle</label>
-    <%= checkbox f, :bicycle, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Stepper</label>
-    <%= checkbox f, :stepper, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Elliptical</label>
-    <%= checkbox f, :elliptical, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>FreeWeights</label>
-    <%= checkbox f, :free_weights, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Machines</label>
-    <%= checkbox f, :machines, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Trx</label>
-    <%= checkbox f, :trx, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Pool</label>
-    <%= checkbox f, :pool, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Classes</label>
-    <%= checkbox f, :classes, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>PersonalTraining</label>
-    <%= checkbox f, :personal_training, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>DumbbellsUpTo</label>
-    <%= number_input f, :dumbbells_up_to, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Powerlifting</label>
-    <%= checkbox f, :powerlifting, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Weightlifting</label>
-    <%= checkbox f, :weightlifting, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Strongman</label>
-    <%= checkbox f, :strongman, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Basketball</label>
-    <%= checkbox f, :basketball, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Squash</label>
-    <%= checkbox f, :squash, class: "form-control" %>
   </div>
 
   <div class="form-group">

@@ -27,9 +27,9 @@
           </a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <form class="navbar-form navbar-right" role="search">
+          <!-- <form class="navbar-form navbar-right" role="search">
             <%= link "List Your Gym", to: gym_path(@conn, :new), class: "btn btn-info" %>
-          </form>
+          </form> -->
           <ul class="nav navbar-nav navbar-right">
             <li><%= link "Sign Up", to: user_path(@conn, :new) %></li>
             <li><%= link "Sign In", to: user_path(@conn, :new) %></li>

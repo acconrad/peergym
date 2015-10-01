@@ -16,6 +16,10 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
 }
 
+footer {
+  padding: 15px 0 35px;
+}
+
 #map-canvas {
   height: 25rem;
 }
@@ -52,10 +56,36 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   footer {
-    background-color: #f0f0f0;
+    background-color: #eee;
     padding: 35px 0;
 
     hr { display: none; }
+  }
+}
+
+.payment.new {
+  background: linear-gradient(to top right, #563d7c, #5bc0de 35%, #337ab7 100%);
+  height: 100vh;
+
+  h1 {
+    color: #fff;
+    padding: 40px 0 60px;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33);
+  }
+
+  .navbar-default {
+    background-color: rgba(248, 248, 248, 0.4);
+    border: none;
+
+    .navbar-brand,
+    .navbar-nav > li > a {
+      color: #fff;
+    }
+  }
+
+  footer {
+    color: #fff;
   }
 }
 
@@ -69,12 +99,13 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 .logo-accent {
-  background-color: #5bc0de;
+  background: linear-gradient(to top right, #563d7c, #5bc0de 80%, #337ab7 100%);
   border-radius: 3px;
   color: #fff;
   font-weight: 700;
   margin: 0 3px;
   padding: 3px;
+  text-shadow: 0 -1px 3px rgba(0, 0, 0, 0.2);
 }
 .logo-small {
   font-size: 24px;
@@ -121,4 +152,30 @@ h1, h2, h3, h4, h5, h6 {
   i {
     margin-top: 20px;
   }
+}
+
+.bg-primary-gradient {
+  background: linear-gradient(to top right, #563d7c, #5bc0de 35%, #337ab7 100%);
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33);
+}
+
+.btn {
+  border-radius: 3px;
+}
+
+.btn-success {
+  background: linear-gradient(to top right, #563d7c, #5bc0de 80%, #337ab7 100%);
+  border: none;
+}
+
+.shadow {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33);
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px 0 rgba(22, 27, 30, .26);
+  padding: 10px 20px 20px;
 }

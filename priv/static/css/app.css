@@ -5153,11 +5153,15 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400; }
 
 /* line 19, stdin */
+footer {
+  padding: 15px 0 35px; }
+
+/* line 23, stdin */
 #map-canvas {
   height: 25rem; }
 
 /* Phoenix flash messages */
-/* line 24, stdin */
+/* line 28, stdin */
 .alert {
   border-radius: 0;
   font-size: 16px;
@@ -5165,55 +5169,77 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   top: 50px;
   width: 100%; }
-  /* line 32, stdin */
+  /* line 36, stdin */
   .alert:empty {
     display: none; }
 
-/* line 36, stdin */
+/* line 40, stdin */
 .page.index .navbar-static-top {
   background-color: transparent;
   border: 0 none;
   color: #fff; }
-  /* line 41, stdin */
+  /* line 45, stdin */
   .page.index .navbar-static-top .navbar-nav > li > a {
     color: #fff; }
-/* line 46, stdin */
+/* line 50, stdin */
 .page.index .form-group {
   width: 25%; }
-  /* line 49, stdin */
+  /* line 53, stdin */
   .page.index .form-group .form-control {
     width: 100%; }
-/* line 54, stdin */
+/* line 58, stdin */
 .page.index footer {
-  background-color: #f0f0f0;
+  background-color: #eee;
   padding: 35px 0; }
-  /* line 58, stdin */
+  /* line 62, stdin */
   .page.index footer hr {
     display: none; }
 
-/* line 62, stdin */
+/* line 66, stdin */
+.payment.new {
+  background: linear-gradient(to top right, #563d7c, #5bc0de 35%, #337ab7 100%);
+  height: 100vh; }
+  /* line 70, stdin */
+  .payment.new h1 {
+    color: #fff;
+    padding: 40px 0 60px;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
+  /* line 77, stdin */
+  .payment.new .navbar-default {
+    background-color: rgba(248, 248, 248, 0.4);
+    border: none; }
+    /* line 82, stdin */
+    .payment.new .navbar-default .navbar-brand, .payment.new .navbar-default .navbar-nav > li > a {
+      color: #fff; }
+  /* line 87, stdin */
+  .payment.new footer {
+    color: #fff; }
+
+/* line 92, stdin */
 .logo {
   display: inline-block;
   font-size: 36px;
   margin-bottom: 1em; }
-  /* line 67, stdin */
+  /* line 97, stdin */
   .page.index .logo {
     color: #fff; }
 
-/* line 71, stdin */
+/* line 101, stdin */
 .logo-accent {
-  background-color: #5bc0de;
+  background: linear-gradient(to top right, #563d7c, #5bc0de 80%, #337ab7 100%);
   border-radius: 3px;
   color: #fff;
   font-weight: 700;
   margin: 0 3px;
-  padding: 3px; }
+  padding: 3px;
+  text-shadow: 0 -1px 3px rgba(0, 0, 0, 0.2); }
 
-/* line 79, stdin */
+/* line 110, stdin */
 .logo-small {
   font-size: 24px; }
 
-/* line 83, stdin */
+/* line 114, stdin */
 .hero {
   background-image: url("/images/background.jpg");
   background-position: top center;
@@ -5223,33 +5249,59 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: -70px;
   min-height: 66vh;
   padding: 120px 0; }
-  /* line 93, stdin */
+  /* line 124, stdin */
   .hero h1 {
     font-weight: 300;
     letter-spacing: 1px;
     padding-bottom: 20px; }
-  /* line 99, stdin */
+  /* line 130, stdin */
   .hero input[type="text"] {
     color: #333; }
-  /* line 103, stdin */
+  /* line 134, stdin */
   .hero input[type="submit"] {
     margin-left: 10px; }
 
-/* line 109, stdin */
+/* line 140, stdin */
 .hero, .how-it-works {
   margin-bottom: 70px; }
 
-/* line 113, stdin */
+/* line 144, stdin */
 .awesome-gyms {
   padding: 70px 0; }
 
-/* line 117, stdin */
+/* line 148, stdin */
 .benefit {
   height: 110px;
   margin-bottom: 70px; }
-  /* line 121, stdin */
+  /* line 152, stdin */
   .benefit i {
     margin-top: 20px; }
+
+/* line 157, stdin */
+.bg-primary-gradient {
+  background: linear-gradient(to top right, #563d7c, #5bc0de 35%, #337ab7 100%);
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
+
+/* line 163, stdin */
+.btn {
+  border-radius: 3px; }
+
+/* line 167, stdin */
+.btn-success {
+  background: linear-gradient(to top right, #563d7c, #5bc0de 80%, #337ab7 100%);
+  border: none; }
+
+/* line 172, stdin */
+.shadow {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
+
+/* line 176, stdin */
+.card {
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px 0 rgba(22, 27, 30, 0.26);
+  padding: 10px 20px 20px; }
 
 
 /*# sourceMappingURL=app.css.map*/

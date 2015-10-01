@@ -10,8 +10,8 @@ defmodule Peergym.User do
     timestamps
   end
 
-  @required_fields ~w(email username hash recovery_hash)
-  @optional_fields ~w()
+  @required_fields ~w(email)
+  @optional_fields ~w(username hash recovery_hash)
 
   @doc """
   Creates a changeset based on the `model` and `params`.

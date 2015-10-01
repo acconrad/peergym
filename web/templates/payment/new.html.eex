@@ -1,6 +1,15 @@
 <div class="container">
-  <h2>Claim your FREE pass to <%= @gym.name %></h2>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <h1>Ready for a great workout?</h1>
+      <div class="card">
+        <p class="lead">Give us your email and we'll contact <%= @gym.name %> to get you a pass.</p>
 
-  <%= render "form.html", changeset: @changeset,
-                          action: gym_payment_path(@conn, :create, @gym.id) %>
+        <%= render "form.html", changeset: @changeset,
+                                action: gym_payment_path(@conn, :create, @gym.id) %>
+
+        <p>Don't worry, we don't believe in spam, your info is safe with us.</p>
+      </div>
+    </div>
+  </div>
 </div>
