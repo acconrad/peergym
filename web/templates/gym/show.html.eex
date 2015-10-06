@@ -1,6 +1,6 @@
 <div class="container">
   <h1><%= @gym.name %></h1>
-  <%= link "Claim your free pass", to: gym_payment_path(@conn, :new, @gym.id), class: "btn btn-lg btn-success pull-right" %>
+  <%= link "Claim your free pass", to: gym_payment_path(@conn, :new, @gym.id), class: "btn btn-lg btn-primary pull-right" %>
   <p class="lead"><%= @gym.address %></p>
   <p><%= link @gym.phone, to: "tel:#{@gym.phone |> String.replace(~r/(\[|-|\.|\(|\)| )/, "")}" %> <strong><%= @gym.hours %></strong></p>
 </div>

@@ -75,13 +75,7 @@ footer {
   }
 
   .navbar-default {
-    background-color: rgba(248, 248, 248, 0.4);
-    border: none;
-
-    .navbar-brand,
-    .navbar-nav > li > a {
-      color: #fff;
-    }
+    display: none;
   }
 
   footer {
@@ -164,9 +158,14 @@ footer {
   border-radius: 3px;
 }
 
-.btn-success {
-  background: linear-gradient(to top right, #563d7c, #5bc0de 80%, #337ab7 100%);
-  border: none;
+.btn-primary {
+  background-color: #563d7c;
+  border-color: darken(#563d7c, 15%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .45);
+
+  &:hover {
+    background-color: darken(#563d7c, 10%);
+  }
 }
 
 .shadow {
@@ -178,4 +177,12 @@ footer {
   border-radius: 3px;
   box-shadow: 0 2px 5px 0 rgba(22, 27, 30, .26);
   padding: 10px 20px 20px;
+}
+
+.repeat-cta {
+  padding: 40px 0 60px;
+
+  h2 {
+    margin-bottom: 20px;
+  }
 }

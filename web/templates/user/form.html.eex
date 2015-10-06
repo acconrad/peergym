@@ -10,6 +10,6 @@
   </div>
 
   <div class="form-group">
-    <%= submit "Sign Up", class: "btn btn-success" %>
+    <%= submit "Sign Up", class: "btn btn-primary" %>
   </div>
 <% end %>

@@ -14,7 +14,7 @@
     </div>
     <div class="col-md-4">
       <p><i class="fa fa-5x text-primary fa-ticket"></i></p>
-      <h3>Book Your Gym Time</h3>
+      <h3>Book Gym Time</h3>
       <p>Purchase day or multi drop-in passes online — all through PeerGym's trusted services.</p>
     </div>
     <div class="col-md-4">
@@ -82,4 +82,10 @@
       </div>
     </div>
   </div>
+</section>
+
+<section class="text-center repeat-cta">
+  <h2>Find the Perfect Gym Today</h2>
+
+  <%= render "form.html", changeset: @conn, action: gym_path(@conn, :index) %>
 </section>
