@@ -1,5 +1,4 @@
 defmodule Peergym.Router do
-  use Addict.RoutesHelper
   use Peergym.Web, :router
 
   pipeline :browser do
@@ -18,11 +17,18 @@ defmodule Peergym.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    addict :routes
-    resources "users", UserController
+
     resources "gyms", GymController do
       resources "payments", PaymentController
     end
+
+    # Passport auth routes
+    get "/signin", SessionController, :new
+    post "/signin", SessionController, :create
+    get "/signout", SessionController, :delete
+
+    get "/signup", RegistrationController, :new
+    post "/signup", RegistrationController, :create
   end
 
   # Other scopes may use custom stacks.

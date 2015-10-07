@@ -26,16 +26,4 @@ defmodule Peergym.PaymentController do
       render(conn, "new.html", changeset: changeset)
     end
   end
-
-  def delete(conn, %{"id" => id}) do
-    payment = Repo.get!(Payment, id)
-
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(payment)
-
-    conn
-    |> put_flash(:info, "Payment deleted successfully.")
-    |> redirect(to: user_path(conn, :index))
-  end
 end

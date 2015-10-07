@@ -3,15 +3,14 @@ defmodule Peergym.User do
 
   schema "users" do
     field :email, :string
-    field :username, :string
-    field :hash, :string
-    field :recovery_hash, :string
+    field :crypted_password, :string
+    field :admin, :boolean
 
     timestamps
   end
 
-  @required_fields ~w(email)
-  @optional_fields ~w(username hash recovery_hash)
+  @required_fields ~w(email crypted_password)
+  @optional_fields ~w(admin)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -22,6 +21,5 @@ defmodule Peergym.User do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    |> unique_constraint(:email)
   end
 end

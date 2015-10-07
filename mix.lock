@@ -6,6 +6,7 @@
   "ecto": {:hex, :ecto, "1.0.3"},
   "fs": {:hex, :fs, "0.9.2"},
   "mailgun": {:hex, :mailgun, "0.0.2"},
+  "passport": {:git, "git://github.com/opendrops/passport.git", "b77f2ec40045d6bd008d9a1061785ad65fb83165", []},
   "phoenix": {:hex, :phoenix, "1.0.2"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "1.2.0"},
   "phoenix_html": {:hex, :phoenix_html, "2.2.0"},

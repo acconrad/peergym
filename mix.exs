@@ -3,7 +3,7 @@ defmodule Peergym.Mixfile do
 
   def project do
     [app: :peergym,
-     version: "0.0.1",
+     version: "0.0.3",
      elixir: "~> 1.0",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
@@ -35,7 +35,7 @@ defmodule Peergym.Mixfile do
      {:postgrex, ">= 0.9.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
-     {:addict, github: "trenpixster/addict", override: true},
+     {:passport, "~> 0.0.3", github: "opendrops/passport", override: true},
      {:poison, "~> 1.5"}]
   end
 end

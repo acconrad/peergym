@@ -48,6 +48,9 @@ defmodule Peergym.Web do
 
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
+
+      # Helpers from Passport
+      import Passport.SessionManager, only: [current_user: 1, logged_in?: 1]
     end
   end
 

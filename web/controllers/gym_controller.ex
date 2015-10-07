@@ -1,9 +1,14 @@
 defmodule Peergym.GymController do
   use Peergym.Web, :controller
   alias Peergym.Gym
-  require IEx
+  import Passport.AuthenticationPlug
 
   plug :scrub_params, "gym" when action in [:create, :update]
+  plug :require_login, [
+      flash_key: :info,
+      flash_msg: "You must be logged in to continue.",
+      redirect_to: "/signin"
+    ] when action in [:new, :edit, :create, :update, :delete]
 
   def index(conn, params) do
     delta = 0.0724146667
@@ -14,8 +19,6 @@ defmodule Peergym.GymController do
     max_lng = curr_lng + delta
     min_lat = curr_lat - delta
     max_lat = curr_lat + delta
-
-    IEx.pry
 
     query = from g in Gym,
             where: g.latitude >= ^min_lat and g.latitude <= ^max_lat and g.longitude >= ^min_lng and g.longitude <= ^max_lng,

@@ -1,6 +1,0 @@
-<div class="container">
-  <h1>We're not warmed up yet!</h1>
-  <p>We're working hard to put the finishing touches on PeerGym. Soon enough we'll have home gyms in your area so you can start working out. If you'd like us to send you a reminder when we're ready, just put your email in the form below:</p>
-
-  <%= render "form.html", action: register_path(@conn, :register) %>
-</div>
