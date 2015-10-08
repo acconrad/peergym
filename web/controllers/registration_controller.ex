@@ -1,6 +1,6 @@
 defmodule Peergym.RegistrationController do
   use Peergym.Web, :controller
-  alias Passport.RegistrationManager
+  alias Peergym.User
   import Passport.AuthenticationPlug
 
   plug :action
@@ -12,18 +12,20 @@ defmodule Peergym.RegistrationController do
 
   def new(conn, _params) do
     conn
-    |> put_session(:foo, "bar")
     |> render("new.html")
   end
 
-  def create(conn, %{"registration" => registration_params}) do
-    case RegistrationManager.register(registration_params) do
-      {:ok, _changeset} -> conn
-         |> put_flash(:info, "Registration success")
-         |> redirect(to: page_path(conn, :index))
-      _ -> conn
-         |> put_flash(:error, "Registration failed")
-         |> render("new.html")
+  def create(conn, %{"user" => user_params}) do
+    changeset = User.changeset(%User{}, user_params)
+
+    if changeset.valid? do
+      Repo.insert(changeset)
+
+      conn
+      |> put_flash(:info, "User created successfully.")
+      |> redirect(to: page_path(conn, :index))
+    else
+      render(conn, "new.html", changeset: changeset)
     end
   end
 end

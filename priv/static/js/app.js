@@ -1139,8 +1139,13 @@ var Maps = (function () {
   function Maps() {
     _classCallCheck(this, Maps);
 
-    var initialize = document.body.className.match(/page/) ? this.initializeSearch : this.initializeMap;
-    google.maps.event.addDomListener(window, 'load', initialize);
+    var pageFolder = document.body.className;
+
+    if (pageFolder.match(/page/)) {
+      google.maps.event.addDomListener(window, 'load', this.initializeSearch);
+    } else if (pageFolder.match(/gym/)) {
+      google.maps.event.addDomListener(window, 'load', this.initializeMap);
+    }
   }
 
   _createClass(Maps, [{

@@ -5279,34 +5279,35 @@ footer {
   color: #fff;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 157, stdin */
-.btn {
+/* line 158, stdin */
+.btn, .input-lg {
   border-radius: 3px; }
 
-/* line 161, stdin */
+/* line 162, stdin */
 .btn-primary {
   background-color: #563d7c;
   border-color: #322449;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45); }
-  /* line 166, stdin */
+  /* line 167, stdin */
   .btn-primary:hover {
-    background-color: #3e2c5a; }
+    background-color: #3e2c5a;
+    border-color: #322449; }
 
-/* line 171, stdin */
+/* line 173, stdin */
 .shadow {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 175, stdin */
+/* line 177, stdin */
 .card {
   background-color: #fff;
   border-radius: 3px;
   box-shadow: 0 2px 5px 0 rgba(22, 27, 30, 0.26);
   padding: 10px 20px 20px; }
 
-/* line 182, stdin */
+/* line 184, stdin */
 .repeat-cta {
   padding: 40px 0 60px; }
-  /* line 185, stdin */
+  /* line 187, stdin */
   .repeat-cta h2 {
     margin-bottom: 20px; }
 

@@ -9,8 +9,8 @@ defmodule Peergym.User do
     timestamps
   end
 
-  @required_fields ~w(email crypted_password)
-  @optional_fields ~w(admin)
+  @required_fields ~w(email)
+  @optional_fields ~w(crypted_password admin)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -21,5 +21,9 @@ defmodule Peergym.User do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> validate_format(:email, ~r/@/)
+    |> update_change(:email, &String.downcase/1)
+    |> put_change(:crypted_password, Comeonin.Bcrypt.hashpwsalt(params["password"]))
+    |> unique_constraint(:email)
   end
 end
