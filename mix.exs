@@ -35,7 +35,7 @@ defmodule Peergym.Mixfile do
      {:postgrex, ">= 0.9.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
-     {:passport, "~> 0.0.3", github: "opendrops/passport", override: true},
+     {:passport, "~> 0.0.3", github: "acconrad/passport", override: true},
      {:poison, "~> 1.5"}]
   end
 end
