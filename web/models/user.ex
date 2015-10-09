@@ -4,12 +4,13 @@ defmodule Peergym.User do
   schema "users" do
     field :email, :string
     field :crypted_password, :string
+    field :password, :string, virtual: true
     field :admin, :boolean
 
     timestamps
   end
 
-  @required_fields ~w(email)
+  @required_fields ~w(email password)
   @optional_fields ~w(crypted_password admin)
 
   @doc """
@@ -21,9 +22,8 @@ defmodule Peergym.User do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    |> validate_format(:email, ~r/@/)
-    |> update_change(:email, &String.downcase/1)
-    |> put_change(:crypted_password, Comeonin.Bcrypt.hashpwsalt(params["password"]))
-    |> unique_constraint(:email)
+    |> unique_constraint(:email, on: Peergym.Repo, downcase: true)
+    |> validate_format(:email, ~r/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/)
+    |> validate_length(:password, min: 8)
   end
 end

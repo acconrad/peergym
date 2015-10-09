@@ -3,12 +3,12 @@ defmodule Peergym.SessionController do
   alias Passport.SessionManager
   import Passport.AuthenticationPlug
 
-  plug :action
+  plug :scrub_params, "session" when action in [:create]
   plug :require_logout, [
-      flash_key: :info,
-      flash_msg: "You're already logged in!",
-      redirect_to: "/"
-    ]
+    flash_key: :info,
+    flash_msg: "You're already logged in!",
+    redirect_to: "/"
+  ] when action in [:new, :create]
 
   def new(conn, _params) do
     render conn, "new.html"

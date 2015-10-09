@@ -4,10 +4,10 @@ defmodule Peergym.GymController do
   import Passport.AuthenticationPlug
 
   plug :scrub_params, "gym" when action in [:create, :update]
-  plug :require_login, [
+  plug :require_admin, [
       flash_key: :info,
-      flash_msg: "You must be logged in to continue.",
-      redirect_to: "/signin"
+      flash_msg: "You do not have sufficient permissions to view this page.",
+      redirect_to: "/"
     ] when action in [:new, :edit, :create, :update, :delete]
 
   def index(conn, params) do

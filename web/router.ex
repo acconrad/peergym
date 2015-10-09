@@ -23,11 +23,11 @@ defmodule Peergym.Router do
     end
 
     # Passport auth routes
-    get "/signin", SessionController, :new
+    get  "/signin", SessionController, :new
     post "/signin", SessionController, :create
-    get "/signout", SessionController, :delete
+    get  "/signout", SessionController, :delete
 
-    get "/signup", RegistrationController, :new
+    get  "/signup", RegistrationController, :new
     post "/signup", RegistrationController, :create
   end
 
