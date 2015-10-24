@@ -1,9 +1,9 @@
-<%= form_for @changeset, @action, [id: "gym-search-form", class: "form-inline", as: :search, method: "get"], fn f -> %>
+<%= form_for @changeset, @action, [class: "form-inline form-gym-search", as: :search, method: "get"], fn f -> %>
   <%= hidden_input f, :lng %>
   <%= hidden_input f, :lat %>
   <%= hidden_input f, :place %>
   <div class="form-group">
-    <%= text_input f, :location, class: "form-control input-lg", placeholder: "Enter a location" %>
+    <%= text_input f, :location, class: "form-control form-gym-location input-lg", placeholder: "Enter a location" %>
   </div>
   <%= submit "Find Me a Gym »", class: "btn btn-lg btn-primary" %>
 <% end %>

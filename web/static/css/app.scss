@@ -11,6 +11,10 @@ $heading-font: -apple-system,".SFNSDisplay-Bold","Helvetica Neue","Roboto","Sego
 $primary-color: #563d7c;
 $accent-color: #337ab7;
 $gradient: linear-gradient(to top right, $primary-color, #5bc0de 35%, $accent-color 100%);
+$small: 544px;
+$medium: 768px;
+$large: 992px;
+$xlarge: 1200px;
 
 body {
   font-family: $base-font;
@@ -63,11 +67,27 @@ footer {
     }
   }
 
+  .form-gym-search {
+    .btn {
+      width: 95%;
+
+      @media screen and (min-width: $large) {
+        width: auto;
+      }
+    }
+  }
+
   .form-group {
-    width: 25%;
+    padding: 0 10px 10px;
+    width: 100%;
 
     .form-control {
       width: 100%;
+    }
+
+    @media screen and (min-width: $large) {
+      padding: 0;
+      width: 25%;
     }
   }
 
