@@ -3,4 +3,8 @@
   <h2><%= link @item.name, to: @to_show %></h2>
   <p class="lead"><%= @item.address %></p>
   <p><%= link @item.phone, to: "tel:#{@item.phone |> String.replace(~r/(\[|-|\.|\(|\)| )/, "")}" %> <strong><%= @item.hours %></strong></p>
+  <%= if @admin do %>
+    <%= link 'Edit', to: @to_edit %>
+    <%= link 'Delete', to: @to_delete, method: :delete, data: [confirm: "Are you sure?"] %>
+  <% end %>
 </li>

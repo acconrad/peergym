@@ -3,4 +3,9 @@
   <%= link "Claim your free pass", to: gym_payment_path(@conn, :new, @gym.id), class: "btn btn-lg btn-primary pull-right" %>
   <p class="lead"><%= @gym.address %></p>
   <p><%= link @gym.phone, to: "tel:#{@gym.phone |> String.replace(~r/(\[|-|\.|\(|\)| )/, "")}" %> <strong><%= @gym.hours %></strong></p>
+
+  <%= if logged_in?(@conn) && current_user(@conn).admin do %>
+    <%= link "Edit", to: gym_path(@conn, :edit, @gym.id) %>
+    <%= link "Delete", to: gym_path(@conn, :delete, @gym.id), method: :delete, data: [confirm: "Are you sure?"] %>
+  <% end %>
 </div>

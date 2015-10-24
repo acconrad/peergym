@@ -5142,26 +5142,36 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
-/* line 9, stdin */
-body {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  line-height: 1.4; }
-
 /* line 15, stdin */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 400; }
+body {
+  font-family: -apple-system, ".SFNSText-Regular", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga" on; }
 
-/* line 19, stdin */
+/* line 28, stdin */
+h1, h2, h3, h4, h5, h6 {
+  font-family: -apple-system, ".SFNSDisplay-Bold", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0;
+  font-style: normal; }
+
+/* line 35, stdin */
 footer {
   padding: 15px 0 35px; }
 
-/* line 23, stdin */
+/* line 39, stdin */
 #map-canvas {
   height: 25rem; }
 
 /* Phoenix flash messages */
-/* line 28, stdin */
+/* line 44, stdin */
 .alert {
   border-radius: 0;
   font-size: 16px;
@@ -5169,73 +5179,72 @@ footer {
   position: absolute;
   top: 50px;
   width: 100%; }
-  /* line 36, stdin */
+  /* line 52, stdin */
   .alert:empty {
     display: none; }
 
-/* line 40, stdin */
+/* line 56, stdin */
 .page.index .navbar-static-top {
   background-color: transparent;
   border: 0 none;
   color: #fff; }
-  /* line 45, stdin */
+  /* line 61, stdin */
   .page.index .navbar-static-top .navbar-nav > li > a {
     color: #fff; }
-/* line 50, stdin */
+/* line 66, stdin */
 .page.index .form-group {
   width: 25%; }
-  /* line 53, stdin */
+  /* line 69, stdin */
   .page.index .form-group .form-control {
     width: 100%; }
-/* line 58, stdin */
+/* line 74, stdin */
 .page.index footer {
   background-color: #eee;
   padding: 35px 0; }
-  /* line 62, stdin */
+  /* line 78, stdin */
   .page.index footer hr {
     display: none; }
 
-/* line 66, stdin */
+/* line 82, stdin */
 .payment.new {
   background: linear-gradient(to top right, #563d7c, #5bc0de 35%, #337ab7 100%);
   height: 100vh; }
-  /* line 70, stdin */
+  /* line 86, stdin */
   .payment.new h1 {
     color: #fff;
     padding: 40px 0 60px;
     text-align: center;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
-  /* line 77, stdin */
+  /* line 93, stdin */
   .payment.new .navbar-default {
     display: none; }
-  /* line 81, stdin */
+  /* line 97, stdin */
   .payment.new footer {
     color: #fff; }
 
-/* line 86, stdin */
+/* line 102, stdin */
 .logo {
   display: inline-block;
   font-size: 36px;
   margin-bottom: 1em; }
-  /* line 91, stdin */
+  /* line 107, stdin */
   .page.index .logo {
     color: #fff; }
 
-/* line 95, stdin */
+/* line 111, stdin */
 .logo-accent {
-  background: linear-gradient(to top right, #563d7c, #5bc0de 80%, #337ab7 100%);
+  background-color: #563d7c;
   border-radius: 3px;
   color: #fff;
   font-weight: 700;
   margin: 0 3px;
-  padding: 3px;
-  text-shadow: 0 -1px 3px rgba(0, 0, 0, 0.2); }
+  padding: 3px; }
 
-/* line 104, stdin */
+/* line 119, stdin */
 .logo-small {
   font-size: 24px; }
 
-/* line 108, stdin */
+/* line 123, stdin */
 .hero {
   background-image: url("/images/background.jpg");
   background-position: top center;
@@ -5245,69 +5254,74 @@ footer {
   margin-top: -70px;
   min-height: 66vh;
   padding: 120px 0; }
-  /* line 118, stdin */
+  /* line 133, stdin */
   .hero h1 {
     font-weight: 300;
     letter-spacing: 1px;
     padding-bottom: 20px; }
-  /* line 124, stdin */
+  /* line 139, stdin */
   .hero input[type="text"] {
     color: #333; }
-  /* line 128, stdin */
+  /* line 143, stdin */
   .hero input[type="submit"] {
     margin-left: 10px; }
 
-/* line 134, stdin */
+/* line 149, stdin */
 .hero, .how-it-works {
   margin-bottom: 70px; }
 
-/* line 138, stdin */
+/* line 153, stdin */
 .awesome-gyms {
   padding: 70px 0; }
 
-/* line 142, stdin */
+/* line 157, stdin */
 .benefit {
   height: 110px;
   margin-bottom: 70px; }
-  /* line 146, stdin */
+  /* line 161, stdin */
   .benefit i {
     margin-top: 20px; }
 
-/* line 151, stdin */
+/* line 166, stdin */
 .bg-primary-gradient {
   background: linear-gradient(to top right, #563d7c, #5bc0de 35%, #337ab7 100%);
   color: #fff;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 158, stdin */
-.btn, .input-lg {
-  border-radius: 3px; }
+/* line 172, stdin */
+.btn {
+  font-weight: 700; }
 
-/* line 162, stdin */
+/* line 177, stdin */
+.btn, .input-lg {
+  border-radius: 3px;
+  font-family: -apple-system, ".SFNSDisplay-Bold", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif; }
+
+/* line 182, stdin */
 .btn-primary {
   background-color: #563d7c;
   border-color: #322449;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45); }
-  /* line 167, stdin */
-  .btn-primary:hover {
+  /* line 188, stdin */
+  .btn-primary:hover, .btn-primary:active {
     background-color: #3e2c5a;
     border-color: #322449; }
 
-/* line 173, stdin */
+/* line 194, stdin */
 .shadow {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 177, stdin */
+/* line 198, stdin */
 .card {
   background-color: #fff;
   border-radius: 3px;
   box-shadow: 0 2px 5px 0 rgba(22, 27, 30, 0.26);
   padding: 10px 20px 20px; }
 
-/* line 184, stdin */
+/* line 205, stdin */
 .repeat-cta {
   padding: 40px 0 60px; }
-  /* line 187, stdin */
+  /* line 208, stdin */
   .repeat-cta h2 {
     margin-bottom: 20px; }
 

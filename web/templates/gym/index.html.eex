@@ -1,10 +1,16 @@
 <section class="container">
+  <%= if logged_in?(@conn) && current_user(@conn).admin do %>
+    <%= link "Add a Gym »", to: gym_path(@conn, :new), class: "btn btn-lg btn-primary" %>
+  <% end %>
   <div class="row">
     <ul class="col-md-8 list-unstyled" id="gyms-list">
       <%= for gym <- @gyms do %>
         <%= render "item.html", item: gym,
                                 to_pay: gym_payment_path(@conn, :new, gym.id),
-                                to_show: gym_path(@conn, :show, gym.id) %>
+                                to_show: gym_path(@conn, :show, gym.id),
+                                to_edit: gym_path(@conn, :edit, gym.id),
+                                to_delete: gym_path(@conn, :delete, gym.id),
+                                admin: logged_in?(@conn) && current_user(@conn).admin %>
       <% end %>
     </ul>
     <div class="col-md-4">

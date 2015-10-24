@@ -37,11 +37,11 @@ defmodule Peergym.GymController do
     changeset = Gym.changeset(%Gym{}, gym_params)
 
     if changeset.valid? do
-      Repo.insert(changeset)
+      {:ok, new_gym} = Repo.insert(changeset)
 
       conn
       |> put_flash(:info, "Gym created successfully.")
-      |> redirect(to: gym_path(conn, :edit, gym_params["id"]))
+      |> redirect(to: gym_path(conn, :edit, new_gym.id))
     else
       render(conn, "new.html", changeset: changeset)
     end
@@ -85,6 +85,6 @@ defmodule Peergym.GymController do
 
     conn
     |> put_flash(:info, "Gym deleted successfully.")
-    |> redirect(to: gym_path(conn, :index))
+    |> redirect(to: page_path(conn, :index))
   end
 end
