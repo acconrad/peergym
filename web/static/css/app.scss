@@ -8,13 +8,16 @@
 
 $base-font: -apple-system,".SFNSText-Regular","Helvetica Neue","Roboto","Segoe UI",sans-serif;
 $heading-font: -apple-system,".SFNSDisplay-Bold","Helvetica Neue","Roboto","Segoe UI",sans-serif;
-$primary-color: #563d7c;
-$accent-color: #337ab7;
-$gradient: linear-gradient(to top right, $primary-color, #5bc0de 35%, $accent-color 100%);
+$background-color: #fff;
+$dark-background-color: #262626;
+$primary-color: #663368;
+$accent-color: #99CCCC;
+$gradient: linear-gradient(to top right, $primary-color, darken($accent-color, 40%) 50%, $accent-color 100%);
 $small: 544px;
 $medium: 768px;
 $large: 992px;
 $xlarge: 1200px;
+$layer-1: 0 2px 5px rgba(0, 0, 0, .45);
 
 body {
   font-family: $base-font;
@@ -36,8 +39,43 @@ h1, h2, h3, h4, h5, h6 {
   font-style: normal;
 }
 
+a {
+  color: darken($accent-color, 30%);
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: darken($accent-color, 40%);
+  }
+}
+
 footer {
-  padding: 15px 0 35px;
+  background-color: $dark-background-color;
+  color: lighten($dark-background-color, 50%);
+  font-size: 14px;
+  padding: 50px 0;
+
+  li {
+    font-family: $heading-font;
+    font-weight: 700;
+
+    &:first-child {
+      color: lighten($dark-background-color, 30%);
+    }
+
+    > a {
+      color: lighten($dark-background-color, 50%);
+    }
+  }
+
+  .footer-links {
+    margin-bottom: 20px;
+  }
+
+  @media screen and (min-width: $large) {
+    background-image: url("/images/footer_pattern.png");
+    background-repeat: repeat;
+  }
 }
 
 #map-canvas {
@@ -57,10 +95,16 @@ footer {
 }
 
 .page.index {
+  section {
+    box-shadow: $layer-1;
+  }
+
   .navbar-static-top {
     background-color: transparent;
     border: 0 none;
     color: #fff;
+    min-height: 100px;
+    padding-top: 25px;
 
     .navbar-nav > li > a {
       color: #fff;
@@ -90,13 +134,6 @@ footer {
       width: 25%;
     }
   }
-
-  footer {
-    background-color: #eee;
-    padding: 35px 0;
-
-    hr { display: none; }
-  }
 }
 
 .payment.new {
@@ -114,9 +151,17 @@ footer {
     display: none;
   }
 
+  .card {
+    margin-bottom: 40px;
+  }
+
   footer {
     color: #fff;
   }
+}
+
+.ask-payment {
+  min-height: 60vh;
 }
 
 .logo {
@@ -146,9 +191,9 @@ footer {
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
-  margin-top: -70px;
-  min-height: 66vh;
-  padding: 120px 0;
+  margin-top: -120px;
+  min-height: 80vh;
+  padding-top: 182px;
 
   h1 {
     font-weight: 300;
@@ -165,21 +210,40 @@ footer {
   }
 }
 
-.hero,
 .how-it-works {
-  margin-bottom: 70px;
+  margin-top: -20px;
+  padding-bottom: 50px;
+
+  h2 {
+    padding-top: 50px;
+  }
+
+  i {
+    color: darken($accent-color, 30%);
+  }
 }
 
 .awesome-gyms {
-  padding: 70px 0;
+  padding: 50px 0;
+
+  .lead {
+    padding-bottom: 30px;
+  }
 }
 
 .benefit {
-  height: 110px;
-  margin-bottom: 70px;
+  margin-bottom: 50px;
+  min-height: 150px;
 
   i {
     margin-top: 20px;
+  }
+}
+
+.how-it-works,
+.repeat-cta {
+  h2 {
+    margin-bottom: 50px;
   }
 }
 
@@ -201,13 +265,14 @@ footer {
 
 .btn-primary {
   background-color: $primary-color;
-  border-color: darken($primary-color, 15%);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .45);
+  border-color: darken($primary-color, 10%);
+  box-shadow: $layer-1;
 
   &:hover,
-  &:active {
+  &:active,
+  &:focus {
     background-color: darken($primary-color, 10%);
-    border-color: darken($primary-color, 15%);
+    border-color: darken($primary-color, 10%);
   }
 }
 
@@ -223,9 +288,5 @@ footer {
 }
 
 .repeat-cta {
-  padding: 40px 0 60px;
-
-  h2 {
-    margin-bottom: 20px;
-  }
+  padding: 50px 0;
 }

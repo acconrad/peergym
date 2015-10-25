@@ -13,7 +13,7 @@
 
   <body class="<%= Phoenix.Naming.resource_name(Phoenix.Controller.controller_module(@conn), "Controller") %> <%= Phoenix.Controller.action_name @conn %>">
     <nav class="navbar navbar-default navbar-static-top">
-      <div class="container-fluid">
+      <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
@@ -49,8 +49,36 @@
 
     <footer>
       <div class="container">
-        <hr>
-        © 2015 PeerGym. All rights reserved.
+        <div class="row footer-links">
+          <ul class="list-unstyled col-md-2 col-md-offset-3">
+            <li>Company</li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/help">Help</a></li>
+            <li><a href="/policies">Policies</a></li>
+            <li><a href="/terms">Terms &amp; Privacy</a></li>
+          </ul>
+          <ul class="list-unstyled col-md-2">
+            <li>Discover</li>
+            <li><a href="/invite">Invite Friends</a></li>
+            <li><a href="/gift">Gift Cards</a></li>
+            <li><a href="/mobile">Mobile</a></li>
+            <li><a href="/sitemaps">Site Map</a></li>
+            <li><a href="/list">Gym Owners</a></li>
+          </ul>
+          <ul class="list-unstyled col-md-2">
+            <li>Find Us On</li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Google+</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Pinterest</a></li>
+            <li><a href="#">YouTube</a></li>
+            <li><a href="#">Instagram</a></li>
+          </ul>
+        </div>
+
+        <div class="text-center">© 2015 PeerGym. All rights reserved.</div>
       </div>
     </footer>
 

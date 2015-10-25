@@ -5142,7 +5142,7 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
-/* line 19, stdin */
+/* line 22, stdin */
 body {
   font-family: -apple-system, ".SFNSText-Regular", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
   font-size: 18px;
@@ -5155,23 +5155,50 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -moz-font-feature-settings: "liga" on; }
 
-/* line 32, stdin */
+/* line 35, stdin */
 h1, h2, h3, h4, h5, h6 {
   font-family: -apple-system, ".SFNSDisplay-Bold", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
   font-weight: 700;
   letter-spacing: 0;
   font-style: normal; }
 
-/* line 39, stdin */
-footer {
-  padding: 15px 0 35px; }
+/* line 42, stdin */
+a {
+  color: #448888; }
+  /* line 47, stdin */
+  a:hover, a:focus, a:active {
+    color: #336666; }
 
-/* line 43, stdin */
+/* line 52, stdin */
+footer {
+  background-color: #262626;
+  color: #a6a6a6;
+  font-size: 14px;
+  padding: 50px 0; }
+  /* line 58, stdin */
+  footer li {
+    font-family: -apple-system, ".SFNSDisplay-Bold", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
+    font-weight: 700; }
+    /* line 62, stdin */
+    footer li:first-child {
+      color: #737373; }
+    /* line 66, stdin */
+    footer li > a {
+      color: #a6a6a6; }
+  /* line 71, stdin */
+  footer .footer-links {
+    margin-bottom: 20px; }
+  @media screen and (min-width: 992px) {
+    footer {
+      background-image: url("/images/footer_pattern.png");
+      background-repeat: repeat; } }
+
+/* line 81, stdin */
 #map-canvas {
   height: 25rem; }
 
 /* Phoenix flash messages */
-/* line 48, stdin */
+/* line 86, stdin */
 .alert {
   border-radius: 0;
   font-size: 16px;
@@ -5179,162 +5206,178 @@ footer {
   position: absolute;
   top: 50px;
   width: 100%; }
-  /* line 56, stdin */
+  /* line 94, stdin */
   .alert:empty {
     display: none; }
 
-/* line 60, stdin */
+/* line 98, stdin */
+.page.index section {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45); }
+/* line 102, stdin */
 .page.index .navbar-static-top {
   background-color: transparent;
   border: 0 none;
-  color: #fff; }
-  /* line 65, stdin */
+  color: #fff;
+  min-height: 100px;
+  padding-top: 25px; }
+  /* line 109, stdin */
   .page.index .navbar-static-top .navbar-nav > li > a {
     color: #fff; }
-/* line 71, stdin */
+/* line 115, stdin */
 .page.index .form-gym-search .btn {
   width: 95%; }
   @media screen and (min-width: 992px) {
     .page.index .form-gym-search .btn {
       width: auto; } }
-/* line 80, stdin */
+/* line 124, stdin */
 .page.index .form-group {
   padding: 0 10px 10px;
   width: 100%; }
-  /* line 84, stdin */
+  /* line 128, stdin */
   .page.index .form-group .form-control {
     width: 100%; }
   @media screen and (min-width: 992px) {
     .page.index .form-group {
       padding: 0;
       width: 25%; } }
-/* line 94, stdin */
-.page.index footer {
-  background-color: #eee;
-  padding: 35px 0; }
-  /* line 98, stdin */
-  .page.index footer hr {
-    display: none; }
 
-/* line 102, stdin */
+/* line 139, stdin */
 .payment.new {
-  background: linear-gradient(to top right, #563d7c, #5bc0de 35%, #337ab7 100%);
+  background: linear-gradient(to top right, #663368, #336666 50%, #99CCCC 100%);
   height: 100vh; }
-  /* line 106, stdin */
+  /* line 143, stdin */
   .payment.new h1 {
     color: #fff;
     padding: 40px 0 60px;
     text-align: center;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
-  /* line 113, stdin */
+  /* line 150, stdin */
   .payment.new .navbar-default {
     display: none; }
-  /* line 117, stdin */
+  /* line 154, stdin */
+  .payment.new .card {
+    margin-bottom: 40px; }
+  /* line 158, stdin */
   .payment.new footer {
     color: #fff; }
 
-/* line 122, stdin */
+/* line 163, stdin */
+.ask-payment {
+  min-height: 60vh; }
+
+/* line 167, stdin */
 .logo {
   display: inline-block;
   font-size: 36px;
   margin-bottom: 1em; }
-  /* line 127, stdin */
+  /* line 172, stdin */
   .page.index .logo {
     color: #fff; }
 
-/* line 131, stdin */
+/* line 176, stdin */
 .logo-accent {
-  background-color: #563d7c;
+  background-color: #663368;
   border-radius: 3px;
   color: #fff;
   font-weight: 700;
   margin: 0 3px;
   padding: 3px; }
 
-/* line 139, stdin */
+/* line 184, stdin */
 .logo-small {
   font-size: 24px; }
 
-/* line 143, stdin */
+/* line 188, stdin */
 .hero {
   background-image: url("/images/background.jpg");
   background-position: top center;
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
-  margin-top: -70px;
-  min-height: 66vh;
-  padding: 120px 0; }
-  /* line 153, stdin */
+  margin-top: -120px;
+  min-height: 80vh;
+  padding-top: 182px; }
+  /* line 198, stdin */
   .hero h1 {
     font-weight: 300;
     letter-spacing: 1px;
     padding-bottom: 20px; }
-  /* line 159, stdin */
+  /* line 204, stdin */
   .hero input[type="text"] {
     color: #333; }
-  /* line 163, stdin */
+  /* line 208, stdin */
   .hero input[type="submit"] {
     margin-left: 10px; }
 
-/* line 169, stdin */
-.hero, .how-it-works {
-  margin-bottom: 70px; }
+/* line 213, stdin */
+.how-it-works {
+  margin-top: -20px;
+  padding-bottom: 50px; }
+  /* line 217, stdin */
+  .how-it-works h2 {
+    padding-top: 50px; }
+  /* line 221, stdin */
+  .how-it-works i {
+    color: #448888; }
 
-/* line 173, stdin */
+/* line 226, stdin */
 .awesome-gyms {
-  padding: 70px 0; }
+  padding: 50px 0; }
+  /* line 229, stdin */
+  .awesome-gyms .lead {
+    padding-bottom: 30px; }
 
-/* line 177, stdin */
+/* line 234, stdin */
 .benefit {
-  height: 110px;
-  margin-bottom: 70px; }
-  /* line 181, stdin */
+  margin-bottom: 50px;
+  min-height: 150px; }
+  /* line 238, stdin */
   .benefit i {
     margin-top: 20px; }
 
-/* line 186, stdin */
+/* line 245, stdin */
+.how-it-works h2, .repeat-cta h2 {
+  margin-bottom: 50px; }
+
+/* line 250, stdin */
 .bg-primary-gradient {
-  background: linear-gradient(to top right, #563d7c, #5bc0de 35%, #337ab7 100%);
+  background: linear-gradient(to top right, #663368, #336666 50%, #99CCCC 100%);
   color: #fff;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 192, stdin */
+/* line 256, stdin */
 .btn {
   font-weight: 700; }
 
-/* line 197, stdin */
+/* line 261, stdin */
 .btn, .input-lg {
   border-radius: 3px;
   font-family: -apple-system, ".SFNSDisplay-Bold", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif; }
 
-/* line 202, stdin */
+/* line 266, stdin */
 .btn-primary {
-  background-color: #563d7c;
-  border-color: #322449;
+  background-color: #663368;
+  border-color: #442246;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45); }
-  /* line 208, stdin */
-  .btn-primary:hover, .btn-primary:active {
-    background-color: #3e2c5a;
-    border-color: #322449; }
+  /* line 273, stdin */
+  .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+    background-color: #442246;
+    border-color: #442246; }
 
-/* line 214, stdin */
+/* line 279, stdin */
 .shadow {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 218, stdin */
+/* line 283, stdin */
 .card {
   background-color: #fff;
   border-radius: 3px;
   box-shadow: 0 2px 5px 0 rgba(22, 27, 30, 0.26);
   padding: 10px 20px 20px; }
 
-/* line 225, stdin */
+/* line 290, stdin */
 .repeat-cta {
-  padding: 40px 0 60px; }
-  /* line 228, stdin */
-  .repeat-cta h2 {
-    margin-bottom: 20px; }
+  padding: 50px 0; }
 
 
 /*# sourceMappingURL=app.css.map*/
