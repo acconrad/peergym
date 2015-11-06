@@ -9,10 +9,13 @@ config :peergym, Peergym.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+config :comeonin, bcrypt_log_rounds: 4
+
 # Configure your database
 config :peergym, Peergym.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
   database: "peergym_test",
+  pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 1 # Use a single connection for transactional tests

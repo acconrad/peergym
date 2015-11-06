@@ -10,6 +10,8 @@ config :peergym, Peergym.Endpoint,
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :comeonin, bcrypt_log_rounds: 14
+
 # ## Using releases
 #
 # If you are doing OTP releases, you need to instruct Phoenix

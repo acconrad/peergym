@@ -5,7 +5,7 @@ defmodule Peergym.PaymentController do
   alias Peergym.Gym
   alias Peergym.User
 
-  plug :scrub_params, "payment" when action in [:create, :update]
+  plug :scrub_params, "payment" when action in [:create]
 
   def new(conn, params) do
     changeset = Payment.changeset(%Payment{})

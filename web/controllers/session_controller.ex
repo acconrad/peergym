@@ -18,7 +18,7 @@ defmodule Peergym.SessionController do
     case SessionManager.login(conn, session_params) do
       {:ok, conn, _user} -> conn
         |> put_flash(:info, "All signed in!")
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: gym_path(conn, :index))
       {:error, conn} -> conn
         |> put_flash(:error, "Email or password incorrect.")
         |> render("new.html")
@@ -28,6 +28,6 @@ defmodule Peergym.SessionController do
   def delete(conn, _params) do
     SessionManager.logout(conn)
     |> put_flash(:info, "Signed out succesfully.")
-    |> redirect(to: page_path(conn, :index))
+    |> redirect(to: gym_path(conn, :index))
   end
 end

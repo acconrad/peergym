@@ -3,8 +3,8 @@ defmodule Peergym.Mixfile do
 
   def project do
     [app: :peergym,
-     version: "0.0.3",
-     elixir: "~> 1.0",
+     version: "0.0.4",
+     elixir: "~> 1.1",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -29,7 +29,7 @@ defmodule Peergym.Mixfile do
   #
   # Type `mix help deps` for examples and options
   defp deps do
-    [{:phoenix, "~> 1.0.2"},
+    [{:phoenix, "~> 1.0.3"},
      {:phoenix_html, "~> 2.2.0"},
      {:phoenix_ecto, "~> 1.2.0"},
      {:postgrex, ">= 0.9.1"},

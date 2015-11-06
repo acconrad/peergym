@@ -12,9 +12,16 @@ defmodule Peergym.GymController do
 
   def index(conn, params) do
     delta = 0.0724146667
-    curr_lng = String.to_float(params["search"]["lng"])
-    curr_lat = String.to_float(params["search"]["lat"])
-    place = params["search"]["place"]
+    if params["search"] do
+      curr_lng = String.to_float(params["search"]["lng"])
+      curr_lat = String.to_float(params["search"]["lat"])
+      place = params["search"]["place"]
+    else
+      # New York City as the default
+      curr_lat = 40.7029741
+      curr_lng = -74.2598655
+    end
+
     min_lng = curr_lng - delta
     max_lng = curr_lng + delta
     min_lat = curr_lat - delta
@@ -85,6 +92,6 @@ defmodule Peergym.GymController do
 
     conn
     |> put_flash(:info, "Gym deleted successfully.")
-    |> redirect(to: page_path(conn, :index))
+    |> redirect(to: gym_path(conn, :index))
   end
 end

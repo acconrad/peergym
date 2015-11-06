@@ -16,19 +16,19 @@ defmodule Peergym.Router do
   scope "/", Peergym do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", GymController, :index
 
     resources "gyms", GymController do
       resources "payments", PaymentController
     end
 
-    # Passport auth routes
+    resources "users", UserController
+    get  "/signup", UserController, :new
+    post "/signup", UserController, :create
+
     get  "/signin", SessionController, :new
     post "/signin", SessionController, :create
     get  "/signout", SessionController, :delete
-
-    get  "/signup", RegistrationController, :new
-    post "/signup", RegistrationController, :create
   end
 
   # Other scopes may use custom stacks.
