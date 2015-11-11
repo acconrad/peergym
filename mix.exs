@@ -36,6 +36,7 @@ defmodule Peergym.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
      {:passport, "~> 0.0.3", github: "acconrad/passport", override: true},
-     {:poison, "~> 1.5"}]
+     {:poison, "~> 1.5"},
+     {:ex_machina, "~> 0.4"}]
   end
 end

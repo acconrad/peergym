@@ -1,9 +1,7 @@
 defmodule Peergym.PaymentControllerTest do
   use Peergym.ConnCase
 
-  alias Peergym.Payment
   alias Peergym.Gym
-  alias Peergym.User
   @valid_attrs %{email: "test@example.com"}
   @invalid_attrs %{email: "thing"}
 
@@ -20,14 +18,14 @@ defmodule Peergym.PaymentControllerTest do
     assert html_response(conn, 200) =~ "Ready for a great workout"
   end
 
-  test "creates resource and redirects when data is valid", %{conn: conn} do
+  test "creates resource and redirects when data is valid", %{conn: _conn} do
     # gym = Repo.get_by(Gym, %{name: "Gym"})
     # conn = post conn, gym_payment_path(conn, :create, gym.id), payment: @valid_attrs
     # assert redirected_to(conn) == gym_path(conn, :show, gym.id)
     # assert Repo.get_by(User, @valid_attrs)
   end
 
-  test "does not create resource and renders errors when data is invalid", %{conn: conn} do
+  test "does not create resource and renders errors when data is invalid", %{conn: _conn} do
     # gym = Repo.get_by(Gym, %{name: "Gym"})
     # conn = post conn, gym_payment_path(conn, :create, gym.id), payment: @invalid_attrs
     # assert html_response(conn, 200) =~ "Ready for a great workout"

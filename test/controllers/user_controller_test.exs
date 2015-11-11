@@ -40,28 +40,39 @@ defmodule Peergym.UserControllerTest do
   end
 
   test "renders form for editing chosen resource", %{conn: conn} do
-    user = Repo.insert! %User{}
+    conn = post conn, session_path(conn, :create), session: logged_in_user
+    user = Repo.get_by(User, %{email: "test@test.com"})
     conn = get conn, user_path(conn, :edit, user)
     assert html_response(conn, 200) =~ "Edit"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-    user = Repo.insert! %User{}
-    conn = put conn, user_path(conn, :update, user), user: @valid_attrs
+    conn = post conn, session_path(conn, :create), session: logged_in_user
+    user = Repo.get_by(User, %{email: "test@test.com"})
+    conn = put conn, user_path(conn, :update, user), user: %{email: "test@example.com", password: "test2345", admin: true}
     assert redirected_to(conn) == user_path(conn, :show, user)
     assert Repo.get_by(User, @valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    user = Repo.insert! %User{}
+    conn = post conn, session_path(conn, :create), session: logged_in_user
+    user = Repo.get_by(User, %{email: "test@test.com"})
     conn = put conn, user_path(conn, :update, user), user: @invalid_attrs
     assert html_response(conn, 200) =~ "Edit"
   end
 
   test "deletes chosen resource", %{conn: conn} do
-    user = Repo.insert! %User{}
+    conn = post conn, session_path(conn, :create), session: logged_in_user
+    user = Repo.get_by(User, %{email: "test@test.com"})
     conn = delete conn, user_path(conn, :delete, user)
-    assert redirected_to(conn) == user_path(conn, :index)
+    assert redirected_to(conn) == gym_path(conn, :index)
     refute Repo.get(User, user.id)
+  end
+
+  def logged_in_user do
+    Peergym.Registration.create(User.changeset(%User{}, %{
+      password: "test1234",
+      email: "test@test.com"}), Peergym.Repo)
+    %{"email" => "test@test.com", "password" => "test1234"}
   end
 end

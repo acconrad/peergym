@@ -22,8 +22,9 @@ defmodule Peergym.ConnCase do
 
       # Alias the data repository and import query/model functions
       alias Peergym.Repo
-      import Ecto.Model
+      import Ecto.Model, except: [build: 2]
       import Ecto.Query, only: [from: 2]
+      import Peergym.Factory
 
       # Import URL helpers from the router
       import Peergym.Router.Helpers

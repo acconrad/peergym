@@ -29,8 +29,9 @@ defmodule Peergym.UserTest do
   end
 
   test "crypted_password value gets set to a hash" do
-    changeset = User.changeset(%User{}, @valid_attrs)
-    assert Comeonin.Bcrypt.checkpw(@valid_attrs.password, Ecto.Changeset.get_change(changeset, :crypted_password))
+    Peergym.Registration.create(User.changeset(%User{}, @valid_attrs), Peergym.Repo)
+    user = Repo.get_by(User, %{email: @valid_attrs.email})
+    assert Comeonin.Bcrypt.checkpw(@valid_attrs.password, user.crypted_password)
   end
 
   test "crypted_password value does not get set if password is nil" do
