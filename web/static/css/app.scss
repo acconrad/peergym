@@ -34,12 +34,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-  color: darken($accent-color, 30%);
+  color: #1a0dab;
 
   &:hover,
   &:focus,
   &:active {
-    color: darken($accent-color, 40%);
+    color: #609;
   }
 }
 
@@ -47,6 +47,7 @@ footer {
   background-color: $dark-background-color;
   color: lighten($dark-background-color, 50%);
   font-size: 14px;
+  margin-top: 20px;
   padding: 50px 0;
 
   li {
@@ -72,6 +73,10 @@ footer {
   }
 }
 
+.link {
+  display: inline-block;
+}
+
 #map-canvas {
   height: 25rem;
 }
@@ -86,48 +91,6 @@ footer {
   width: 100%;
 
   &:empty { display: none; }
-}
-
-.page.index {
-  section {
-    box-shadow: $layer-1;
-  }
-
-  .navbar-static-top {
-    background-color: transparent;
-    border: 0 none;
-    color: #fff;
-    min-height: 100px;
-    padding-top: 25px;
-
-    .navbar-nav > li > a {
-      color: #fff;
-    }
-  }
-
-  .form-gym-search {
-    .btn {
-      width: 95%;
-
-      @media screen and (min-width: $large) {
-        width: auto;
-      }
-    }
-  }
-
-  .form-group {
-    padding: 0 10px 10px;
-    width: 100%;
-
-    .form-control {
-      width: 100%;
-    }
-
-    @media screen and (min-width: $large) {
-      padding: 0;
-      width: 25%;
-    }
-  }
 }
 
 .payment.new {
@@ -168,12 +131,8 @@ footer {
   }
 }
 .logo-accent {
-  background-color: $primary-color;
-  border-radius: 3px;
-  color: #fff;
+  color: $primary-color;
   font-weight: 700;
-  margin: 0 3px;
-  padding: 3px;
 }
 .logo-small {
   font-size: 24px;
@@ -204,43 +163,6 @@ footer {
   }
 }
 
-.how-it-works {
-  margin-top: -20px;
-  padding-bottom: 50px;
-
-  h2 {
-    padding-top: 50px;
-  }
-
-  i {
-    color: darken($accent-color, 30%);
-  }
-}
-
-.awesome-gyms {
-  padding: 50px 0;
-
-  .lead {
-    padding-bottom: 30px;
-  }
-}
-
-.benefit {
-  margin-bottom: 50px;
-  min-height: 150px;
-
-  i {
-    margin-top: 20px;
-  }
-}
-
-.how-it-works,
-.repeat-cta {
-  h2 {
-    margin-bottom: 50px;
-  }
-}
-
 .bg-primary-gradient {
   background: $gradient;
   color: #fff;
@@ -267,6 +189,13 @@ footer {
   &:focus {
     background-color: darken($primary-color, 10%);
     border-color: darken($primary-color, 10%);
+  }
+
+  &.inverse {
+    background-color: transparent;
+    border-width: 2px;
+    box-shadow: none;
+    color: $primary-color;
   }
 }
 

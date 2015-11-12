@@ -1,20 +1,42 @@
-<section class="container">
-  <%= if logged_in?(@conn) && current_user(@conn).admin do %>
-    <%= link "Add a Gym »", to: gym_path(@conn, :new), class: "btn btn-lg btn-primary" %>
-  <% end %>
-  <div class="row">
-    <ul class="col-md-8 list-unstyled" id="gyms-list">
-      <%= for gym <- @gyms do %>
-        <%= render "item.html", item: gym,
-                                to_pay: gym_payment_path(@conn, :new, gym.id),
-                                to_show: gym_path(@conn, :show, gym.id),
-                                to_edit: gym_path(@conn, :edit, gym.id),
-                                to_delete: gym_path(@conn, :delete, gym.id),
-                                admin: logged_in?(@conn) && current_user(@conn).admin %>
-      <% end %>
-    </ul>
-    <div class="col-md-4">
-      <div id="map-canvas" data-place-id="<%= @place %>"></div>
-    </div>
-  </div>
-</section>
+<ul class="list-unstyled list-inline breadcrumbs">
+  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <a href="#" itemprop="url">
+      <span itemprop="title">United States</span>
+    </a>
+    <span class="separator">›</span>
+  </li>
+  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <a href="#" itemprop="url">
+      <span itemprop="title"><%= "Massachusetts" %> (<%= "MA" %>)</span>
+    </a>
+    <span class="separator">›</span>
+  </li>
+  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <a href="#" itemprop="url">
+      <span itemprop="title"><%= "Boston" %></span>
+    </a>
+    <span class="separator">›</span>
+  </li>
+  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <span itemprop="title"><%= "Boston" %> CrossFit Gyms</span>
+  </li>
+</ul>
+
+<%= if logged_in?(@conn) && current_user(@conn).admin do %>
+  <%= link "Add a Gym »", to: gym_path(@conn, :new), class: "btn btn-lg btn-primary" %>
+<% end %>
+
+<h2>Gyms near <%= @place %></h2>
+<div class="row">
+  <ol class="col-md-6 list-unstyled" id="gyms-list">
+    <%= for gym <- @gyms do %>
+      <%= render "item.html", item: gym,
+                              to_pay: gym_payment_path(@conn, :new, gym.id),
+                              to_show: gym_path(@conn, :show, gym.id),
+                              to_edit: gym_path(@conn, :edit, gym.id),
+                              to_delete: gym_path(@conn, :delete, gym.id),
+                              admin: logged_in?(@conn) && current_user(@conn).admin %>
+    <% end %>
+  </ol>
+  <aside class="col-md-6" data-place-id="<%= @place %>" id="map-canvas"></aside>
+</div>

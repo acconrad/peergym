@@ -1,9 +1,10 @@
 <li class="gym-item" data-latitude="<%= @item.latitude %>" data-longitude="<%= @item.longitude %>">
-  <%= link "Request pass", to: @to_pay, class: "btn btn-lg btn-primary pull-right" %>
-  <h2><%= link @item.name, to: @to_show %></h2>
-  <p class="lead"><%= @item.address %> / <strong><%= @item.hours %></strong></p>
+  <h3><%= link @item.name, to: @to_show %></h3>
+  <p><%= @item.address %> / <strong><%= @item.hours %></strong></p>
   <%= if @admin do %>
-    <%= link 'Edit', to: @to_edit %>
-    <%= link 'Delete', to: @to_delete, method: :delete, data: [confirm: "Are you sure?"] %>
+    <div class="well well-sm">
+      <strong>Admin:</strong>
+      <%= link 'Edit', to: @to_edit %> | <%= link 'Delete', to: @to_delete, method: :delete, data: [confirm: "Are you sure?"] %>
+    </div>
   <% end %>
 </li>

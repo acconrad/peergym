@@ -4,28 +4,29 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Buy drop-in passes to great gyms without the painful contracts.">
+    <meta name="description" content="<%= render_existing view_module(@conn), "meta_description", assigns %>.">
 
-    <title>Buy drop-in passes to great gyms without the painful contracts - PeerGym</title>
+    <title><%= render_existing view_module(@conn), "title", assigns %> - PeerGym</title>
+
+    <link rel="icon" href="favicon.ico">
+
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   </head>
 
   <body class="<%= Phoenix.Naming.resource_name(Phoenix.Controller.controller_module(@conn), "Controller") %> <%= Phoenix.Controller.action_name @conn %>">
-    <nav class="navbar navbar-default navbar-static-top">
+    <header class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+            Menu
           </button>
-          <a class="navbar-brand" href="<%= gym_path @conn, :index %>">
+          <%= link to: gym_path(@conn, :index), class: "navbar-brand" do %>
             <span class="logo logo-small">Peer<span class="logo-accent">Gym</span></span>
-          </a>
+          <% end %>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <nav class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <!-- <form class="navbar-form navbar-right" role="search">
             <%= link "List Your Gym", to: gym_path(@conn, :new), class: "btn btn-info" %>
           </form> -->
@@ -38,14 +39,16 @@
               <li><%= link "Sign In", to: session_path(@conn, :new) %></li>
             <% end %>
           </ul>
-        </div>
+        </nav>
       </div>
-    </nav>
+    </header>
 
     <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
     <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
-    <%= @inner %>
+    <main class="container">
+      <%= @inner %>
+    </main>
 
     <footer>
       <div class="container">

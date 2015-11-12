@@ -1,11 +1,41 @@
-<div class="container">
-  <h1><%= @gym.name %></h1>
-  <%= link "Claim your free pass", to: gym_payment_path(@conn, :new, @gym.id), class: "btn btn-lg btn-primary pull-right" %>
-  <p class="lead"><%= @gym.address %></p>
-  <p><strong><%= @gym.hours %></strong></p>
+<ul class="list-unstyled list-inline breadcrumbs">
+  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <a href="#" itemprop="url">
+      <span itemprop="title">United States</span>
+    </a>
+    <span class="separator">›</span>
+  </li>
+  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <a href="#" itemprop="url">
+      <span itemprop="title"><%= "Massachusetts" %> (<%= @gym.state %>)</span>
+    </a>
+    <span class="separator">›</span>
+  </li>
+  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <a href="#" itemprop="url">
+      <span itemprop="title"><%= @gym.city %></span>
+    </a>
+    <span class="separator">›</span>
+  </li>
+  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <a href="#" itemprop="url">
+      <span itemprop="title"><%= @gym.city %> CrossFit Gyms</span>
+    </a>
+    <span class="separator">›</span>
+  </li>
+  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <%= @gym.name %>
+  </li>
+</ul>
 
-  <%= if logged_in?(@conn) && current_user(@conn).admin do %>
-    <%= link "Edit", to: gym_path(@conn, :edit, @gym.id) %>
-    <%= link "Delete", to: gym_path(@conn, :delete, @gym.id), method: :delete, data: [confirm: "Are you sure?"] %>
-  <% end %>
-</div>
+<h1><%= @gym.name %></h1>
+<%= link "Claim your free pass", to: gym_payment_path(@conn, :new, @gym.id), class: "btn btn-lg btn-primary pull-right" %>
+<p class="lead"><%= @gym.address %></p>
+<p><strong><%= @gym.hours %></strong></p>
+
+<%= if logged_in?(@conn) && current_user(@conn).admin do %>
+  <div class="well well-sm">
+    <strong>Admin:</strong>
+    <%= link "Edit", to: gym_path(@conn, :edit, @gym.id) %> | <%= link "Delete", to: gym_path(@conn, :delete, @gym.id), method: :delete, data: [confirm: "Are you sure?"] %>
+  </div>
+<% end %>

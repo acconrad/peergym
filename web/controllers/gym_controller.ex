@@ -17,9 +17,10 @@ defmodule Peergym.GymController do
       curr_lat = String.to_float(params["search"]["lat"])
       place = params["search"]["place"]
     else
-      # New York City as the default
-      curr_lat = 40.7029741
-      curr_lng = -74.2598655
+      # Boston as the default
+      curr_lat = 42.3600825
+      curr_lng = -71.0588801
+      place = "ChIJGzE9DS1l44kRoOhiASS_fHg"
     end
 
     min_lng = curr_lng - delta

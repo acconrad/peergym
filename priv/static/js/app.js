@@ -118,13 +118,13 @@ require.register("deps/phoenix/web/static/js/phoenix", function(exports, require
 // channels are mulitplexed over the connection.
 // Connect to the server using the `Socket` class:
 //
-//     let socket = new Socket("/ws")
-//     socket.connect({userToken: "123"})
+//     let socket = new Socket("/ws", {params: {userToken: "123"}})
+//     socket.connect()
 //
-// The `Socket` constructor takes the mount point of the socket
-// as well as options that can be found in the Socket docs,
-// such as configuring the `LongPoll` transport, and heartbeat.
-// Socket params can also be passed as an object literal to `connect`.
+// The `Socket` constructor takes the mount point of the socket,
+// the authentication params, as well as options that can be found in
+// the Socket docs, such as configuring the `LongPoll` transport, and
+// heartbeat.
 //
 // ## Channels
 //
@@ -231,7 +231,7 @@ var Push = (function () {
 
   // Initializes the Push
   //
-  // channel - The Channelnel
+  // channel - The Channel
   // event - The event, for example `"phx_join"`
   // payload - The payload, for example `{user_id: 123}`
   //
@@ -544,6 +544,8 @@ var Socket = (function () {
   //   longpollerTimeout - The maximum timeout of a long poll AJAX request.
   //                        Defaults to 20s (double the server long poll timer).
   //
+  //   params - The optional params to pass when connecting
+  //
   // For IE8 support use an ES5-shim (https://github.com/es-shims/es5-shim)
   //
 
@@ -565,11 +567,13 @@ var Socket = (function () {
     };
     this.logger = opts.logger || function () {}; // noop
     this.longpollerTimeout = opts.longpollerTimeout || 20000;
-    this.params = {};
-    this.reconnectTimer = new Timer(function () {
-      return _this5.connect(_this5.params);
-    }, this.reconnectAfterMs);
+    this.params = opts.params || {};
     this.endPoint = "" + endPoint + "/" + TRANSPORTS.websocket;
+    this.reconnectTimer = new Timer(function () {
+      _this5.disconnect(function () {
+        return _this5.connect();
+      });
+    }, this.reconnectAfterMs);
   }
 
   _createClass(Socket, [{
@@ -608,27 +612,31 @@ var Socket = (function () {
     key: "connect",
 
     // params - The params to send when connecting, for example `{user_id: userToken}`
-    value: function connect() {
+    value: function connect(params) {
       var _this6 = this;
 
-      var params = arguments[0] === undefined ? {} : arguments[0];
-      this.params = params;
-      this.disconnect(function () {
-        _this6.conn = new _this6.transport(_this6.endPointURL());
-        _this6.conn.timeout = _this6.longpollerTimeout;
-        _this6.conn.onopen = function () {
-          return _this6.onConnOpen();
-        };
-        _this6.conn.onerror = function (error) {
-          return _this6.onConnError(error);
-        };
-        _this6.conn.onmessage = function (event) {
-          return _this6.onConnMessage(event);
-        };
-        _this6.conn.onclose = function (event) {
-          return _this6.onConnClose(event);
-        };
-      });
+      if (params) {
+        console && console.log("passing params to connect is deprecated. Instead pass :params to the Socket constructor");
+        this.params = params;
+      }
+      if (this.conn) {
+        return;
+      }
+
+      this.conn = new this.transport(this.endPointURL());
+      this.conn.timeout = this.longpollerTimeout;
+      this.conn.onopen = function () {
+        return _this6.onConnOpen();
+      };
+      this.conn.onerror = function (error) {
+        return _this6.onConnError(error);
+      };
+      this.conn.onmessage = function (event) {
+        return _this6.onConnMessage(event);
+      };
+      this.conn.onclose = function (event) {
+        return _this6.onConnClose(event);
+      };
     }
   }, {
     key: "log",

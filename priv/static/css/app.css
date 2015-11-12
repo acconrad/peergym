@@ -5158,28 +5158,29 @@ h1, h2, h3, h4, h5, h6 {
 
 /* line 36, stdin */
 a {
-  color: #448888; }
+  color: #1a0dab; }
   /* line 41, stdin */
   a:hover, a:focus, a:active {
-    color: #336666; }
+    color: #609; }
 
 /* line 46, stdin */
 footer {
   background-color: #262626;
   color: #a6a6a6;
   font-size: 14px;
+  margin-top: 20px;
   padding: 50px 0; }
-  /* line 52, stdin */
+  /* line 53, stdin */
   footer li {
     font-family: -apple-system, ".SFNSDisplay-Bold", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
     font-weight: 700; }
-    /* line 56, stdin */
+    /* line 57, stdin */
     footer li:first-child {
       color: #737373; }
-    /* line 60, stdin */
+    /* line 61, stdin */
     footer li > a {
       color: #a6a6a6; }
-  /* line 65, stdin */
+  /* line 66, stdin */
   footer .footer-links {
     margin-bottom: 20px; }
   @media screen and (min-width: 992px) {
@@ -5187,12 +5188,16 @@ footer {
       background-image: url("/images/footer_pattern.png");
       background-repeat: repeat; } }
 
-/* line 75, stdin */
+/* line 76, stdin */
+.link {
+  display: inline-block; }
+
+/* line 80, stdin */
 #map-canvas {
   height: 25rem; }
 
 /* Phoenix flash messages */
-/* line 80, stdin */
+/* line 85, stdin */
 .alert {
   border-radius: 0;
   font-size: 16px;
@@ -5200,88 +5205,53 @@ footer {
   position: absolute;
   top: 50px;
   width: 100%; }
-  /* line 88, stdin */
+  /* line 93, stdin */
   .alert:empty {
     display: none; }
 
-/* line 92, stdin */
-.page.index section {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45); }
 /* line 96, stdin */
-.page.index .navbar-static-top {
-  background-color: transparent;
-  border: 0 none;
-  color: #fff;
-  min-height: 100px;
-  padding-top: 25px; }
-  /* line 103, stdin */
-  .page.index .navbar-static-top .navbar-nav > li > a {
-    color: #fff; }
-/* line 109, stdin */
-.page.index .form-gym-search .btn {
-  width: 95%; }
-  @media screen and (min-width: 992px) {
-    .page.index .form-gym-search .btn {
-      width: auto; } }
-/* line 118, stdin */
-.page.index .form-group {
-  padding: 0 10px 10px;
-  width: 100%; }
-  /* line 122, stdin */
-  .page.index .form-group .form-control {
-    width: 100%; }
-  @media screen and (min-width: 992px) {
-    .page.index .form-group {
-      padding: 0;
-      width: 25%; } }
-
-/* line 133, stdin */
 .payment.new {
   background: linear-gradient(to top right, #663368, #336666 50%, #99CCCC 100%);
   height: 100vh; }
-  /* line 137, stdin */
+  /* line 100, stdin */
   .payment.new h1 {
     color: #fff;
     padding: 40px 0 60px;
     text-align: center;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
-  /* line 144, stdin */
+  /* line 107, stdin */
   .payment.new .navbar-default {
     display: none; }
-  /* line 148, stdin */
+  /* line 111, stdin */
   .payment.new .card {
     margin-bottom: 40px; }
-  /* line 152, stdin */
+  /* line 115, stdin */
   .payment.new footer {
     color: #fff; }
 
-/* line 157, stdin */
+/* line 120, stdin */
 .ask-payment {
   min-height: 60vh; }
 
-/* line 161, stdin */
+/* line 124, stdin */
 .logo {
   display: inline-block;
   font-size: 36px;
   margin-bottom: 1em; }
-  /* line 166, stdin */
+  /* line 129, stdin */
   .page.index .logo {
     color: #fff; }
 
-/* line 170, stdin */
+/* line 133, stdin */
 .logo-accent {
-  background-color: #663368;
-  border-radius: 3px;
-  color: #fff;
-  font-weight: 700;
-  margin: 0 3px;
-  padding: 3px; }
+  color: #663368;
+  font-weight: 700; }
 
-/* line 178, stdin */
+/* line 137, stdin */
 .logo-small {
   font-size: 24px; }
 
-/* line 182, stdin */
+/* line 141, stdin */
 .hero {
   background-image: url("/images/background.jpg");
   background-position: top center;
@@ -5291,85 +5261,61 @@ footer {
   margin-top: -120px;
   min-height: 80vh;
   padding-top: 182px; }
-  /* line 192, stdin */
+  /* line 151, stdin */
   .hero h1 {
     font-weight: 300;
     letter-spacing: 1px;
     padding-bottom: 20px; }
-  /* line 198, stdin */
+  /* line 157, stdin */
   .hero input[type="text"] {
     color: #333; }
-  /* line 202, stdin */
+  /* line 161, stdin */
   .hero input[type="submit"] {
     margin-left: 10px; }
 
-/* line 207, stdin */
-.how-it-works {
-  margin-top: -20px;
-  padding-bottom: 50px; }
-  /* line 211, stdin */
-  .how-it-works h2 {
-    padding-top: 50px; }
-  /* line 215, stdin */
-  .how-it-works i {
-    color: #448888; }
-
-/* line 220, stdin */
-.awesome-gyms {
-  padding: 50px 0; }
-  /* line 223, stdin */
-  .awesome-gyms .lead {
-    padding-bottom: 30px; }
-
-/* line 228, stdin */
-.benefit {
-  margin-bottom: 50px;
-  min-height: 150px; }
-  /* line 232, stdin */
-  .benefit i {
-    margin-top: 20px; }
-
-/* line 239, stdin */
-.how-it-works h2, .repeat-cta h2 {
-  margin-bottom: 50px; }
-
-/* line 244, stdin */
+/* line 166, stdin */
 .bg-primary-gradient {
   background: linear-gradient(to top right, #663368, #336666 50%, #99CCCC 100%);
   color: #fff;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 250, stdin */
+/* line 172, stdin */
 .btn {
   font-weight: 700; }
 
-/* line 255, stdin */
+/* line 177, stdin */
 .btn, .input-lg {
   border-radius: 3px;
   font-family: -apple-system, ".SFNSDisplay-Bold", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif; }
 
-/* line 260, stdin */
+/* line 182, stdin */
 .btn-primary {
   background-color: #663368;
   border-color: #442246;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45); }
-  /* line 267, stdin */
+  /* line 189, stdin */
   .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
     background-color: #442246;
     border-color: #442246; }
+  /* line 194, stdin */
+  .btn-primary.inverse {
+    background-color: transparent;
+    border-width: 2px;
+    box-shadow: none;
+    color: #663368; }
 
-/* line 273, stdin */
+/* line 202, stdin */
 .shadow {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 277, stdin */
+/* line 206, stdin */
 .card {
   background-color: #fff;
   border-radius: 3px;
   box-shadow: 0 2px 5px 0 rgba(22, 27, 30, 0.26);
   padding: 10px 20px 20px; }
 
-/* line 284, stdin */
+/* line 213, stdin */
 .repeat-cta {
   padding: 50px 0; }
 
