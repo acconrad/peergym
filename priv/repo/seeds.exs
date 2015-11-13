@@ -1,9 +1,13 @@
 defmodule Seeder do
+  alias Peergym.Gym
+  alias Peergym.Repo
+  require IEx
+
   def create_gym(gym_params) do
-    changeset = Peergym.Gym.changeset(%Peergym.Gym{}, gym_params)
+    changeset = Gym.changeset(%Gym{}, gym_params)
 
     if changeset.valid? do
-      Peergym.Repo.insert!(changeset)
+      Repo.insert!(changeset)
     end
   end
 
@@ -15,7 +19,12 @@ defmodule Seeder do
   end
 end
 
-case File.read("data.json") do
+# case File.read("data.json") do
+#   {:ok, body}      -> Seeder.create_gyms(Poison.Parser.parse!(body, keys: :atoms!))
+#   {:error, reason} -> IO.puts(reason)
+# end
+
+case File.read("crossfit.json") do
   {:ok, body}      -> Seeder.create_gyms(Poison.Parser.parse!(body, keys: :atoms!))
   {:error, reason} -> IO.puts(reason)
 end
