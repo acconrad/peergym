@@ -1,5 +1,24 @@
 defmodule Peergym.GymView do
   use Peergym.Web, :view
+  import Number.Currency
+  import Number.Delimit
+
+  def format_amenity(amenity) do
+    cond do
+      amenity == nil -> "N/A"
+      (amenity == 0) || (amenity == false) -> "No"
+      (amenity == 1) || (amenity == true) -> "Yes"
+      amenity -> amenity
+    end
+  end
+
+  def format_max_amenity(amenity) do
+    if amenity > 1 do
+      "Up to #{amenity} lbs"
+    else
+      format_amenity amenity
+    end
+  end
 
   def render("meta_description", assigns) do
     case Phoenix.Controller.action_name assigns.conn do

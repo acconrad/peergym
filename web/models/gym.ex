@@ -43,6 +43,8 @@ defmodule Peergym.Gym do
     field :power_racks, :integer
     field :pull_up_rigs, :integer
     field :monolifts, :integer
+    field :dumbbells, :integer
+    field :kettlebells, :integer
     field :benches, :integer
     field :ghds, :integer
     field :reverse_hypers, :integer
@@ -51,13 +53,8 @@ defmodule Peergym.Gym do
     field :jerk_blocks, :integer
     field :bench_press_boards, :integer
     field :chains, :integer
-    field :tires, :integer
-    field :kegs, :integer
-    field :atlas_stones, :integer
 
     # conditioning equipment
-    field :kettlebells, :integer
-    field :dumbbells, :integer
     field :sleds, :integer
     field :medicine_balls, :integer
     field :slam_balls, :integer
@@ -70,6 +67,7 @@ defmodule Peergym.Gym do
     field :ellipticals, :integer
     field :stair_climbers, :integer
     field :jump_ropes, :integer
+    field :tires, :integer
 
     # misc equipment
     field :agility, :boolean # cones, ladders, hurdles
@@ -77,6 +75,8 @@ defmodule Peergym.Gym do
     field :boxing_mma, :boolean # ring, gloves, protection, heavy bags, speed bags
     field :climbing, :boolean # ropes, rock wall, bouldering
     field :gymnastic, :boolean # rings, parallettes
+    field :kegs, :integer
+    field :atlas_stones, :integer
 
     timestamps
   end

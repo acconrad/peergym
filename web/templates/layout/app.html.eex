@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   </head>
 
-  <body class="<%= Phoenix.Naming.resource_name(Phoenix.Controller.controller_module(@conn), "Controller") %> <%= Phoenix.Controller.action_name @conn %>">
+
+  <body class="<%= body_class @conn %>">
     <header class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="navbar-header">
@@ -59,7 +60,7 @@
     <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
     <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
-    <main class="container">
+    <main class="<%= use_container(@conn) %>">
       <%= @inner %>
     </main>
 

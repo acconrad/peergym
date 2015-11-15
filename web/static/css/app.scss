@@ -6,7 +6,10 @@ $background-color: #fff;
 $dark-background-color: #262626;
 $primary-color: #663368;
 $accent-color: #99CCCC;
+$link-color: #1a0dab;
+$link-visited-color: #609;
 $gradient: linear-gradient(to top right, $primary-color, darken($accent-color, 40%) 50%, $accent-color 100%);
+$default-text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33);
 $small: 544px;
 $medium: 768px;
 $large: 992px;
@@ -34,12 +37,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-  color: #1a0dab;
+  color: $link-color;
 
   &:hover,
   &:focus,
   &:active {
-    color: #609;
+    color: $link-visited-color;
   }
 }
 
@@ -101,7 +104,7 @@ footer {
     color: #fff;
     padding: 40px 0 60px;
     text-align: center;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33);
+    text-shadow: $default-text-shadow;
   }
 
   .navbar-default {
@@ -140,33 +143,37 @@ footer {
 
 .hero {
   background-image: url("/images/background.jpg");
-  background-position: top center;
+  background-position: 25% center;
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
-  margin-top: -120px;
-  min-height: 80vh;
-  padding-top: 182px;
+  min-height: 200px;
+  margin-bottom: 20px;
+  margin-top: -20px;
+  padding-top: 20px;
+  position: relative;
 
   h1 {
+    bottom: 20px;
     font-weight: 300;
     letter-spacing: 1px;
-    padding-bottom: 20px;
+    position: absolute;
   }
 
-  input[type="text"] {
-    color: #333;
+  a {
+    color: #fff;
   }
 
-  input[type="submit"] {
-    margin-left: 10px;
+  h1,
+  a {
+    text-shadow: $default-text-shadow;
   }
 }
 
 .bg-primary-gradient {
   background: $gradient;
   color: #fff;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33);
+  text-shadow: $default-text-shadow;
 }
 
 .btn {
@@ -224,4 +231,27 @@ footer {
   .btn-primary {
     box-shadow: none;
   }
+}
+
+.card-connected {
+  display: inline-block;
+  position: relative;
+  z-index: 10;
+
+  &:not(:first-of-type) {
+    margin-left: -5px;
+  }
+
+  &.card-connected-highlight {
+    padding: 20px 40px 40px;
+    z-index: 20;
+  }
+}
+
+.rates {
+  margin-bottom: 20px;
+}
+
+.gym-rate {
+  font-size: 30px;
 }

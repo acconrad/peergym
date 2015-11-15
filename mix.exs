@@ -38,6 +38,7 @@ defmodule Peergym.Mixfile do
      {:passport, "~> 0.0.3", github: "acconrad/passport", override: true},
      {:poison, "~> 1.5"},
      {:ex_machina, "~> 0.4"},
-     {:scrivener, "~> 1.1.0"}]
+     {:scrivener, "~> 1.1.0"},
+     {:number, "~> 0.4.0"}]
   end
 end
