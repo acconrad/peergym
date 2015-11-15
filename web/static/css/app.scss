@@ -213,3 +213,15 @@ footer {
 .repeat-cta {
   padding: 50px 0;
 }
+
+.navbar-form {
+  .form-gym-location {
+    @media screen and (min-width: $medium) {
+      min-width: 500px;
+    }
+  }
+
+  .btn-primary {
+    box-shadow: none;
+  }
+}

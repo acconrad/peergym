@@ -8,7 +8,7 @@
 
     <title><%= render_existing view_module(@conn), "title", assigns %> - PeerGym</title>
 
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="/favicon.ico">
 
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -26,6 +26,17 @@
             <span class="logo logo-small">Peer<span class="logo-accent">Gym</span></span>
           <% end %>
         </div>
+
+        <%= form_for @conn, gym_path(@conn, :index), [class: "navbar-form navbar-left form-gym-search", role: "search", as: :search, method: "get"], fn f -> %>
+          <%= hidden_input f, :lng %>
+          <%= hidden_input f, :lat %>
+          <%= hidden_input f, :place %>
+          <div class="form-group">
+            <%= text_input f, :location, class: "form-control form-gym-location", placeholder: "Enter a location" %>
+          </div>
+          <%= submit "Find Me a Gym »", class: "btn btn-primary" %>
+        <% end %>
+
         <nav class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <!-- <form class="navbar-form navbar-right" role="search">
             <%= link "List Your Gym", to: gym_path(@conn, :new), class: "btn btn-info" %>

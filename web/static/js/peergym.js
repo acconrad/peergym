@@ -2,9 +2,9 @@ export class Maps {
   constructor(){
     var pageFolder = document.body.className;
 
-    if ( pageFolder.match( /page/ ) ) {
-      google.maps.event.addDomListener( window, 'load', this.initializeSearch );
-    } else if ( pageFolder.match( /gym/ ) ) {
+    google.maps.event.addDomListener( window, 'load', this.initializeSearch );
+
+    if ( pageFolder.match( /gym index/ ) ) {
       google.maps.event.addDomListener( window, 'load', this.initializeMap );
     }
   }
@@ -22,6 +22,10 @@ export class Maps {
             center: results[0].geometry.location
           , zoom: 11
           , disableDefaultUI: true
+          , draggable: false
+          , zoomControl: false
+          , scrollwheel: false
+          , disableDoubleClickZoom: true
           , styles: [
               {
                 stylers: [

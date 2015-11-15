@@ -5319,5 +5319,12 @@ footer {
 .repeat-cta {
   padding: 50px 0; }
 
+@media screen and (min-width: 768px) {
+  .navbar-form .form-gym-location {
+    min-width: 500px; } }
+/* line 224, stdin */
+.navbar-form .btn-primary {
+  box-shadow: none; }
+
 
 /*# sourceMappingURL=app.css.map*/

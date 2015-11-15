@@ -7,7 +7,7 @@
   </li>
   <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
     <a href="#" itemprop="url">
-      <span itemprop="title"><%= "Massachusetts" %> (<%= @gym.state %>)</span>
+      <span itemprop="title"><%= full_state_name(@gym.state) %> (<%= @gym.state %>)</span>
     </a>
     <span class="separator">›</span>
   </li>
