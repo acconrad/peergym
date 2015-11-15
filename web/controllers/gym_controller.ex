@@ -16,11 +16,15 @@ defmodule Peergym.GymController do
       curr_lng = String.to_float(params["search"]["lng"])
       curr_lat = String.to_float(params["search"]["lat"])
       place = params["search"]["place"]
+      city = params["search"]["city"]
+      state = params["search"]["state"]
     else
       # Boston as the default
       curr_lat = 42.3600825
       curr_lng = -71.0588801
       place = "ChIJGzE9DS1l44kRoOhiASS_fHg"
+      city = "Boston"
+      state = "MA"
     end
 
     min_lng = curr_lng - delta
@@ -32,8 +36,14 @@ defmodule Peergym.GymController do
             where: g.latitude >= ^min_lat and g.latitude <= ^max_lat and g.longitude >= ^min_lng and g.longitude <= ^max_lng,
             select: g
 
-    gyms = Repo.all(query)
-    render(conn, "index.html", gyms: gyms, place: place)
+    gyms = Repo.paginate(query)
+    render conn, "index.html",
+      gyms: gyms.entries,
+      place: place,
+      city: city,
+      state: state,
+      page_number: gyms.page_number,
+      total_pages: gyms.total_pages
   end
 
   def new(conn, _params) do

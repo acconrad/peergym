@@ -77,6 +77,12 @@ export class Maps {
             form.querySelector( '#search_lat' ).value = latlng[0];
             form.querySelector( '#search_lng' ).value = latlng[1];
             form.querySelector( '#search_place' ).value = result.place_id;
+            form.querySelector( '#search_city' ).value = result.address_components.filter( component => {
+              return component.types[0] === 'locality';
+            })[0].long_name;
+            form.querySelector( '#search_state' ).value = result.address_components.filter( component => {
+              return component.types[0] === 'administrative_area_level_1';
+            })[0].short_name;
             form.submit();
           } else {
             alert( 'Geocode was not successful for the following reason: ' + status );

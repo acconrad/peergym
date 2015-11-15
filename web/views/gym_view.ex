@@ -3,16 +3,17 @@ defmodule Peergym.GymView do
 
   def render("meta_description", assigns) do
     case Phoenix.Controller.action_name assigns.conn do
-      :show -> "#{assigns.gym.name}, located in #{assigns.gym.city}, #{assigns.gym.state}. #{assigns.gym.description}."
-      _ -> "Discover the best gyms in your area with PeerGym"
+      :indow -> "Discover the best gyms in #{assigns.gym.city}, #{assigns.gym.state} with PeerGym."
+      :show -> "Book #{assigns.gym.name}, #{assigns.gym.city} on PeerGym: See reviews, photos, and great deals for #{assigns.gym.name}."
+      _ -> "Discover the best gyms in your area. Read real reviews and search over 4000+ gyms to find the best equipment, amenities, and membership rates."
     end
   end
 
   def render("title", assigns) do
     case Phoenix.Controller.action_name assigns.conn do
-      :index -> "Gyms near #{assigns.place}"
-      :show -> "#{assigns.gym.name} in #{assigns.gym.city}, #{assigns.gym.state}"
-      _ -> "Discover the best gyms in your area with PeerGym"
+      :index -> "The 10 Best #{assigns.city} CrossFit Gyms"
+      :show -> "#{assigns.gym.name} in (#{assigns.gym.state}) - Gym Reviews"
+      _ -> "PeerGym: Discover the best gyms in your area, read reviews, and compare membership rates"
     end
   end
 

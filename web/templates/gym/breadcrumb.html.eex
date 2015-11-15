@@ -1,0 +1,57 @@
+<ul class="list-unstyled list-inline breadcrumbs">
+  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <%= if @state do %>
+      <a href="#" itemprop="url">
+        <span itemprop="title">United States</span>
+      </a>
+      <span class="separator">›</span>
+    <% else %>
+      United States Gyms
+    <% end %>
+  </li>
+
+  <%= if @state do %>
+  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <%= if @city do %>
+      <a href="#" itemprop="url">
+        <span itemprop="title"><%= full_state_name @state %> (<%= @state %>)</span>
+      </a>
+      <span class="separator">›</span>
+    <% else %>
+      <%= full_state_name @state %> (<%= @state %>) Gyms
+    <% end %>
+  </li>
+  <% end %>
+
+  <%= if @city do %>
+  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <%= if @type do %>
+      <a href="#" itemprop="url">
+        <span itemprop="title"><%= @city %></span>
+      </a>
+      <span class="separator">›</span>
+    <% else %>
+      <%= @city %> Gyms
+    <% end %>
+  </li>
+  <% end %>
+
+  <%= if @type do %>
+  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <%= if @name do %>
+      <a href="#" itemprop="url">
+        <span itemprop="title"><%= @city %> <%= @type %> Gyms</span>
+      </a>
+      <span class="separator">›</span>
+    <% else %>
+      <%= @city %> <%= @type %> Gyms
+    <% end %>
+  </li>
+  <% end %>
+
+  <%= if @name do %>
+  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+    <%= @name %>
+  </li>
+  <% end %>
+</ul>

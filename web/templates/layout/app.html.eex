@@ -31,6 +31,8 @@
           <%= hidden_input f, :lng %>
           <%= hidden_input f, :lat %>
           <%= hidden_input f, :place %>
+          <%= hidden_input f, :city %>
+          <%= hidden_input f, :state %>
           <div class="form-group">
             <%= text_input f, :location, class: "form-control form-gym-location", placeholder: "Enter a location" %>
           </div>
