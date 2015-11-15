@@ -6,7 +6,18 @@
 </section>
 
 <section class="container">
-  <i class="fa fa-mobile-phone"></i> <%= @gym.phone %> | <i class="fa fa-map-marker"></i> <%= @gym.address %> | <i class="fa fa-globe"></i> <%= link "Gym website", to: @gym.url %> | <i class="fa fa-clock-o"></i> <%= @gym.hours %>
+  <%= if @gym.phone do %>
+    <i class="fa fa-mobile-phone"></i> <%= @gym.phone %> <%= if @gym.address || @gym.url || @gym.hours, do: "|" %>
+  <% end %>
+  <%= if @gym.address do %>
+    <i class="fa fa-map-marker"></i> <%= @gym.address %> <%= if @gym.url || @gym.hours, do: "|" %>
+  <% end %>
+  <%= if @gym.url do %>
+    <i class="fa fa-globe"></i> <%= link "Gym website", to: @gym.url %> <%= if @gym.hours, do: "|" %>
+  <% end %>
+  <%= if @gym.hours do %>
+    <i class="fa fa-clock-o"></i> <%= @gym.hours %>
+  <% end %>
 
   <div class="row">
     <div class="col-md-6">
