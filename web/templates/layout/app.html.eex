@@ -51,7 +51,7 @@
     </main>
 
     <footer>
-      <div class="container">
+      <!--<div class="container">
         <div class="row footer-links">
           <ul class="list-unstyled col-md-2 col-md-offset-3">
             <li>Company</li>
@@ -79,7 +79,7 @@
             <li><a href="#">YouTube</a></li>
             <li><a href="#">Instagram</a></li>
           </ul>
-        </div>
+        </div>-->
 
         <div class="text-center">© 2015 PeerGym. All rights reserved.</div>
       </div>

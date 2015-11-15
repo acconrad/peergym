@@ -1,6 +1,4 @@
-<div class="container">
-  <h2>Add a Gym</h2>
+<h1>Add your gym to our network</h1>
 
-  <%= render "form.html", changeset: @changeset,
-                          action: gym_path(@conn, :create) %>
-</div>
+<%= render "form.html", changeset: @changeset,
+                        action: gym_path(@conn, :create) %>

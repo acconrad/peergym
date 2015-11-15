@@ -10,79 +10,474 @@
     </div>
   <% end %>
 
+  <h2>Basic info</h2>
+
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>Name<span class="text-danger">*</span></label>
+          <%= text_input f, :name, class: "form-control", required: true, placeholder: "e.g Boston Crossfit" %>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>Display Address<span class="text-danger">*</span></label>
+          <%= text_input f, :address, class: "form-control", required: true, placeholder: "e.g. 123 Main St, Boston, MA, 02111" %>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>Latitude<span class="text-danger">*</span></label>
+          <%= text_input f, :latitude, class: "form-control", required: true %>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>Longitude<span class="text-danger">*</span></label>
+          <%= text_input f, :longitude, class: "form-control", required: true %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <small class="help-block">* Required field</small>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Email Contact</label>
+        <%= email_input f, :email, class: "form-control", placeholder: "e.g. owner@example.com" %>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <%= telephone_input f, :phone, class: "form-control", placeholder: "e.g. 555-555-1234"  %>
+      </div>
+
+      <div class="form-group">
+        <label>Homepage</label>
+        <%= url_input f, :url, class: "form-control", placeholder: "e.g. http://www.bostoncrossfit.com"  %>
+      </div>
+
+      <div class="form-group">
+        <label>Hours</label>
+        <%= text_input f, :hours, class: "form-control", placeholder: "e.g. 9a-5p Mon-Fri, 10a-2p Sat-Sun" %>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <%= text_input f, :description, class: "form-control", placeholder: "e.g. The premier Crossfit box in Boston" %>
+      </div>
+    </div>
+  </div>
+
+  <h3>Location</h3>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label>Street Name</label>
+        <%= text_input f, :street, class: "form-control", placeholder: "e.g. 1 Main St" %>
+      </div>
+
+      <div class="form-group">
+        <label>City</label>
+        <%= text_input f, :city, class: "form-control", placeholder: "e.g. Boston" %>
+      </div>
+
+      <div class="form-group">
+        <label>State / Province</label>
+        <%= text_input f, :state, class: "form-control", placeholder: "e.g. MA" %>
+      </div>
+
+      <div class="form-group">
+        <label>Zip Code</label>
+        <%= text_input f, :zip, class: "form-control", placeholder: "e.g. 02111" %>
+      </div>
+
+      <div class="form-group">
+        <label>Country Code</label>
+        <%= text_input f, :country, class: "form-control", placeholder: "e.g. US", value: "US" %>
+      </div>
+
+      <div class="form-group">
+        <label>Google Place ID (find yours <a href="https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder" target="_blank">here</a>)</label>
+        <%= text_input f, :google_place_id, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <h3>Staff and facility</h3>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Size (sq. ft)</label>
+        <%= number_input f, :size, class: "form-control", min: 0, max: 100000, step: 1, placeholder: "e.g. 20000" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label># Trainers</label>
+        <%= number_input f, :coaches, class: "form-control", min: 0, max: 500, step: 1, placeholder: "20" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Avg. Class Size</label>
+        <%= number_input f, :class_size, class: "form-control", min: 0, max: 500, step: 1, placeholder: "20" %>
+      </div>
+    </div>
+  </div>
+
+  <h2>Strengh equipment</h2>
+
+  <h3>Bars and plates</h3>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Barbells</label>
+        <%= number_input f, :barbells, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Trap Bars</label>
+        <%= number_input f, :trap_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "2" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Safety Squat Bars</label>
+        <%= number_input f, :safety_squat_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Log Bars</label>
+        <%= number_input f, :log_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Bandbell Bars</label>
+        <%= number_input f, :bandbell_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Camber Bars</label>
+        <%= number_input f, :camber_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
+      </div>
+    </div>
+  </div>
+
+  <h3>Racks and Rigs</h3>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Power Racks</label>
+        <%= number_input f, :power_racks, class: "form-control", min: 0, max: 500, step: 1, placeholder: "3" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Squat Racks</label>
+        <%= number_input f, :squat_racks, class: "form-control", min: 0, max: 500, step: 1, placeholder: "3" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Pull Up Rigs</label>
+        <%= number_input f, :pull_up_rigs, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Monolifts</label>
+        <%= number_input f, :monolifts, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
+      </div>
+    </div>
+  </div>
+
+  <h3>Strength training</h3>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Benches</label>
+        <%= number_input f, :benches, class: "form-control", min: 0, max: 500, step: 1, placeholder: "3" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Olympic Platforms</label>
+        <%= number_input f, :platforms, class: "form-control", min: 0, max: 500, step: 1, placeholder: "3" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>GHDs (Glute Ham)</label>
+        <%= number_input f, :ghds, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Reverse Hypers</label>
+        <%= number_input f, :reverse_hypers, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
+      </div>
+    </div>
+  </div>
+
+  <h3>Accessories</h3>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Bands</label>
+        <%= number_input f, :bands, class: "form-control", min: 0, max: 500, step: 1, placeholder: "10" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Chains</label>
+        <%= number_input f, :chains, class: "form-control", min: 0, max: 500, step: 1, placeholder: "4" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Jerk Blocks</label>
+        <%= number_input f, :jerk_blocks, class: "form-control", min: 0, max: 500, step: 1, placeholder: "8" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Bench Boards</label>
+        <%= number_input f, :bench_press_boards, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Bumper Plates</label>
+        <%= number_input f, :bumper_plates, class: "form-control", min: 0, max: 500, step: 1, placeholder: "100" %>
+        <small class="help-block">Highest plate weight</small>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <%= checkbox f, :gym_chalk %> Gym Chalk?
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Conditioning</h2>
+
+  <h3>Strength equipment</h3>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Kettlebells</label>
+        <%= number_input f, :kettlebells, class: "form-control", min: 0, max: 500, step: 1, placeholder: "150" %>
+        <small class="help-block">Heaviest weight in lbs.</small>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Dumbbells</label>
+        <%= number_input f, :dumbbells, class: "form-control", min: 0, max: 500, step: 1, placeholder: "150" %>
+        <small class="help-block">Heaviest weight in lbs.</small>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Sleds</label>
+        <%= number_input f, :kettlebells, class: "form-control", min: 0, max: 500, step: 1, placeholder: "2" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Medicine Balls</label>
+        <%= number_input f, :medicine_balls, class: "form-control", min: 0, max: 500, step: 1, placeholder: "10" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Slam Balls</label>
+        <%= number_input f, :slam_balls, class: "form-control", min: 0, max: 500, step: 1, placeholder: "10" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Sand Bags</label>
+        <%= number_input f, :sand_bags, class: "form-control", min: 0, max: 500, step: 1, placeholder: "3" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Tires</label>
+        <%= number_input f, :tires, class: "form-control", min: 0, max: 500, step: 1, placeholder: "2" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Plyo / Jump Boxes</label>
+        <%= number_input f, :plyo_boxes, class: "form-control", min: 0, max: 500, step: 1, placeholder: "10" %>
+      </div>
+    </div>
+  </div>
+
+  <h3>Endurance</h3>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Rowers</label>
+        <%= number_input f, :rowers, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Ergs</label>
+        <%= number_input f, :ergs, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Stationary Bicycles</label>
+        <%= number_input f, :bikes, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Jump Ropes</label>
+        <%= number_input f, :jump_ropes, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Treadmills</label>
+        <%= number_input f, :treadmills, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Ellipticals</label>
+        <%= number_input f, :ellipticals, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Stair Climbers</label>
+        <%= number_input f, :stair_climbers, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5" %>
+      </div>
+    </div>
+  </div>
+
+  <h2>Misc Equipment</h2>
+
   <div class="form-group">
-    <label>Name</label>
-    <%= text_input f, :name, class: "form-control", required: true %>
+    <div class="checkbox">
+      <label>
+        <%= checkbox f, :agility %> Agility (e.g. cones, ladders, hurdles, etc.)?
+      </label>
+    </div>
   </div>
 
   <div class="form-group">
-    <label>Display Address</label>
-    <%= text_input f, :address, class: "form-control", required: true %>
+    <div class="checkbox">
+      <label>
+        <%= checkbox f, :bodyweight %> Bodyweight (e.g. abmats, weighted vests, dip bars, etc.)?
+      </label>
+    </div>
   </div>
 
   <div class="form-group">
-    <label>Latitude</label>
-    <%= text_input f, :latitude, class: "form-control", required: true %>
+    <div class="checkbox">
+      <label>
+        <%= checkbox f, :boxing_mma %> Boxing / MMA (e.g. ring, gloves, protection, heavy bags, speed bags)?
+      </label>
+    </div>
   </div>
 
   <div class="form-group">
-    <label>Longitude</label>
-    <%= text_input f, :longitude, class: "form-control", required: true %>
+    <div class="checkbox">
+      <label>
+        <%= checkbox f, :climbing %> Climbing (e.g. ropes, rock wall, bouldering)?
+      </label>
+    </div>
   </div>
 
   <div class="form-group">
-    <label>Street Name</label>
-    <%= text_input f, :street, class: "form-control" %>
+    <div class="checkbox">
+      <label>
+        <%= checkbox f, :gymnastic %> Gymnastic (e.g. rings, parallettes)?
+      </label>
+    </div>
   </div>
 
-  <div class="form-group">
-    <label>City</label>
-    <%= text_input f, :city, class: "form-control" %>
-  </div>
+  <h3>Strongman</h3>
 
-  <div class="form-group">
-    <label>State / Province</label>
-    <%= text_input f, :state, class: "form-control" %>
-  </div>
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Kegs</label>
+        <%= number_input f, :kegs, class: "form-control", min: 0, max: 500, step: 1, placeholder: "50" %>
+        <small class="help-block">Heaviest weight in lbs.</small>
+      </div>
+    </div>
 
-  <div class="form-group">
-    <label>Zip Code</label>
-    <%= text_input f, :zip, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Country Code</label>
-    <%= text_input f, :country, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Email Contact</label>
-    <%= text_input f, :email, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Phone Number</label>
-    <%= text_input f, :phone, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Homepage</label>
-    <%= text_input f, :url, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Hours</label>
-    <%= text_input f, :hours, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Description</label>
-    <%= text_input f, :description, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <label>Google Place ID</label>
-    <%= text_input f, :google_place_id, class: "form-control" %>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Atlas Stones</label>
+        <%= number_input f, :atlas_stones, class: "form-control", min: 0, max: 500, step: 1, placeholder: "200" %>
+        <small class="help-block">Heaviest weight in lbs.</small>
+      </div>
+    </div>
   </div>
 
   <div class="form-group">
