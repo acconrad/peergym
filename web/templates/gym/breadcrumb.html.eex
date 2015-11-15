@@ -25,26 +25,13 @@
 
   <%= if @city do %>
   <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-    <%= if @type do %>
+    <%= if @name do %>
       <a href="#" itemprop="url">
         <span itemprop="title"><%= @city %></span>
       </a>
       <span class="separator">›</span>
     <% else %>
       <%= @city %> Gyms
-    <% end %>
-  </li>
-  <% end %>
-
-  <%= if @type do %>
-  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-    <%= if @name do %>
-      <a href="#" itemprop="url">
-        <span itemprop="title"><%= @city %> <%= @type %> Gyms</span>
-      </a>
-      <span class="separator">›</span>
-    <% else %>
-      <%= @city %> <%= @type %> Gyms
     <% end %>
   </li>
   <% end %>

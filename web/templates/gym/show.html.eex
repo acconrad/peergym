@@ -1,4 +1,4 @@
-<%= render "breadcrumb.html", state: @gym.state, city: @gym.city, type: "CrossFit", name: @gym.name %>
+<%= render "breadcrumb.html", state: @gym.state, city: @gym.city, name: @gym.name %>
 
 <h1><%= @gym.name %></h1>
 <%# link "Claim your free pass", to: gym_payment_path(@conn, :new, @gym.id), class: "btn btn-lg btn-primary pull-right" %>
