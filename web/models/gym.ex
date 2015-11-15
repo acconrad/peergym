@@ -21,6 +21,11 @@ defmodule Peergym.Gym do
     field :coaches, :integer
     field :class_size, :integer
 
+    # prices
+    field :day_rate, :float
+    field :monthly_rate, :float
+    field :annual_rate, :float
+
     # bars and plates
     field :barbells, :integer
     field :trap_bars, :integer
