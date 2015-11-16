@@ -39,7 +39,7 @@ defmodule Peergym.GymControllerTest do
   test "shows the form for a new gym if you are an admin", %{conn: conn} do
     conn = post conn, session_path(conn, :create), session: admin_user
     conn = get conn, gym_path(conn, :new)
-    assert html_response(conn, 200) =~ "Add a Gym"
+    assert html_response(conn, 200) =~ "Add your gym to our network"
   end
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
@@ -52,12 +52,12 @@ defmodule Peergym.GymControllerTest do
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
     conn = post conn, session_path(conn, :create), session: admin_user
     conn = post conn, gym_path(conn, :create), gym: @invalid_attrs
-    assert html_response(conn, 200) =~ "Add a Gym"
+    assert html_response(conn, 200) =~ "Add your gym to our network"
   end
 
   test "shows chosen resource", %{conn: conn} do
     gym = create(:gym)
-    conn = get conn, gym_path(conn, :show, gym)
+    conn = get conn, gym_path(conn, :show, gym.name |> String.downcase |> String.replace(" ", "-"))
     assert html_response(conn, 200) =~ gym.name
   end
 
@@ -65,7 +65,7 @@ defmodule Peergym.GymControllerTest do
     conn = post conn, session_path(conn, :create), session: admin_user
     gym = create(:gym)
     conn = get conn, gym_path(conn, :edit, gym)
-    assert html_response(conn, 200) =~ "Edit your gym"
+    assert html_response(conn, 200) =~ "Edit #{gym.name}"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
@@ -80,7 +80,7 @@ defmodule Peergym.GymControllerTest do
     conn = post conn, session_path(conn, :create), session: admin_user
     gym = create(:gym)
     conn = put conn, gym_path(conn, :update, gym), gym: @invalid_attrs
-    assert html_response(conn, 200) =~ "Edit your gym"
+    assert html_response(conn, 200) =~ "Edit #{gym.name}"
   end
 
   test "deletes chosen resource", %{conn: conn} do

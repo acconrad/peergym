@@ -21,7 +21,8 @@ defmodule Peergym.GymController do
         page_number: gyms.page_number,
         total_pages: gyms.total_pages
     else
-      redirect(to: gym_path(conn, :index))
+      conn
+      |> redirect(to: gym_path(conn, :index))
     end
   end
 
@@ -159,7 +160,7 @@ defmodule Peergym.GymController do
 
   defp crossfit_gyms do
     from g in Gym,
-      where: ilike(g.name, "crossfit%")
+      where: ilike(g.name, "crossfit%"),
       select: g
   end
 
