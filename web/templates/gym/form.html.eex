@@ -184,42 +184,51 @@
   <h3>Bars and plates</h3>
 
   <div class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <div class="form-group">
-        <label>Barbells</label>
+        <label>Barbells (20kg)</label>
         <%= number_input f, :barbells, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5" %>
       </div>
     </div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Women's Barbells (15kg)</label>
+        <%= number_input f, :womens_barbells, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5" %>
+      </div>
+    </div>
+
+    <div class="col-sm-3">
       <div class="form-group">
         <label>Trap Bars</label>
         <%= number_input f, :trap_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "2" %>
       </div>
     </div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <div class="form-group">
         <label>Safety Squat Bars</label>
         <%= number_input f, :safety_squat_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
       </div>
     </div>
+  </div>
 
-    <div class="col-sm-2">
+  <div class="row">
+    <div class="col-sm-3">
       <div class="form-group">
         <label>Log Bars</label>
         <%= number_input f, :log_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
       </div>
     </div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <div class="form-group">
         <label>Bandbell Bars</label>
         <%= number_input f, :bandbell_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
       </div>
     </div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <div class="form-group">
         <label>Camber Bars</label>
         <%= number_input f, :camber_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
@@ -365,7 +374,7 @@
     <div class="col-sm-2">
       <div class="form-group">
         <label>Sleds</label>
-        <%= number_input f, :kettlebells, class: "form-control", min: 0, max: 500, step: 1, placeholder: "2" %>
+        <%= number_input f, :sleds, class: "form-control", min: 0, max: 500, step: 1, placeholder: "2" %>
       </div>
     </div>
 
@@ -524,6 +533,11 @@
       </div>
     </div>
   </div>
+
+  <h4>Other</h4>
+  <p>Last chance! Any other equipment we haven't thought of? Enter it here:</p>
+  <%= text_input f, :other, class: "form-control", placeholder: "e.g. Texas bar, Football bar" %>
+  <br>
 
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>

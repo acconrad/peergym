@@ -74,7 +74,8 @@
       <h5>Bars and Plates</h5>
 
       <ul class="list-unstyled">
-        <li><strong>Barbells:</strong> <%= format_amenity @gym.barbells %></li>
+        <li><strong>Barbells (20kg):</strong> <%= format_amenity @gym.barbells %></li>
+        <li><strong>Women's Barbells (15kg):</strong> <%= format_amenity @gym.womens_barbells %></li>
         <li><strong>Trap Bars:</strong> <%= format_amenity @gym.trap_bars %></li>
         <li><strong>Safety Squat Bars:</strong> <%= format_amenity @gym.safety_squat_bars %></li>
         <li><strong>Log Bars:</strong> <%= format_amenity @gym.log_bars %></li>
@@ -103,7 +104,7 @@
     <div class="col-md-4">
       <h5>General Conditioning</h5>
       <ul class="list-unstyled">
-        <li><strong>Sleds:</strong> <%= format_amenity @gym.barbells %></li>
+        <li><strong>Sleds:</strong> <%= format_amenity @gym.sleds %></li>
         <li><strong>Jump Ropes:</strong> <%= format_amenity @gym.jump_ropes %></li>
       </ul>
     </div>
@@ -142,6 +143,11 @@
     <li><strong>Strongman Atlas Stones:</strong> <%= format_max_amenity @gym.atlas_stones %></li>
     <li><strong>Strongman Kegs:</strong> <%= format_max_amenity @gym.kegs %></li>
   </ul>
+
+  <%= if @gym.other do %>
+    <h5>Misc Equipment</h5>
+    <p><%= @gym.other %></p>
+  <% end %>
 
   <%= if logged_in?(@conn) && current_user(@conn).admin do %>
     <div class="well well-sm">
