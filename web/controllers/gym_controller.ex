@@ -65,8 +65,14 @@ defmodule Peergym.GymController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    gym = Repo.get(Gym, id)
+  def show(conn, %{"id" => slug}) do
+    name_slug = slug
+    |> String.replace("-", " ")
+
+    query = from gym in Gym,
+      where: fragment("lower(?)", gym.name) == ^name_slug,
+      select: gym
+    gym = Repo.one!(query)
 
     if gym do
       render(conn, "show.html", gym: gym)
