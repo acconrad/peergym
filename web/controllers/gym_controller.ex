@@ -10,6 +10,21 @@ defmodule Peergym.GymController do
       redirect_to: "/"
     ] when action in [:new, :edit, :create, :update, :delete]
 
+  def index(conn, %{"slug" => slug}) do
+    slug_keywords = String.split(slug, "-")
+
+    if List.last(slug_keywords) == "gyms" do
+      query = filter_gyms(conn, slug_keywords)
+      gyms = Repo.paginate(query)
+      render conn, "landing-page.html",
+        gyms: gyms.entries,
+        page_number: gyms.page_number,
+        total_pages: gyms.total_pages
+    else
+      redirect(to: gym_path(conn, :index))
+    end
+  end
+
   def index(conn, params) do
     delta = 0.0724146667
     if params["search"] do
@@ -19,6 +34,7 @@ defmodule Peergym.GymController do
       city = params["search"]["city"]
       state = params["search"]["state"]
     else
+      # TODO: geolocate to persons IP
       # Boston as the default
       curr_lat = 42.3600825
       curr_lng = -71.0588801
@@ -110,5 +126,58 @@ defmodule Peergym.GymController do
     conn
     |> put_flash(:info, "Gym deleted successfully.")
     |> redirect(to: gym_path(conn, :index))
+  end
+
+  defp gyms_by_city(city) do
+    from g in Gym,
+      where: g.city == ^city,
+      select: g
+  end
+
+  defp gyms_by_state(state) do
+    from g in Gym,
+      where: g.state == ^state,
+      select: g
+  end
+
+  defp strongman_gyms do
+    from g in Gym,
+      where: g.atlas_stones > 1 or g.log_bars > 1 or g.kegs > 1,
+      select: g
+  end
+
+  defp weightlifting_gyms do
+    from g in Gym,
+      where: g.platforms > 1 and g.jerk_blocks > 1 and g.bumper_plates > 1,
+      select: g
+  end
+
+  defp powerlifting_gyms do
+    from g in Gym,
+      select: g
+  end
+
+  defp crossfit_gyms do
+    from g in Gym,
+      where: ilike(g.name, "crossfit%")
+      select: g
+  end
+
+  defp gyms_by_type(type) do
+    case type do
+      "crossfit" -> crossfit_gyms
+      "strongman" -> strongman_gyms
+      "powerlifting" -> powerlifting_gyms
+      "weightlifting" -> weightlifting_gyms
+      "olympic-lifting" -> weightlifting_gyms
+    end
+  end
+
+  defp filter_gyms(conn, slug_keywords) do
+    # /TYPE-gyms
+    # /STATE-gyms
+    # /STATE-TYPE-gyms
+    # /CITY-gyms
+    # /CITY-TYPE-gyms
   end
 end
