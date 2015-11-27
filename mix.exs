@@ -39,6 +39,7 @@ defmodule Peergym.Mixfile do
      {:poison, "~> 1.5"},
      {:ex_machina, "~> 0.4"},
      {:scrivener, "~> 1.1.0"},
-     {:number, "~> 0.4.0"}]
+     {:number, "~> 0.4.0"},
+     {:credo, "~> 0.1.9", only: [:dev, :test]}]
   end
 end
