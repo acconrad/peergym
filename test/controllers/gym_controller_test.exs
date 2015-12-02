@@ -23,7 +23,7 @@ defmodule Peergym.GymControllerTest do
 
   setup do
     conn = conn()
-  {:ok, conn: conn}
+    {:ok, conn: conn}
   end
 
   test "lists all entries on index", %{conn: conn} do
@@ -91,7 +91,7 @@ defmodule Peergym.GymControllerTest do
     refute Repo.get(Gym, gym.id)
   end
 
-  def admin_user do
+  defp admin_user do
     {:ok, user} = Peergym.Registration.create(User.changeset(%User{}, %{
       password: "test1234",
       email: "test@test.com"}), Peergym.Repo)

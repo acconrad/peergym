@@ -6,6 +6,7 @@ defmodule Peergym.User do
     field :crypted_password, :string
     field :password, :string, virtual: true
     field :admin, :boolean
+    has_many :reviews, Peergym.Review
 
     timestamps
   end

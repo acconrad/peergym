@@ -16,6 +16,8 @@ $large: 992px;
 $xlarge: 1200px;
 $layer-1: 0 2px 5px rgba(0, 0, 0, .45);
 
+* { box-sizing: border-box }
+
 body {
   font-family: $base-font;
   font-size: 18px;
@@ -96,6 +98,14 @@ footer {
   &:empty { display: none; }
 }
 
+.gym.show {
+  background-color: #eee;
+
+  .container section {
+    margin-bottom: 20px;
+  }
+}
+
 .payment.new {
   background: $gradient;
   height: 100vh;
@@ -148,16 +158,18 @@ footer {
   background-size: cover;
   color: #fff;
   min-height: 200px;
-  margin-bottom: 20px;
   margin-top: -20px;
   padding-top: 20px;
   position: relative;
 
-  h1 {
+  .vitals {
     bottom: 20px;
+    position: absolute;
+  }
+
+  h1 {
     font-weight: 300;
     letter-spacing: 1px;
-    position: absolute;
   }
 
   a {
@@ -221,7 +233,7 @@ footer {
   padding: 50px 0;
 }
 
-.navbar-form {
+.navbar {
   .form-gym-location {
     @media screen and (min-width: $medium) {
       min-width: 500px;
@@ -233,23 +245,41 @@ footer {
   }
 }
 
-.card-connected {
-  display: inline-block;
-  position: relative;
-  z-index: 10;
+.navbar-gym {
+  font-size: 14px;
 
-  &:not(:first-of-type) {
-    margin-left: -5px;
+  .btn {
+    margin-right: 15px;
+    padding: 6px 12px;
+
+    .navbar-right & {
+      margin-left: 15px;
+      margin-right: 0;
+    }
+
+    &.btn-primary {
+      color: #fff;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+        color: #fff;
+      }
+    }
+
+    &.inverse {
+      border-width: 1px;
+      color: $primary-color;
+
+      &:hover {
+        background-color: transparent;
+        color: $primary-color;
+
+        i::before {
+          content: "\f164";
+        }
+      }
+    }
   }
-
-  &.card-connected-highlight {
-    padding: 20px 40px 40px;
-    z-index: 20;
-  }
-}
-
-.rates {
-  margin-bottom: 20px;
 }
 
 .gym-rate {

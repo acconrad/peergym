@@ -1,6 +1,7 @@
 defmodule Peergym.GymController do
   use Peergym.Web, :controller
   alias Peergym.Gym
+  alias Peergym.Review
   import Passport.AuthenticationPlug
 
   plug :scrub_params, "gym" when action in [:create, :update]
@@ -89,10 +90,18 @@ defmodule Peergym.GymController do
     query = from gym in Gym,
       where: fragment("lower(?)", gym.name) == ^name_slug,
       select: gym
+
     gym = Repo.one!(query)
+    |> Repo.preload(:reviews)
+
+    review_query = from review in Review,
+      where: review.gym_id == ^gym.id,
+      select: count(review.id)
+
+    reviews_count = Repo.one!(review_query)
 
     if gym do
-      render(conn, "show.html", gym: gym)
+      render(conn, "show.html", gym: gym, reviews_count: reviews_count)
     else
       conn
       |> redirect(to: gym_path(conn, :new, name: conn.query_string))

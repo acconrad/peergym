@@ -5137,6 +5137,10 @@ button.close {
     display: none !important; } }
 
 /* line 19, stdin */
+* {
+  box-sizing: border-box; }
+
+/* line 21, stdin */
 body {
   font-family: -apple-system, ".SFNSText-Regular", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
   font-size: 18px;
@@ -5149,38 +5153,38 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -moz-font-feature-settings: "liga" on; }
 
-/* line 32, stdin */
+/* line 34, stdin */
 h1, h2, h3, h4, h5, h6 {
   font-family: -apple-system, ".SFNSDisplay-Bold", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
   font-weight: 700;
   letter-spacing: 0;
   font-style: normal; }
 
-/* line 39, stdin */
+/* line 41, stdin */
 a {
   color: #1a0dab; }
-  /* line 44, stdin */
+  /* line 46, stdin */
   a:hover, a:focus, a:active {
     color: #609; }
 
-/* line 49, stdin */
+/* line 51, stdin */
 footer {
   background-color: #262626;
   color: #a6a6a6;
   font-size: 14px;
   margin-top: 20px;
   padding: 50px 0; }
-  /* line 56, stdin */
+  /* line 58, stdin */
   footer li {
     font-family: -apple-system, ".SFNSDisplay-Bold", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
     font-weight: 700; }
-    /* line 60, stdin */
+    /* line 62, stdin */
     footer li:first-child {
       color: #737373; }
-    /* line 64, stdin */
+    /* line 66, stdin */
     footer li > a {
       color: #a6a6a6; }
-  /* line 69, stdin */
+  /* line 71, stdin */
   footer .footer-links {
     margin-bottom: 20px; }
   @media screen and (min-width: 992px) {
@@ -5188,16 +5192,16 @@ footer {
       background-image: url("/images/footer_pattern.png");
       background-repeat: repeat; } }
 
-/* line 79, stdin */
+/* line 81, stdin */
 .link {
   display: inline-block; }
 
-/* line 83, stdin */
+/* line 85, stdin */
 #map-canvas {
   height: 25rem; }
 
 /* Phoenix flash messages */
-/* line 88, stdin */
+/* line 90, stdin */
 .alert {
   border-radius: 0;
   font-size: 16px;
@@ -5205,53 +5209,60 @@ footer {
   position: absolute;
   top: 50px;
   width: 100%; }
-  /* line 96, stdin */
+  /* line 98, stdin */
   .alert:empty {
     display: none; }
 
-/* line 99, stdin */
+/* line 101, stdin */
+.gym.show {
+  background-color: #eee; }
+  /* line 104, stdin */
+  .gym.show .container section {
+    margin-bottom: 20px; }
+
+/* line 109, stdin */
 .payment.new {
   background: linear-gradient(to top right, #663368, #336666 50%, #99CCCC 100%);
   height: 100vh; }
-  /* line 103, stdin */
+  /* line 113, stdin */
   .payment.new h1 {
     color: #fff;
     padding: 40px 0 60px;
     text-align: center;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
-  /* line 110, stdin */
+  /* line 120, stdin */
   .payment.new .navbar-default {
     display: none; }
-  /* line 114, stdin */
+  /* line 124, stdin */
   .payment.new .card {
     margin-bottom: 40px; }
-  /* line 118, stdin */
+  /* line 128, stdin */
   .payment.new footer {
     color: #fff; }
 
-/* line 123, stdin */
+/* line 133, stdin */
 .ask-payment {
   min-height: 60vh; }
 
-/* line 127, stdin */
+/* line 137, stdin */
 .logo {
   display: inline-block;
   font-size: 36px;
   margin-bottom: 1em; }
-  /* line 132, stdin */
+  /* line 142, stdin */
   .page.index .logo {
     color: #fff; }
 
-/* line 136, stdin */
+/* line 146, stdin */
 .logo-accent {
   color: #663368;
   font-weight: 700; }
 
-/* line 140, stdin */
+/* line 150, stdin */
 .logo-small {
   font-size: 24px; }
 
-/* line 144, stdin */
+/* line 154, stdin */
 .hero {
   background-image: url("/images/background.jpg");
   background-position: 25% center;
@@ -5259,94 +5270,108 @@ footer {
   background-size: cover;
   color: #fff;
   min-height: 200px;
-  margin-bottom: 20px;
   margin-top: -20px;
   padding-top: 20px;
   position: relative; }
-  /* line 156, stdin */
-  .hero h1 {
+  /* line 165, stdin */
+  .hero .vitals {
     bottom: 20px;
-    font-weight: 300;
-    letter-spacing: 1px;
     position: absolute; }
-  /* line 163, stdin */
+  /* line 170, stdin */
+  .hero h1 {
+    font-weight: 300;
+    letter-spacing: 1px; }
+  /* line 175, stdin */
   .hero a {
     color: #fff; }
-  /* line 168, stdin */
+  /* line 180, stdin */
   .hero h1, .hero a {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 173, stdin */
+/* line 185, stdin */
 .bg-primary-gradient {
   background: linear-gradient(to top right, #663368, #336666 50%, #99CCCC 100%);
   color: #fff;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 179, stdin */
+/* line 191, stdin */
 .btn {
   font-weight: 700; }
 
-/* line 184, stdin */
+/* line 196, stdin */
 .btn, .input-lg {
   border-radius: 3px;
   font-family: -apple-system, ".SFNSDisplay-Bold", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif; }
 
-/* line 189, stdin */
+/* line 201, stdin */
 .btn-primary {
   background-color: #663368;
   border-color: #442246;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45); }
-  /* line 196, stdin */
+  /* line 208, stdin */
   .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
     background-color: #442246;
     border-color: #442246; }
-  /* line 201, stdin */
+  /* line 213, stdin */
   .btn-primary.inverse {
     background-color: transparent;
     border-width: 2px;
     box-shadow: none;
     color: #663368; }
 
-/* line 209, stdin */
+/* line 221, stdin */
 .shadow {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 213, stdin */
+/* line 225, stdin */
 .card {
   background-color: #fff;
   border-radius: 3px;
   box-shadow: 0 2px 5px 0 rgba(22, 27, 30, 0.26);
   padding: 10px 20px 20px; }
 
-/* line 220, stdin */
+/* line 232, stdin */
 .repeat-cta {
   padding: 50px 0; }
 
 @media screen and (min-width: 768px) {
-  .navbar-form .form-gym-location {
+  .navbar .form-gym-location {
     min-width: 500px; } }
-/* line 231, stdin */
-.navbar-form .btn-primary {
+/* line 243, stdin */
+.navbar .btn-primary {
   box-shadow: none; }
 
-/* line 236, stdin */
-.card-connected {
-  display: inline-block;
-  position: relative;
-  z-index: 10; }
-  /* line 241, stdin */
-  .card-connected:not(:first-of-type) {
-    margin-left: -5px; }
-  /* line 245, stdin */
-  .card-connected.card-connected-highlight {
-    padding: 20px 40px 40px;
-    z-index: 20; }
+/* line 248, stdin */
+.navbar-gym {
+  font-size: 14px; }
+  /* line 251, stdin */
+  .navbar-gym .btn {
+    margin-right: 15px;
+    padding: 6px 12px; }
+    /* line 255, stdin */
+    .navbar-right .navbar-gym .btn {
+      margin-left: 15px;
+      margin-right: 0; }
+    /* line 260, stdin */
+    .navbar-gym .btn.btn-primary {
+      color: #fff; }
+      /* line 263, stdin */
+      .navbar-gym .btn.btn-primary:hover {
+        background-color: #442246;
+        color: #fff; }
+    /* line 269, stdin */
+    .navbar-gym .btn.inverse {
+      border-width: 1px;
+      color: #663368; }
+      /* line 273, stdin */
+      .navbar-gym .btn.inverse:hover {
+        background-color: transparent;
+        color: #663368; }
+        /* line 277, stdin */
+        .navbar-gym .btn.inverse:hover i::before {
+          content: "\f164"; }
 
-/* line 251, stdin */
-.rates {
-  margin-bottom: 20px; }
-
-/* line 255, stdin */
+/* line 285, stdin */
 .gym-rate {
   font-size: 30px; }
 

@@ -1125,14 +1125,22 @@ var _depsPhoenixWebStaticJsPhoenix = require("deps/phoenix/web/static/js/phoenix
 
 require("deps/phoenix_html/web/static/js/phoenix_html");
 
-var _peergym = require("./peergym");
+var _map = require("./map");
+
+var _tabs = require("./tabs");
 
 document.addEventListener("DOMContentLoaded", function () {
-  new _peergym.Maps();
+  if (document.getElementById("map-canvas")) {
+    new _map.Maps();
+  }
+
+  if (document.querySelector(".nav-tabs")) {
+    new _tabs.Tabs();
+  }
 });
 });
 
-require.register("web/static/js/peergym", function(exports, require, module) {
+require.register("web/static/js/map", function(exports, require, module) {
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -1151,7 +1159,7 @@ var Maps = (function () {
 
     google.maps.event.addDomListener(window, 'load', this.initializeSearch);
 
-    if (pageFolder.match(/gym index/)) {
+    if (pageFolder.match(/gym index|gym show/)) {
       google.maps.event.addDomListener(window, 'load', this.initializeMap);
     }
   }
@@ -1169,18 +1177,12 @@ var Maps = (function () {
           if (results[0]) {
             map = new google.maps.Map(canvas, {
               center: results[0].geometry.location,
-              zoom: 11,
+              zoom: doc.body.className === 'gym show' ? 16 : 11,
               disableDefaultUI: true,
               draggable: false,
               zoomControl: false,
               scrollwheel: false,
-              disableDoubleClickZoom: true,
-              styles: [{
-                stylers: [{ visibility: 'simplified' }]
-              }, {
-                elementType: 'labels',
-                stylers: [{ visibility: 'off' }]
-              }]
+              disableDoubleClickZoom: true
             });
 
             google.maps.event.addListenerOnce(map, 'bounds_changed', function () {
@@ -1240,6 +1242,37 @@ var Maps = (function () {
 })();
 
 exports.Maps = Maps;
+});
+
+;require.register("web/static/js/tabs", function(exports, require, module) {
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var Tabs = function Tabs() {
+  _classCallCheck(this, Tabs);
+
+  var doc = document,
+      tabs = doc.querySelectorAll('.nav-tabs a');
+
+  Array.prototype.forEach.call(tabs, function (tab) {
+    tab.addEventListener('click', function (event) {
+      Array.prototype.forEach.call(tab.parentNode.parentNode.children, function (listItem) {
+        listItem.classList.remove('active');
+        doc.getElementById(listItem.children[0].dataset.tab).classList.add('hidden');
+      });
+
+      tab.parentNode.classList.add('active');
+      doc.getElementById(tab.dataset.tab).classList.remove('hidden');
+    });
+  });
+};
+
+exports.Tabs = Tabs;
 });
 
 ;require('web/static/js/app');

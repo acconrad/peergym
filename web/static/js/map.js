@@ -4,7 +4,7 @@ export class Maps {
 
     google.maps.event.addDomListener( window, 'load', this.initializeSearch );
 
-    if ( pageFolder.match( /gym index/ ) ) {
+    if ( pageFolder.match( /gym index|gym show/ ) ) {
       google.maps.event.addDomListener( window, 'load', this.initializeMap );
     }
   }
@@ -20,25 +20,12 @@ export class Maps {
         if ( results[0] ) {
           map = new google.maps.Map( canvas, {
             center: results[0].geometry.location
-          , zoom: 11
+          , zoom: doc.body.className === "gym show" ? 16 : 11
           , disableDefaultUI: true
           , draggable: false
           , zoomControl: false
           , scrollwheel: false
           , disableDoubleClickZoom: true
-          , styles: [
-              {
-                stylers: [
-                  { visibility: 'simplified' }
-                ]
-              }
-            , {
-                elementType: 'labels'
-              , stylers: [
-                  { visibility: 'off' }
-                ]
-              }
-            ]
           });
 
           google.maps.event.addListenerOnce( map, 'bounds_changed', () => {

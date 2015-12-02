@@ -27,6 +27,7 @@ defmodule Peergym.Router do
     get "/", GymController, :index
     resources "gyms", GymController do
       resources "payments", PaymentController
+      resources "reviews", ReviewController
     end
     get "/:slug", GymController, :index
   end

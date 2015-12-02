@@ -1,153 +1,208 @@
 <section class="hero">
   <div class="container">
     <%= render "breadcrumb.html", state: @gym.state, city: @gym.city, name: @gym.name %>
-    <h1><%= @gym.name %></h1>
+
+    <div class="vitals">
+      <h1><%= @gym.name %></h1>
+      <%= if @gym.phone do %>
+        <i class="fa fa-mobile-phone"></i> <%= @gym.phone %> <%= if @gym.address || @gym.url || @gym.hours, do: "|" %>
+      <% end %>
+      <%= if @gym.address do %>
+        <i class="fa fa-map-marker"></i> <%= @gym.address %> <%= if @gym.url || @gym.hours, do: "|" %>
+      <% end %>
+      <%= if @gym.url do %>
+        <i class="fa fa-globe"></i> <%= link "Gym website", to: @gym.url %> <%= if @gym.hours, do: "|" %>
+      <% end %>
+      <%= if @gym.hours do %>
+        <i class="fa fa-clock-o"></i> <%= @gym.hours %>
+      <% end %>
+    </div>
   </div>
 </section>
 
-<section class="container">
-  <%= if @gym.phone do %>
-    <i class="fa fa-mobile-phone"></i> <%= @gym.phone %> <%= if @gym.address || @gym.url || @gym.hours, do: "|" %>
-  <% end %>
-  <%= if @gym.address do %>
-    <i class="fa fa-map-marker"></i> <%= @gym.address %> <%= if @gym.url || @gym.hours, do: "|" %>
-  <% end %>
-  <%= if @gym.url do %>
-    <i class="fa fa-globe"></i> <%= link "Gym website", to: @gym.url %> <%= if @gym.hours, do: "|" %>
-  <% end %>
-  <%= if @gym.hours do %>
-    <i class="fa fa-clock-o"></i> <%= @gym.hours %>
-  <% end %>
+<nav class="navbar navbar-default navbar-gym">
+  <div class="container">
+    <ul class="nav navbar-nav">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#amenities">Amenities & Equipment</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#"></a></li>
+    </ul>
 
-  <div class="row">
-    <div class="col-md-6">
-      <h2>About <%= @gym.name %></h2>
-
-      <p class="lead"><%= @gym.description %></p>
-
-      <ul class="list-unstyled">
-        <li><strong>Gym size (sq. ft):</strong> <%= if @gym.size, do: number_to_delimited(@gym.size), else: "N/A" %></li>
-        <li><strong>Coaches and trainers on staff:</strong> <%= if @gym.coaches, do: @gym.coaches, else: "N/A" %></li>
-        <li><strong>Average class size:</strong> <%= if @gym.class_size, do: @gym.class_size, else: "N/A" %></li>
-      </ul>
-    </div>
-    <div class="col-md-6">
-      <h3>Rates</h3>
-
-      <section class="rates">
-        <div class="card card-connected">
-          <strong class="gym-rate"><%= if @gym.day_rate > 0, do: number_to_currency(@gym.day_rate, precision: 0), else: "N/A" %></strong> / day
-        </div>
-        <div class="card card-connected card-connected-highlight">
-          <strong class="gym-rate"><%= if @gym.monthly_rate > 0, do: number_to_currency(@gym.monthly_rate, precision: 0), else: "N/A" %></strong> / mo
-        </div>
-        <div class="card card-connected">
-          <strong class="gym-rate"><%= if @gym.annual_rate > 0, do: number_to_currency(@gym.annual_rate, precision: 0), else: "N/A" %></strong> / yr
-        </div>
-      </section>
-
-      <%# link "Connect with Gym", to: gym_payment_path(@conn, :new, @gym.id), class: "btn btn-lg btn-primary" %>
-    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <!-- <li><%# link raw("<i class="fa fa-thumbs-o-up"></i> I work out here!"), to: gym_review_path(@conn, :new, @gym), class: "btn btn-primary navbar-btn inverse" %></li> -->
+      <li><%= link "Write a review", to: gym_review_path(@conn, :new, @gym), class: "btn btn-primary navbar-btn" %></li>
+    </ul>
   </div>
+</nav>
 
-  <h3>Amenities & equipment</h3>
+<div class="container">
+  <section class="row" id="overview">
+    <div class="col-md-8">
+      <div class="card">
+        <h2>The Basics</h2>
 
-  <div class="row">
-    <div class="col-md-4">
-      <h5>General Strength</h5>
+        <p class="lead"><%= @gym.description %></p>
+
+        <ul class="list-unstyled">
+          <li><strong>Gym size (sq. ft):</strong> <%= if @gym.size, do: number_to_delimited(@gym.size), else: "N/A" %></li>
+          <li><strong>Coaches and trainers on staff:</strong> <%= if @gym.coaches, do: @gym.coaches, else: "N/A" %></li>
+          <li><strong>Average class size:</strong> <%= if @gym.class_size, do: @gym.class_size, else: "N/A" %></li>
+        </ul>
+
+        <h3>Rates</h3>
+
+        <ul class="list-unstyled">
+          <li>
+            <strong class="gym-rate"><%= if @gym.day_rate > 0, do: number_to_currency(@gym.day_rate, precision: 0), else: "N/A" %></strong> / day
+          </li>
+          <li>
+            <strong class="gym-rate"><%= if @gym.monthly_rate > 0, do: number_to_currency(@gym.monthly_rate, precision: 0), else: "N/A" %></strong> / mo
+          </li>
+          <li>
+            <strong class="gym-rate"><%= if @gym.annual_rate > 0, do: number_to_currency(@gym.annual_rate, precision: 0), else: "N/A" %></strong> / yr
+          </li>
+        </ul>
+
+        <%# link "Connect with Gym", to: gym_payment_path(@conn, :new, @gym.id), class: "btn btn-lg btn-primary" %>
+      </div>
+    </div>
+
+    <div class="card gym-item col-md-4" data-latitude="<%= @gym.latitude %>" data-longitude="<%= @gym.longitude %>" data-place-id="<%= @gym.google_place_id %>" id="map-canvas"></div>
+  </section>
+
+  <section class="card" id="amenities">
+    <h2>Amenities & Equipment</h2>
+
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="active"><a data-tab="strength" href="#amenities">Strength</a></li>
+      <li role="presentation"><a data-tab="conditioning" href="#amenities">Conditioning</a></li>
+      <li role="presentation"><a data-tab="sport-specific" href="#amenities">Specialty</a></li>
+      <%= if @gym.other do %>
+      <li role="presentation"><a data-tab="amenities-other" href="#amenities">Misc</a></li>
+      <% end %>
+    </ul>
+
+    <div class="row" id="strength">
+      <div class="col-md-4">
+        <h3>General Strength</h3>
+
+        <ul class="list-unstyled">
+          <li><strong>Dumbbells:</strong> <%= format_max_amenity @gym.dumbbells %></li>
+          <li><strong>Kettlebells:</strong> <%= format_max_amenity @gym.kettlebells %></li>
+          <li><strong>Benches:</strong> <%= format_amenity @gym.benches %></li>
+          <li><strong>GHDs (Glute Ham):</strong> <%= format_amenity @gym.ghds %></li>
+          <li><strong>Reverse Hyper:</strong> <%= format_amenity @gym.reverse_hypers %></li>
+          <li><strong>Platforms:</strong> <%= format_amenity @gym.platforms %></li>
+          <li><strong>Jerk Blocks:</strong> <%= format_amenity @gym.jerk_blocks %></li>
+          <li><strong>Bench Press Boards:</strong> <%= format_amenity @gym.bench_press_boards %></li>
+          <li><strong>Bands:</strong> <%= format_amenity @gym.bands %></li>
+          <li><strong>Chains:</strong> <%= format_amenity @gym.chains %></li>
+        </ul>
+      </div>
+
+      <div class="col-md-4">
+        <h3>Bars and Plates</h3>
+
+        <ul class="list-unstyled">
+          <li><strong>Barbells (20kg):</strong> <%= format_amenity @gym.barbells %></li>
+          <li><strong>Women's Barbells (15kg):</strong> <%= format_amenity @gym.womens_barbells %></li>
+          <li><strong>Trap Bars:</strong> <%= format_amenity @gym.trap_bars %></li>
+          <li><strong>Safety Squat Bars:</strong> <%= format_amenity @gym.safety_squat_bars %></li>
+          <li><strong>Log Bars:</strong> <%= format_amenity @gym.log_bars %></li>
+          <li><strong>Bandbell Bars:</strong> <%= format_amenity @gym.bandbell_bars %></li>
+          <li><strong>Camber Bars:</strong> <%= format_amenity @gym.camber_bars %></li>
+          <li><strong>Bumper Plates:</strong> <%= format_max_amenity @gym.bumper_plates %></li>
+          <li><strong>Gym Chalk Provided?:</strong> <%= format_amenity @gym.gym_chalk %></li>
+        </ul>
+      </div>
+
+      <div class="col-md-4">
+        <h3>Racks and Rigs</h3>
+
+        <ul class="list-unstyled">
+          <li><strong>Squat Racks:</strong> <%= format_amenity @gym.squat_racks %></li>
+          <li><strong>Power Racks:</strong> <%= format_amenity @gym.power_racks %></li>
+          <li><strong>Pull Up Rigs:</strong> <%= format_amenity @gym.pull_up_rigs %></li>
+          <li><strong>Monolifts:</strong> <%= format_amenity @gym.monolifts %></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hidden row" id="conditioning">
+      <div class="col-md-4">
+        <h3>General Conditioning</h3>
+
+        <ul class="list-unstyled">
+          <li><strong>Sleds:</strong> <%= format_amenity @gym.sleds %></li>
+          <li><strong>Jump Ropes:</strong> <%= format_amenity @gym.jump_ropes %></li>
+        </ul>
+      </div>
+
+      <div class="col-md-4">
+        <h3>Endurance</h3>
+
+        <ul class="list-unstyled">
+          <li><strong>Rowers:</strong> <%= format_amenity @gym.rowers %></li>
+          <li><strong>Ergs:</strong> <%= format_amenity @gym.ergs %></li>
+          <li><strong>Bikes:</strong> <%= format_amenity @gym.bikes %></li>
+          <li><strong>Treadmills:</strong> <%= format_amenity @gym.treadmills %></li>
+          <li><strong>Ellipticals:</strong> <%= format_amenity @gym.ellipticals %></li>
+          <li><strong>Stair Climbers:</strong> <%= format_amenity @gym.stair_climbers %></li>
+        </ul>
+      </div>
+
+      <div class="col-md-4">
+        <h3>Accessories</h3>
+
+        <ul class="list-unstyled">
+          <li><strong>Medicine Balls:</strong> <%= format_amenity @gym.medicine_balls %></li>
+          <li><strong>Slam Balls:</strong> <%= format_amenity @gym.slam_balls %></li>
+          <li><strong>Sand Bags:</strong> <%= format_amenity @gym.sand_bags %></li>
+          <li><strong>Plyo Boxes:</strong> <%= format_amenity @gym.plyo_boxes %></li>
+          <li><strong>Tires:</strong> <%= format_amenity @gym.tires %></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hidden" id="sport-specific">
+      <h3>Sport-specific</h3>
 
       <ul class="list-unstyled">
-        <li><strong>Dumbbells:</strong> <%= format_max_amenity @gym.dumbbells %></li>
-        <li><strong>Kettlebells:</strong> <%= format_max_amenity @gym.kettlebells %></li>
-        <li><strong>Benches:</strong> <%= format_amenity @gym.benches %></li>
-        <li><strong>GHDs (Glute Ham):</strong> <%= format_amenity @gym.ghds %></li>
-        <li><strong>Reverse Hyper:</strong> <%= format_amenity @gym.reverse_hypers %></li>
-        <li><strong>Platforms:</strong> <%= format_amenity @gym.platforms %></li>
-        <li><strong>Jerk Blocks:</strong> <%= format_amenity @gym.jerk_blocks %></li>
-        <li><strong>Bench Press Boards:</strong> <%= format_amenity @gym.bench_press_boards %></li>
-        <li><strong>Bands:</strong> <%= format_amenity @gym.bands %></li>
-        <li><strong>Chains:</strong> <%= format_amenity @gym.chains %></li>
+        <li><strong>Agility (e.g. cones, ladders, hurdles, etc.)?</strong> <%= format_amenity @gym.agility %></li>
+        <li><strong>Bodyweight (e.g. abmats, weighted vests, dip bars, etc.)?</strong> <%= format_amenity @gym.bodyweight %></li>
+        <li><strong>Boxing / MMA (e.g. ring, gloves, protection, heavy bags, speed bags)?</strong> <%= format_amenity @gym.boxing_mma %></li>
+        <li><strong>Climbing (e.g. ropes, rock wall, bouldering)?</strong> <%= format_amenity @gym.climbing %></li>
+        <li><strong>Gymnastic (e.g. rings, parallettes)?</strong> <%= format_amenity @gym.gymnastic %></li>
+        <li><strong>Strongman Atlas Stones:</strong> <%= format_max_amenity @gym.atlas_stones %></li>
+        <li><strong>Strongman Kegs:</strong> <%= format_max_amenity @gym.kegs %></li>
       </ul>
     </div>
 
-    <div class="col-md-4">
-      <h5>Bars and Plates</h5>
+    <%= if @gym.other do %>
+      <div class="hidden" id="amenities-other">
+        <p><%= @gym.other %></p>
+      </div>
+    <% end %>
+  </section>
 
-      <ul class="list-unstyled">
-        <li><strong>Barbells (20kg):</strong> <%= format_amenity @gym.barbells %></li>
-        <li><strong>Women's Barbells (15kg):</strong> <%= format_amenity @gym.womens_barbells %></li>
-        <li><strong>Trap Bars:</strong> <%= format_amenity @gym.trap_bars %></li>
-        <li><strong>Safety Squat Bars:</strong> <%= format_amenity @gym.safety_squat_bars %></li>
-        <li><strong>Log Bars:</strong> <%= format_amenity @gym.log_bars %></li>
-        <li><strong>Bandbell Bars:</strong> <%= format_amenity @gym.bandbell_bars %></li>
-        <li><strong>Camber Bars:</strong> <%= format_amenity @gym.camber_bars %></li>
-        <li><strong>Bumper Plates:</strong> <%= format_max_amenity @gym.bumper_plates %></li>
-        <li><strong>Gym Chalk Provided?:</strong> <%= format_amenity @gym.gym_chalk %></li>
+  <section class="card" id="reviews">
+    <h2>Reviews from our community</h2>
+
+    <%= if @reviews_count > 0 do %>
+      <ul class="gym-reviews list-unstyled">
+      <%= for review <- @gym.reviews do %>
+        <li class="gym-review-item">
+          <%= review.rating %> / 5
+
+          <%= review.body %>
+        </li>
+      <% end %>
       </ul>
-    </div>
-
-    <div class="col-md-4">
-      <h5>Racks and Rigs</h5>
-
-      <ul class="list-unstyled">
-        <li><strong>Squat Racks:</strong> <%= format_amenity @gym.squat_racks %></li>
-        <li><strong>Power Racks:</strong> <%= format_amenity @gym.power_racks %></li>
-        <li><strong>Pull Up Rigs:</strong> <%= format_amenity @gym.pull_up_rigs %></li>
-        <li><strong>Monolifts:</strong> <%= format_amenity @gym.monolifts %></li>
-      </ul>
-    </div>
-  </div>
-
-  <hr>
-
-  <div class="row">
-    <div class="col-md-4">
-      <h5>General Conditioning</h5>
-      <ul class="list-unstyled">
-        <li><strong>Sleds:</strong> <%= format_amenity @gym.sleds %></li>
-        <li><strong>Jump Ropes:</strong> <%= format_amenity @gym.jump_ropes %></li>
-      </ul>
-    </div>
-    <div class="col-md-4">
-      <h5>Endurance</h5>
-      <ul class="list-unstyled">
-        <li><strong>Rowers:</strong> <%= format_amenity @gym.rowers %></li>
-        <li><strong>Ergs:</strong> <%= format_amenity @gym.ergs %></li>
-        <li><strong>Bikes:</strong> <%= format_amenity @gym.bikes %></li>
-        <li><strong>Treadmills:</strong> <%= format_amenity @gym.treadmills %></li>
-        <li><strong>Ellipticals:</strong> <%= format_amenity @gym.ellipticals %></li>
-        <li><strong>Stair Climbers:</strong> <%= format_amenity @gym.stair_climbers %></li>
-      </ul>
-    </div>
-    <div class="col-md-4">
-      <h5>Accessories</h5>
-      <ul class="list-unstyled">
-        <li><strong>Medicine Balls:</strong> <%= format_amenity @gym.medicine_balls %></li>
-        <li><strong>Slam Balls:</strong> <%= format_amenity @gym.slam_balls %></li>
-        <li><strong>Sand Bags:</strong> <%= format_amenity @gym.sand_bags %></li>
-        <li><strong>Plyo Boxes:</strong> <%= format_amenity @gym.plyo_boxes %></li>
-        <li><strong>Tires:</strong> <%= format_amenity @gym.tires %></li>
-      </ul>
-    </div>
-  </div>
-
-  <hr>
-
-  <h5>Specialty / Sport Specific</h5>
-  <ul class="list-unstyled">
-    <li><strong>Agility (e.g. cones, ladders, hurdles, etc.)?</strong> <%= format_amenity @gym.agility %></li>
-    <li><strong>Bodyweight (e.g. abmats, weighted vests, dip bars, etc.)?</strong> <%= format_amenity @gym.bodyweight %></li>
-    <li><strong>Boxing / MMA (e.g. ring, gloves, protection, heavy bags, speed bags)?</strong> <%= format_amenity @gym.boxing_mma %></li>
-    <li><strong>Climbing (e.g. ropes, rock wall, bouldering)?</strong> <%= format_amenity @gym.climbing %></li>
-    <li><strong>Gymnastic (e.g. rings, parallettes)?</strong> <%= format_amenity @gym.gymnastic %></li>
-    <li><strong>Strongman Atlas Stones:</strong> <%= format_max_amenity @gym.atlas_stones %></li>
-    <li><strong>Strongman Kegs:</strong> <%= format_max_amenity @gym.kegs %></li>
-  </ul>
-
-  <%= if @gym.other do %>
-    <h5>Misc Equipment</h5>
-    <p><%= @gym.other %></p>
-  <% end %>
+    <% else %>
+      <p>No reviews yet for this gym! <%= link "Write one", to: gym_review_path(@conn, :new, @gym) %>!</p>
+    <% end %>
+  </section>
 
   <%= if logged_in?(@conn) && current_user(@conn).admin do %>
     <div class="well well-sm">
@@ -155,4 +210,4 @@
       <%= link "Edit", to: gym_path(@conn, :edit, @gym.id) %> | <%= link "Delete", to: gym_path(@conn, :delete, @gym.id), method: :delete, data: [confirm: "Are you sure?"] %>
     </div>
   <% end %>
-</section>
+</div>
