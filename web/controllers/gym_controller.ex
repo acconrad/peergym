@@ -3,6 +3,7 @@ defmodule Peergym.GymController do
   alias Peergym.Gym
   alias Peergym.Review
   import Passport.AuthenticationPlug
+  require IEx
 
   plug :scrub_params, "gym" when action in [:create, :update]
   plug :require_admin, [
@@ -51,12 +52,17 @@ defmodule Peergym.GymController do
     max_lat = curr_lat + delta
 
     query = from g in Gym,
-            where: g.latitude >= ^min_lat and g.latitude <= ^max_lat and g.longitude >= ^min_lng and g.longitude <= ^max_lng,
-            select: g
+      where: g.latitude >= ^min_lat and g.latitude <= ^max_lat and g.longitude >= ^min_lng and g.longitude <= ^max_lng,
+      select: g
 
     gyms = Repo.paginate(query)
+
+    sorted_gyms = gyms.entries
+    |> Enum.sort(&(haversine_distance(&1, curr_lat, curr_lng) <= haversine_distance(&2, curr_lat, curr_lng)))
+    |> Enum.map(&(Map.put(&1, :distance, haversine_distance(&1, curr_lat, curr_lng) |> Float.round(1))))
+
     render conn, "index.html",
-      gyms: gyms.entries,
+      gyms: sorted_gyms,
       place: place,
       city: city,
       state: state,
@@ -116,6 +122,8 @@ defmodule Peergym.GymController do
 
   def update(conn, %{"id" => id, "gym" => gym_params}) do
     gym = Repo.get(Gym, id)
+    |> Repo.preload(:reviews)
+
     changeset = Gym.changeset(gym, gym_params)
 
     if changeset.valid? do
@@ -136,6 +144,24 @@ defmodule Peergym.GymController do
     conn
     |> put_flash(:info, "Gym deleted successfully.")
     |> redirect(to: gym_path(conn, :index))
+  end
+
+  defp to_radians(degrees) do
+    degrees * :math.pi/180.0
+  end
+
+  defp haversine_distance(gym, curr_lat, curr_lng) do
+    lat1 = to_radians(gym.latitude)
+    lon1 = to_radians(gym.longitude)
+    lat2 = to_radians(curr_lat)
+    lon2 = to_radians(curr_lng)
+
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+
+    a  = :math.pow(:math.sin(dlat/2),2) + :math.cos(lat1) * :math.cos(lat2) * :math.pow(:math.sin(dlon/2),2)
+    c  = 2 * :math.atan2(:math.sqrt(a),:math.sqrt(1-a))
+    c * 3961.0
   end
 
   defp gyms_by_city(city) do

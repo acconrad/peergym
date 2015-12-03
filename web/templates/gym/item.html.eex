@@ -1,6 +1,10 @@
 <li class="gym-item" data-latitude="<%= @item.latitude %>" data-longitude="<%= @item.longitude %>">
   <h3><%= link @item.name, to: @to_show %></h3>
-  <p><%= @item.address %> / <strong><%= @item.hours %></strong></p>
+  <p>
+    <%= @item.address %><%= if @item.hours do %> / <strong><%= @item.hours %></strong><% end %><br>
+    <%= @item.distance %> mi. away
+  </p>
+
   <%= if @admin do %>
     <div class="well well-sm">
       <strong>Admin:</strong>
