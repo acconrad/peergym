@@ -1257,7 +1257,8 @@ var Tabs = function Tabs() {
   _classCallCheck(this, Tabs);
 
   var doc = document,
-      tabs = doc.querySelectorAll('.nav-tabs a');
+      tabs = doc.querySelectorAll('.nav-tabs a'),
+      dropdowns = doc.querySelectorAll('.dropdown-toggle');
 
   Array.prototype.forEach.call(tabs, function (tab) {
     tab.addEventListener('click', function (event) {
@@ -1268,6 +1269,12 @@ var Tabs = function Tabs() {
 
       tab.parentNode.classList.add('active');
       doc.getElementById(tab.dataset.tab).classList.remove('hidden');
+    });
+  });
+
+  Array.prototype.forEach.call(dropdowns, function (dropdown) {
+    dropdown.addEventListener('click', function (event) {
+      event.target.parentNode.classList.toggle('open');
     });
   });
 };

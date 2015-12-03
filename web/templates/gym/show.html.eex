@@ -2,21 +2,7 @@
   <div class="container">
     <%= render "breadcrumb.html", state: @gym.state, city: @gym.city, name: @gym.name %>
 
-    <div class="vitals">
-      <h1><%= @gym.name %></h1>
-      <%= if @gym.phone do %>
-        <i class="fa fa-mobile-phone"></i> <%= @gym.phone %> <%= if @gym.address || @gym.url || @gym.hours, do: "|" %>
-      <% end %>
-      <%= if @gym.address do %>
-        <i class="fa fa-map-marker"></i> <%= @gym.address %> <%= if @gym.url || @gym.hours, do: "|" %>
-      <% end %>
-      <%= if @gym.url do %>
-        <i class="fa fa-globe"></i> <%= link "Gym website", to: @gym.url %> <%= if @gym.hours, do: "|" %>
-      <% end %>
-      <%= if @gym.hours do %>
-        <i class="fa fa-clock-o"></i> <%= @gym.hours %>
-      <% end %>
-    </div>
+    <h1><%= @gym.name %></h1>
   </div>
 </section>
 
@@ -39,36 +25,55 @@
 <div class="container">
   <section class="row" id="overview">
     <div class="col-md-8">
-      <div class="card">
-        <h2>The Basics</h2>
+      <div class="card card-overview">
+        <h2>Why we like it</h2>
 
-        <p class="lead"><%= @gym.description %></p>
+        <p><%= if @gym.description, do: @gym.description, else: "We haven't checked this place out yet, but we're on it!" %></p>
 
-        <ul class="list-unstyled">
-          <li><strong>Gym size (sq. ft):</strong> <%= if @gym.size, do: number_to_delimited(@gym.size), else: "N/A" %></li>
-          <li><strong>Coaches and trainers on staff:</strong> <%= if @gym.coaches, do: @gym.coaches, else: "N/A" %></li>
-          <li><strong>Average class size:</strong> <%= if @gym.class_size, do: @gym.class_size, else: "N/A" %></li>
-        </ul>
-
-        <h3>Rates</h3>
-
-        <ul class="list-unstyled">
-          <li>
-            <strong class="gym-rate"><%= if @gym.day_rate > 0, do: number_to_currency(@gym.day_rate, precision: 0), else: "N/A" %></strong> / day
-          </li>
-          <li>
-            <strong class="gym-rate"><%= if @gym.monthly_rate > 0, do: number_to_currency(@gym.monthly_rate, precision: 0), else: "N/A" %></strong> / mo
-          </li>
-          <li>
-            <strong class="gym-rate"><%= if @gym.annual_rate > 0, do: number_to_currency(@gym.annual_rate, precision: 0), else: "N/A" %></strong> / yr
-          </li>
-        </ul>
+        <div class="dropdown dropdown-rates">
+          <button class="dropdown-toggle" type="button" id="dropdownRates" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <%= if @gym.day_rate > 0, do: number_to_currency(@gym.day_rate, precision: 0), else: "$ N/A" %> / <small>day</small>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownRates">
+            <li><a href="#"><%= if @gym.monthly_rate > 0, do: number_to_currency(@gym.monthly_rate, precision: 0), else: "$ N/A" %> / <small>mo</small></a></li>
+            <li><a href="#"><%= if @gym.annual_rate > 0, do: number_to_currency(@gym.annual_rate, precision: 0), else: "$ N/A" %> / <small>yr</small></a></li>
+          </ul>
+        </div>
 
         <%# link "Connect with Gym", to: gym_payment_path(@conn, :new, @gym.id), class: "btn btn-lg btn-primary" %>
       </div>
     </div>
 
-    <div class="card gym-item col-md-4" data-latitude="<%= @gym.latitude %>" data-longitude="<%= @gym.longitude %>" data-place-id="<%= @gym.google_place_id %>" id="map-canvas"></div>
+    <div class="card card-vitals col-md-4">
+      <div class="gym-item" data-latitude="<%= @gym.latitude %>" data-longitude="<%= @gym.longitude %>" data-place-id="<%= @gym.google_place_id %>" id="map-canvas"></div>
+
+      <small>
+        <ul class="list-unstyled">
+          <%= if @gym.address do %>
+            <li><i class="fa fa-map-marker"></i> <%= @gym.address %></li>
+          <% end %>
+          <%= if @gym.phone do %>
+            <li><i class="fa fa-mobile-phone"></i> <%= @gym.phone %></li>
+          <% end %>
+          <%= if @gym.url do %>
+            <li><i class="fa fa-globe"></i> <%= link "Gym website", to: @gym.url %></li>
+          <% end %>
+          <%= if @gym.hours do %>
+            <li><i class="fa fa-clock-o"></i> <%= @gym.hours %></li>
+          <% end %>
+          <%= if @gym.size do %>
+            <li><strong>Gym size (sq ft):</strong> <%= number_to_delimited(@gym.size) %></li>
+          <% end %>
+          <%= if @gym.coaches do %>
+            <li><strong>Coaches & trainers:</strong> <%= @gym.coaches %></li>
+          <% end %>
+          <%= if @gym.class_size do %>
+            <li><strong>Avg class size:</strong> <%= @gym.class_size %></li>
+          <% end %>
+        </ul>
+      </small>
+    </div>
   </section>
 
   <section class="card" id="amenities">

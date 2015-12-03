@@ -104,6 +104,14 @@ footer {
   .container section {
     margin-bottom: 20px;
   }
+
+  .gym-item {
+    margin: -10px -20px 20px;
+  }
+
+  .card-vitals ul {
+    margin-bottom: 0;
+  }
 }
 
 .payment.new {
@@ -162,14 +170,11 @@ footer {
   padding-top: 20px;
   position: relative;
 
-  .vitals {
-    bottom: 20px;
-    position: absolute;
-  }
-
   h1 {
+    bottom: 10px;
     font-weight: 300;
     letter-spacing: 1px;
+    position: absolute;
   }
 
   a {
@@ -252,11 +257,6 @@ footer {
     margin-right: 15px;
     padding: 6px 12px;
 
-    .navbar-right & {
-      margin-left: 15px;
-      margin-right: 0;
-    }
-
     &.btn-primary {
       color: #fff;
 
@@ -280,8 +280,27 @@ footer {
       }
     }
   }
+
+  .navbar-right {
+    .btn {
+      margin-left: 15px;
+      margin-right: 0;
+    }
+  }
 }
 
-.gym-rate {
-  font-size: 30px;
+.card-overview {
+  position: relative;
+}
+
+.dropdown-rates {
+  position: absolute;
+  right: 0;
+  top: 20px;
+
+  button {
+    background-color: $accent-color;
+    border: none;
+    color: #fff;
+  }
 }

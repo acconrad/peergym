@@ -5219,50 +5219,56 @@ footer {
   /* line 104, stdin */
   .gym.show .container section {
     margin-bottom: 20px; }
+  /* line 108, stdin */
+  .gym.show .gym-item {
+    margin: -10px -20px 20px; }
+  /* line 112, stdin */
+  .gym.show .card-vitals ul {
+    margin-bottom: 0; }
 
-/* line 109, stdin */
+/* line 117, stdin */
 .payment.new {
   background: linear-gradient(to top right, #663368, #336666 50%, #99CCCC 100%);
   height: 100vh; }
-  /* line 113, stdin */
+  /* line 121, stdin */
   .payment.new h1 {
     color: #fff;
     padding: 40px 0 60px;
     text-align: center;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
-  /* line 120, stdin */
+  /* line 128, stdin */
   .payment.new .navbar-default {
     display: none; }
-  /* line 124, stdin */
+  /* line 132, stdin */
   .payment.new .card {
     margin-bottom: 40px; }
-  /* line 128, stdin */
+  /* line 136, stdin */
   .payment.new footer {
     color: #fff; }
 
-/* line 133, stdin */
+/* line 141, stdin */
 .ask-payment {
   min-height: 60vh; }
 
-/* line 137, stdin */
+/* line 145, stdin */
 .logo {
   display: inline-block;
   font-size: 36px;
   margin-bottom: 1em; }
-  /* line 142, stdin */
+  /* line 150, stdin */
   .page.index .logo {
     color: #fff; }
 
-/* line 146, stdin */
+/* line 154, stdin */
 .logo-accent {
   color: #663368;
   font-weight: 700; }
 
-/* line 150, stdin */
+/* line 158, stdin */
 .logo-small {
   font-size: 24px; }
 
-/* line 154, stdin */
+/* line 162, stdin */
 .hero {
   background-image: url("/images/background.jpg");
   background-position: 25% center;
@@ -5273,85 +5279,79 @@ footer {
   margin-top: -20px;
   padding-top: 20px;
   position: relative; }
-  /* line 165, stdin */
-  .hero .vitals {
-    bottom: 20px;
-    position: absolute; }
-  /* line 170, stdin */
+  /* line 173, stdin */
   .hero h1 {
+    bottom: 10px;
     font-weight: 300;
-    letter-spacing: 1px; }
-  /* line 175, stdin */
+    letter-spacing: 1px;
+    position: absolute; }
+  /* line 180, stdin */
   .hero a {
     color: #fff; }
-  /* line 180, stdin */
+  /* line 185, stdin */
   .hero h1, .hero a {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 185, stdin */
+/* line 190, stdin */
 .bg-primary-gradient {
   background: linear-gradient(to top right, #663368, #336666 50%, #99CCCC 100%);
   color: #fff;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 191, stdin */
+/* line 196, stdin */
 .btn {
   font-weight: 700; }
 
-/* line 196, stdin */
+/* line 201, stdin */
 .btn, .input-lg {
   border-radius: 3px;
   font-family: -apple-system, ".SFNSDisplay-Bold", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif; }
 
-/* line 201, stdin */
+/* line 206, stdin */
 .btn-primary {
   background-color: #663368;
   border-color: #442246;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45); }
-  /* line 208, stdin */
+  /* line 213, stdin */
   .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
     background-color: #442246;
     border-color: #442246; }
-  /* line 213, stdin */
+  /* line 218, stdin */
   .btn-primary.inverse {
     background-color: transparent;
     border-width: 2px;
     box-shadow: none;
     color: #663368; }
 
-/* line 221, stdin */
+/* line 226, stdin */
 .shadow {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 225, stdin */
+/* line 230, stdin */
 .card {
   background-color: #fff;
   border-radius: 3px;
   box-shadow: 0 2px 5px 0 rgba(22, 27, 30, 0.26);
   padding: 10px 20px 20px; }
 
-/* line 232, stdin */
+/* line 237, stdin */
 .repeat-cta {
   padding: 50px 0; }
 
 @media screen and (min-width: 768px) {
   .navbar .form-gym-location {
     min-width: 500px; } }
-/* line 243, stdin */
+/* line 248, stdin */
 .navbar .btn-primary {
   box-shadow: none; }
 
-/* line 248, stdin */
+/* line 253, stdin */
 .navbar-gym {
   font-size: 14px; }
-  /* line 251, stdin */
+  /* line 256, stdin */
   .navbar-gym .btn {
     margin-right: 15px;
     padding: 6px 12px; }
-    /* line 255, stdin */
-    .navbar-right .navbar-gym .btn {
-      margin-left: 15px;
-      margin-right: 0; }
     /* line 260, stdin */
     .navbar-gym .btn.btn-primary {
       color: #fff; }
@@ -5370,10 +5370,25 @@ footer {
         /* line 277, stdin */
         .navbar-gym .btn.inverse:hover i::before {
           content: "\f164"; }
+  /* line 285, stdin */
+  .navbar-gym .navbar-right .btn {
+    margin-left: 15px;
+    margin-right: 0; }
 
-/* line 285, stdin */
-.gym-rate {
-  font-size: 30px; }
+/* line 292, stdin */
+.card-overview {
+  position: relative; }
+
+/* line 296, stdin */
+.dropdown-rates {
+  position: absolute;
+  right: 0;
+  top: 20px; }
+  /* line 301, stdin */
+  .dropdown-rates button {
+    background-color: #99CCCC;
+    border: none;
+    color: #fff; }
 
 
 /*# sourceMappingURL=app.css.map*/
