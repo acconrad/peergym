@@ -32,11 +32,11 @@
 
         <div class="dropdown dropdown-rates">
           <button class="dropdown-toggle" type="button" id="dropdownRates" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <%= if @gym.day_rate > 0, do: number_to_currency(@gym.day_rate, precision: 0), else: "$ N/A" %> / <small>day</small>
+            <%= if @gym.monthly_rate > 0, do: number_to_currency(@gym.monthly_rate, precision: 0), else: "$ N/A" %> / <small>mo</small>
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownRates">
-            <li><a href="#"><%= if @gym.monthly_rate > 0, do: number_to_currency(@gym.monthly_rate, precision: 0), else: "$ N/A" %> / <small>mo</small></a></li>
+            <li><a href="#"><%= if @gym.day_rate > 0, do: number_to_currency(@gym.day_rate, precision: 0), else: "$ N/A" %> / <small>day</small></a></li>
             <li><a href="#"><%= if @gym.annual_rate > 0, do: number_to_currency(@gym.annual_rate, precision: 0), else: "$ N/A" %> / <small>yr</small></a></li>
           </ul>
         </div>
