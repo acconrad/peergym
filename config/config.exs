@@ -24,6 +24,12 @@ config :passport,
   repo: Peergym.Repo,
   user_class: Peergym.User
 
+config :arc,
+  asset_host: "https://d2ohrei45269ks.cloudfront.net",
+  access_key_id: "AKIAI6FVJAFIIQGKITUA",
+  secret_access_key: "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",
+  bucket: "peergym-photos"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

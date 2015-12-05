@@ -100,6 +100,10 @@ defmodule Peergym.GymController do
     gym = Repo.one!(query)
     |> Repo.preload(:reviews)
 
+    # photos = gym.photos
+    # |> String.split(",")
+    # |> Enum.map(&(Avatar.url({&1, gym}))
+
     review_query = from review in Review,
       where: review.gym_id == ^gym.id,
       select: count(review.id)

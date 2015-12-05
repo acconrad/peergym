@@ -1223,7 +1223,7 @@ var Maps = (function () {
               form.querySelector('#search_lng').value = latlng[1];
               form.querySelector('#search_place').value = result.place_id;
               form.querySelector('#search_city').value = result.address_components.filter(function (component) {
-                return component.types[0] === 'locality';
+                return component.types[0].match(/locality/);
               })[0].long_name;
               form.querySelector('#search_state').value = result.address_components.filter(function (component) {
                 return component.types[0] === 'administrative_area_level_1';

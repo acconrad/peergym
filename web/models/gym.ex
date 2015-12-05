@@ -1,5 +1,6 @@
 defmodule Peergym.Gym do
   use Peergym.Web, :model
+  use Arc.Ecto.Model
 
   schema "gyms" do
     field :name, :string
@@ -79,6 +80,7 @@ defmodule Peergym.Gym do
     field :kegs, :integer
     field :atlas_stones, :integer
     field :other, :string
+    field :photos, Peergym.Avatar.Type
 
     has_many :reviews, Peergym.Review
 
@@ -87,6 +89,9 @@ defmodule Peergym.Gym do
 
   @required_fields ~w(name address latitude longitude)
   @optional_fields ~w(reviews street city state zip country email phone url description hours google_place_id size day_rate monthly_rate annual_rate coaches class_size barbells womens_barbells trap_bars safety_squat_bars log_bars bandbell_bars camber_bars bumper_plates gym_chalk squat_racks power_racks pull_up_rigs monolifts benches ghds reverse_hypers platforms bands jerk_blocks bench_press_boards chains tires kegs atlas_stones kettlebells dumbbells sleds medicine_balls slam_balls sand_bags plyo_boxes rowers ergs bikes treadmills ellipticals stair_climbers jump_ropes agility bodyweight boxing_mma climbing gymnastic other)
+
+  @required_file_fields ~w()
+  @optional_file_fields ~w(photos)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -97,6 +102,7 @@ defmodule Peergym.Gym do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    # |> unique_constraint(:google_place_id)
+    |> cast_attachments(params, @required_file_fields, @optional_file_fields)
+    |> unique_constraint(:google_place_id)
   end
 end

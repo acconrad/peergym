@@ -18,7 +18,7 @@ defmodule Peergym.Mixfile do
   def application do
     [mod: {Peergym, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :erlcloud]]
   end
 
   # Specifies which paths to compile per environment
@@ -40,6 +40,8 @@ defmodule Peergym.Mixfile do
      {:ex_machina, "~> 0.4"},
      {:scrivener, "~> 1.1.0"},
      {:number, "~> 0.4.0"},
+     {:arc, "~> 0.1.4"},
+     {:arc_ecto, "~> 0.2.0"},
      {:credo, "~> 0.1.9", only: [:dev, :test]}]
   end
 end
