@@ -62,7 +62,6 @@ defmodule Peergym.Gym do
     field :slam_balls, :integer
     field :sand_bags, :integer
     field :plyo_boxes, :integer
-    field :rowers, :integer
     field :ergs, :integer
     field :bikes, :integer
     field :treadmills, :integer
@@ -88,7 +87,7 @@ defmodule Peergym.Gym do
   end
 
   @required_fields ~w(name address latitude longitude)
-  @optional_fields ~w(reviews street city state zip country email phone url description hours google_place_id size day_rate monthly_rate annual_rate coaches class_size barbells womens_barbells trap_bars safety_squat_bars log_bars bandbell_bars camber_bars bumper_plates gym_chalk squat_racks power_racks pull_up_rigs monolifts benches ghds reverse_hypers platforms bands jerk_blocks bench_press_boards chains tires kegs atlas_stones kettlebells dumbbells sleds medicine_balls slam_balls sand_bags plyo_boxes rowers ergs bikes treadmills ellipticals stair_climbers jump_ropes agility bodyweight boxing_mma climbing gymnastic other)
+  @optional_fields ~w(reviews street city state zip country email phone url description hours google_place_id size day_rate monthly_rate annual_rate coaches class_size barbells womens_barbells trap_bars safety_squat_bars log_bars bandbell_bars camber_bars bumper_plates gym_chalk squat_racks power_racks pull_up_rigs monolifts benches ghds reverse_hypers platforms bands jerk_blocks bench_press_boards chains tires kegs atlas_stones kettlebells dumbbells sleds medicine_balls slam_balls sand_bags plyo_boxes ergs bikes treadmills ellipticals stair_climbers jump_ropes agility bodyweight boxing_mma climbing gymnastic other)
 
   @required_file_fields ~w()
   @optional_file_fields ~w(photos)

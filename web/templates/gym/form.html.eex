@@ -109,9 +109,9 @@
   <div class="row">
     <div class="col-sm-7">
       <div class="form-group">
-        <label>What's the vibe / attitude at your gym?</label>
+        <label>Why would we like your gym?</label>
         <%= textarea f, :description, class: "form-control", id: "body-editor", placeholder: "e.g. The premier Crossfit box in Boston" %>
-        <small class="help-block">Tell us more about what it's like to work out at your gym. Any restrictions? Are walk-ins or drop-ins allowed? What is the management like? Try and be as descriptive as possible.</small>
+        <small class="help-block">Tell us more about what it's like to work out at your gym. What's the vibe / attitude? Any restrictions? Are walk-ins or drop-ins allowed? What is the management like? Try and be as descriptive as possible.</small>
       </div>
     </div>
   </div>
@@ -204,36 +204,6 @@
         <%= number_input f, :trap_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "2" %>
       </div>
     </div>
-
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label>Safety Squat Bars</label>
-        <%= number_input f, :safety_squat_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label>Log Bars</label>
-        <%= number_input f, :log_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
-      </div>
-    </div>
-
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label>Bandbell Bars</label>
-        <%= number_input f, :bandbell_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
-      </div>
-    </div>
-
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label>Camber Bars</label>
-        <%= number_input f, :camber_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
-      </div>
-    </div>
   </div>
 
   <h3>Racks and Rigs</h3>
@@ -259,13 +229,6 @@
         <%= number_input f, :pull_up_rigs, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
       </div>
     </div>
-
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Monolifts</label>
-        <%= number_input f, :monolifts, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
-      </div>
-    </div>
   </div>
 
   <h3>Strength training</h3>
@@ -275,13 +238,6 @@
       <div class="form-group">
         <label>Benches</label>
         <%= number_input f, :benches, class: "form-control", min: 0, max: 500, step: 1, placeholder: "3" %>
-      </div>
-    </div>
-
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Olympic Platforms</label>
-        <%= number_input f, :platforms, class: "form-control", min: 0, max: 500, step: 1, placeholder: "3" %>
       </div>
     </div>
 
@@ -307,35 +263,6 @@
       <div class="form-group">
         <label>Bands</label>
         <%= number_input f, :bands, class: "form-control", min: 0, max: 500, step: 1, placeholder: "10" %>
-      </div>
-    </div>
-
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Chains</label>
-        <%= number_input f, :chains, class: "form-control", min: 0, max: 500, step: 1, placeholder: "4" %>
-      </div>
-    </div>
-
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Jerk Blocks</label>
-        <%= number_input f, :jerk_blocks, class: "form-control", min: 0, max: 500, step: 1, placeholder: "8" %>
-      </div>
-    </div>
-
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Bench Boards</label>
-        <%= number_input f, :bench_press_boards, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5" %>
-      </div>
-    </div>
-
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Bumper Plates</label>
-        <%= number_input f, :bumper_plates, class: "form-control", min: 0, max: 500, step: 1, placeholder: "100" %>
-        <small class="help-block">Highest plate weight</small>
       </div>
     </div>
 
@@ -421,14 +348,7 @@
   <div class="row">
     <div class="col-sm-2">
       <div class="form-group">
-        <label>Rowers</label>
-        <%= number_input f, :rowers, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5" %>
-      </div>
-    </div>
-
-    <div class="col-sm-2">
-      <div class="form-group">
-        <label>Ergs</label>
+        <label>Rowers / Ergs</label>
         <%= number_input f, :ergs, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5" %>
       </div>
     </div>
@@ -514,9 +434,89 @@
     </div>
   </div>
 
+  <h3>Powerlifting</h3>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Safety Squat Bars</label>
+        <%= number_input f, :safety_squat_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Bandbell Bars</label>
+        <%= number_input f, :bandbell_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Camber Bars</label>
+        <%= number_input f, :camber_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Monolifts</label>
+        <%= number_input f, :monolifts, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Bench Boards</label>
+        <%= number_input f, :bench_press_boards, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5" %>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Chains</label>
+        <%= number_input f, :chains, class: "form-control", min: 0, max: 500, step: 1, placeholder: "4" %>
+      </div>
+    </div>
+  </div>
+
+  <h3>Weightlifitng</h3>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Olympic Platforms</label>
+        <%= number_input f, :platforms, class: "form-control", min: 0, max: 500, step: 1, placeholder: "3" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Jerk Blocks</label>
+        <%= number_input f, :jerk_blocks, class: "form-control", min: 0, max: 500, step: 1, placeholder: "8" %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Bumper Plates</label>
+        <%= number_input f, :bumper_plates, class: "form-control", min: 0, max: 500, step: 1, placeholder: "100" %>
+        <small class="help-block">Highest plate weight</small>
+      </div>
+    </div>
+  </div>
+
   <h3>Strongman</h3>
 
   <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Log Bars</label>
+        <%= number_input f, :log_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1" %>
+      </div>
+    </div>
+
     <div class="col-sm-2">
       <div class="form-group">
         <label>Kegs</label>
