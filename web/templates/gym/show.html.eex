@@ -28,7 +28,7 @@
       <div class="card card-overview">
         <h2>Why we like it</h2>
 
-        <p><%= if @gym.description, do: @gym.description, else: "We haven't checked this place out yet, but we're on it!" %></p>
+        <p><%= if @gym.description, do: markdown(@gym.description), else: "We haven't checked this place out yet, but we're on it!" %></p>
 
         <div class="dropdown dropdown-rates">
           <button class="dropdown-toggle" type="button" id="dropdownRates" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

@@ -20,6 +20,12 @@ defmodule Peergym.GymView do
     end
   end
 
+  def markdown(body) do
+    body
+    |> Earmark.to_html
+    |> raw
+  end
+
   def render("meta_description", assigns) do
     case Phoenix.Controller.action_name assigns.conn do
       :indow -> "Discover the best gyms in #{assigns.gym.city}, #{assigns.gym.state} with PeerGym."
@@ -34,6 +40,12 @@ defmodule Peergym.GymView do
       :show -> "#{assigns.gym.name} in (#{assigns.gym.state}) - Gym Reviews"
       _ -> "PeerGym: Discover the best gyms in your area, read reviews, and compare membership rates"
     end
+  end
+
+  def slug(gym) do
+    gym.name
+    |> String.downcase
+    |> String.replace(" ", "-")
   end
 
   def full_state_name(state) do

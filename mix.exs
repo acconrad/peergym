@@ -42,6 +42,7 @@ defmodule Peergym.Mixfile do
      {:number, "~> 0.4.0"},
      {:arc, "~> 0.1.4"},
      {:arc_ecto, "~> 0.2.0"},
-     {:credo, "~> 0.1.9", only: [:dev, :test]}]
+     {:credo, "~> 0.1.9", only: [:dev, :test]},
+     {:earmark, "~> 0.1.19"}]
   end
 end

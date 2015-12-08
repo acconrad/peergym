@@ -7,6 +7,7 @@
   "cowlib": {:hex, :cowlib, "1.0.1"},
   "credo": {:hex, :credo, "0.1.10"},
   "decimal": {:hex, :decimal, "1.1.0"},
+  "earmark": {:hex, :earmark, "0.1.19"},
   "ecto": {:hex, :ecto, "1.0.6"},
   "erlcloud": {:hex, :erlcloud, "0.9.2"},
   "ex_machina": {:hex, :ex_machina, "0.4.0"},

@@ -104,5 +104,31 @@ defmodule Peergym.Gym do
     |> cast(params, @required_fields, @optional_fields)
     |> cast_attachments(params, @required_file_fields, @optional_file_fields)
     |> unique_constraint(:google_place_id)
+    |> strip_unsafe_description(params)
+  end
+
+  defp strip_unsafe_description(model, %{"description" => nil}) do
+    model
+  end
+
+  defp strip_unsafe_body(model, %{"description" => description}) do
+    {:safe, clean_description} = Phoenix.HTML.html_escape(description)
+    model |> put_change(:description, clean_description)
+  end
+
+  defp strip_unsafe_description(model, _) do
+    model
+  end
+
+  defp strip_tags(description) do
+    description
+    |> strip_tag("script")
+    |> strip_tag("iframe")
+    |> strip_tag("link")
+  end
+
+  defp strip_tag(description, tag) do
+    strip_regex = ~r{<#{tag}[^>]*>[^<>]*(</#{tag}>)*}i
+    description |> String.replace(strip_regex, "")
   end
 end

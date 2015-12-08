@@ -110,7 +110,7 @@
     <div class="col-sm-7">
       <div class="form-group">
         <label>What's the vibe / attitude at your gym?</label>
-        <%= textarea f, :description, class: "form-control", placeholder: "e.g. The premier Crossfit box in Boston" %>
+        <%= textarea f, :description, class: "form-control", id: "body-editor", placeholder: "e.g. The premier Crossfit box in Boston" %>
         <small class="help-block">Tell us more about what it's like to work out at your gym. Any restrictions? Are walk-ins or drop-ins allowed? What is the management like? Try and be as descriptive as possible.</small>
       </div>
     </div>
@@ -543,3 +543,7 @@
     <%= submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script>var simplemde = new SimpleMDE();</script>
