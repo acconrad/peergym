@@ -20,6 +20,10 @@ defmodule Peergym.GymView do
     end
   end
 
+  def img_url(gym) do
+    "https://d2ohrei45269ks.cloudfront.net/uploads/gyms/photos/#{gym.id}/#{gym.id}_original_#{gym.photos.file_name}"
+  end
+
   def markdown(body) do
     body
     |> Earmark.to_html

@@ -1,4 +1,4 @@
-<%= form_for @changeset, @action, fn f -> %>
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
   <%= if f.errors != [] do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below:</p>
@@ -45,6 +45,15 @@
     </div>
   </div>
   <small class="help-block">* Required field</small>
+
+  <h3>Photos</h3>
+  <p class="lead">Add photos to show us what your gym looks like.</p>
+  <%= if @gym.photos do %>
+    <img src="<%= img_url(@gym) %>" alt="Here's what it looks like to work out here">
+  <% else %>
+    <p>No photos yet! Click below to add a photo for your gym:</p>
+  <% end %>
+  <%= file_input f, :photos, class: "form-control" %>
 
   <h3>Rates</h3>
   <p class="lead">How much does it cost to work out at your gym?</p>

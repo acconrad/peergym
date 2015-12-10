@@ -26,8 +26,8 @@ config :passport,
 
 config :arc,
   asset_host: "https://d2ohrei45269ks.cloudfront.net",
-  access_key_id: "AKIAI6FVJAFIIQGKITUA",
-  secret_access_key: "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",
+  access_key_id: "AKIAILAEHI3SP2ZZ55ZA",
+  secret_access_key: "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",
   bucket: "peergym-photos"
 
 # Import environment specific config. This must remain at the bottom

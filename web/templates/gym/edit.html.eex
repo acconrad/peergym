@@ -1,5 +1,12 @@
 <h2>Edit <%= @gym.name %></h2>
 <%= link "View Public Page", to: gym_path(@conn, :show, slug(@gym)) %>
+<%= if logged_in?(@conn) && current_user(@conn).admin do %>
+  <div class="well well-sm">
+    <strong>Admin:</strong>
+    <%= link "Delete", to: gym_path(@conn, :delete, @gym.id), method: :delete, data: [confirm: "Are you sure?"] %>
+  </div>
+<% end %>
 
 <%= render "form.html", changeset: @changeset,
-                        action: gym_path(@conn, :update, @gym) %>
+                        action: gym_path(@conn, :update, @gym),
+                        gym: @gym %>
