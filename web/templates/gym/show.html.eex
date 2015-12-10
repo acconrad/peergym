@@ -17,7 +17,7 @@
 
     <ul class="nav navbar-nav navbar-right">
       <!-- <li><%# link raw("<i class="fa fa-thumbs-o-up"></i> I work out here!"), to: gym_review_path(@conn, :new, @gym), class: "btn btn-primary navbar-btn inverse" %></li> -->
-      <li><%= link "Write a review", to: gym_review_path(@conn, :new, @gym), class: "btn btn-primary navbar-btn" %></li>
+      <!-- <li><%# link "Write a review", to: gym_review_path(@conn, :new, @gym), class: "btn btn-primary navbar-btn" %></li> -->
     </ul>
   </div>
 </nav>
@@ -76,7 +76,7 @@
     </div>
   </section>
 
-  <section class="card" id="amenities">
+  <section class="row card" id="amenities">
     <h2>Amenities & Equipment</h2>
 
     <ul class="nav nav-tabs">
@@ -214,23 +214,25 @@
     <% end %>
   </section>
 
-  <section class="card" id="reviews">
-    <h2>Reviews from our community</h2>
+  <%= if logged_in?(@conn) && current_user(@conn).admin do %>
+    <section class="row card" id="reviews">
+      <h2>Reviews from our community</h2>
 
-    <%= if @reviews_count > 0 do %>
-      <ul class="gym-reviews list-unstyled">
-      <%= for review <- @gym.reviews do %>
-        <li class="gym-review-item">
-          <%= review.rating %> / 5
+      <%= if @reviews_count > 0 do %>
+        <ul class="gym-reviews list-unstyled">
+        <%= for review <- @gym.reviews do %>
+          <li class="gym-review-item">
+            <%= review.rating %> / 5
 
-          <%= review.body %>
-        </li>
+            <%= review.body %>
+          </li>
+        <% end %>
+        </ul>
+      <% else %>
+        <p>No reviews yet for this gym! <%= link "Write one", to: gym_review_path(@conn, :new, @gym) %>!</p>
       <% end %>
-      </ul>
-    <% else %>
-      <p>No reviews yet for this gym! <%= link "Write one", to: gym_review_path(@conn, :new, @gym) %>!</p>
-    <% end %>
-  </section>
+    </section>
+  <% end %>
 
   <%= if logged_in?(@conn) && current_user(@conn).admin do %>
     <div class="well well-sm">
