@@ -55,7 +55,7 @@ defmodule Peergym.GymController do
       where: g.latitude >= ^min_lat and g.latitude <= ^max_lat and g.longitude >= ^min_lng and g.longitude <= ^max_lng,
       select: g
 
-    gyms = Repo.paginate(query)
+    gyms = Repo.paginate(query, page: params["page"] || 1, page_size: 10)
 
     sorted_gyms = gyms.entries
     |> Enum.sort(&(haversine_distance(&1, curr_lat, curr_lng) <= haversine_distance(&2, curr_lat, curr_lng)))
