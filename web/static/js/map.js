@@ -22,17 +22,26 @@ export class Maps {
             center: results[0].geometry.location
           , zoom: doc.body.className === "gym show" ? 16 : 11
           , disableDefaultUI: true
-          , draggable: false
-          , zoomControl: false
+          , draggable: true
+          , zoomControl: true
           , scrollwheel: false
           , disableDoubleClickZoom: true
           });
 
           google.maps.event.addListenerOnce( map, 'bounds_changed', () => {
             Array.prototype.forEach.call( document.querySelectorAll( '.gym-item' ), gym => {
-              new google.maps.Marker({
-                map: map
-              , position: { lat: +gym.dataset.latitude , lng: +gym.dataset.longitude } });
+              var marker = new google.maps.Marker({
+                    map: map
+                  , position: { lat: +gym.dataset.latitude , lng: +gym.dataset.longitude } });
+
+              google.maps.event.addListener(marker, 'click', () => {
+                var slug = gym.dataset.slug
+                  , name = slug.replace( /\b\w/g, word => {
+                      return word.toUpperCase();
+                    }).replace( '-', ' ' );
+                infoWindow.setContent( '<a href="/gyms/' + slug + '">' + name + '</a>' );
+                infoWindow.open( map, marker );
+              });
             });
           });
         } else {

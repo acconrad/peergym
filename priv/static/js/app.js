@@ -1179,17 +1179,26 @@ var Maps = (function () {
               center: results[0].geometry.location,
               zoom: doc.body.className === 'gym show' ? 16 : 11,
               disableDefaultUI: true,
-              draggable: false,
-              zoomControl: false,
+              draggable: true,
+              zoomControl: true,
               scrollwheel: false,
               disableDoubleClickZoom: true
             });
 
             google.maps.event.addListenerOnce(map, 'bounds_changed', function () {
               Array.prototype.forEach.call(document.querySelectorAll('.gym-item'), function (gym) {
-                new google.maps.Marker({
+                var marker = new google.maps.Marker({
                   map: map,
                   position: { lat: +gym.dataset.latitude, lng: +gym.dataset.longitude } });
+
+                google.maps.event.addListener(marker, 'click', function () {
+                  var slug = gym.dataset.slug,
+                      name = slug.replace(/\b\w/g, function (word) {
+                    return word.toUpperCase();
+                  }).replace('-', ' ');
+                  infoWindow.setContent('<a href="/gyms/' + slug + '">' + name + '</a>');
+                  infoWindow.open(map, marker);
+                });
               });
             });
           } else {

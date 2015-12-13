@@ -1,4 +1,4 @@
-<li class="gym-item" data-latitude="<%= @item.latitude %>" data-longitude="<%= @item.longitude %>">
+<li class="gym-item" data-latitude="<%= @item.latitude %>" data-longitude="<%= @item.longitude %>" data-slug="<%= slug(@item) %>">
   <h3><%= link @item.name, to: @to_show %></h3>
   <p>
     <%= @item.address %><%= if @item.hours do %> / <strong><%= @item.hours %></strong><% end %><br>
