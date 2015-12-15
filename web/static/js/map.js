@@ -38,7 +38,7 @@ export class Maps {
                 var slug = gym.dataset.slug
                   , name = slug.replace( /\b\w/g, word => {
                       return word.toUpperCase();
-                    }).replace( '-', ' ' );
+                    }).replace( /-/g, ' ' );
                 infoWindow.setContent( '<a href="/gyms/' + slug + '">' + name + '</a>' );
                 infoWindow.open( map, marker );
               });

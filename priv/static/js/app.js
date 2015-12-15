@@ -1195,7 +1195,7 @@ var Maps = (function () {
                   var slug = gym.dataset.slug,
                       name = slug.replace(/\b\w/g, function (word) {
                     return word.toUpperCase();
-                  }).replace('-', ' ');
+                  }).replace(/-/g, ' ');
                   infoWindow.setContent('<a href="/gyms/' + slug + '">' + name + '</a>');
                   infoWindow.open(map, marker);
                 });
