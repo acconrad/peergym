@@ -66,6 +66,8 @@ defmodule Peergym.GymController do
       place: place,
       city: city,
       state: state,
+      lat: curr_lat,
+      lng: curr_lng,
       page_number: gyms.page_number,
       total_pages: gyms.total_pages
   end

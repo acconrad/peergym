@@ -165,15 +165,17 @@ footer {
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
-  min-height: 200px;
+  min-height: 300px;
   margin-top: -20px;
   padding-top: 20px;
   position: relative;
 
   h1 {
+    background-color: rgba(0, 0, 0, 0.67);
     bottom: 10px;
     font-weight: 300;
     letter-spacing: 1px;
+    padding: 3px 5px;
     position: absolute;
   }
 
@@ -184,6 +186,11 @@ footer {
   h1,
   a {
     text-shadow: $default-text-shadow;
+  }
+
+  .breadcrumbs > li {
+    background-color: rgba(0, 0, 0, 0.67);
+    margin-right: -5px;
   }
 }
 

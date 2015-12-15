@@ -5275,116 +5275,122 @@ footer {
   background-repeat: no-repeat;
   background-size: cover;
   color: #fff;
-  min-height: 200px;
+  min-height: 300px;
   margin-top: -20px;
   padding-top: 20px;
   position: relative; }
   /* line 173, stdin */
   .hero h1 {
+    background-color: rgba(0, 0, 0, 0.67);
     bottom: 10px;
     font-weight: 300;
     letter-spacing: 1px;
+    padding: 3px 5px;
     position: absolute; }
-  /* line 180, stdin */
+  /* line 182, stdin */
   .hero a {
     color: #fff; }
-  /* line 185, stdin */
+  /* line 187, stdin */
   .hero h1, .hero a {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
+  /* line 191, stdin */
+  .hero .breadcrumbs > li {
+    background-color: rgba(0, 0, 0, 0.67);
+    margin-right: -5px; }
 
-/* line 190, stdin */
+/* line 197, stdin */
 .bg-primary-gradient {
   background: linear-gradient(to top right, #663368, #336666 50%, #99CCCC 100%);
   color: #fff;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 196, stdin */
+/* line 203, stdin */
 .btn {
   font-weight: 700; }
 
-/* line 201, stdin */
+/* line 208, stdin */
 .btn, .input-lg {
   border-radius: 3px;
   font-family: -apple-system, ".SFNSDisplay-Bold", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif; }
 
-/* line 206, stdin */
+/* line 213, stdin */
 .btn-primary {
   background-color: #663368;
   border-color: #442246;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45); }
-  /* line 213, stdin */
+  /* line 220, stdin */
   .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
     background-color: #442246;
     border-color: #442246; }
-  /* line 218, stdin */
+  /* line 225, stdin */
   .btn-primary.inverse {
     background-color: transparent;
     border-width: 2px;
     box-shadow: none;
     color: #663368; }
 
-/* line 226, stdin */
+/* line 233, stdin */
 .shadow {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 230, stdin */
+/* line 237, stdin */
 .card {
   background-color: #fff;
   border-radius: 3px;
   box-shadow: 0 2px 5px 0 rgba(22, 27, 30, 0.26);
   padding: 10px 20px 20px; }
 
-/* line 237, stdin */
+/* line 244, stdin */
 .repeat-cta {
   padding: 50px 0; }
 
 @media screen and (min-width: 768px) {
   .navbar .form-gym-location {
     min-width: 500px; } }
-/* line 248, stdin */
+/* line 255, stdin */
 .navbar .btn-primary {
   box-shadow: none; }
 
-/* line 253, stdin */
+/* line 260, stdin */
 .navbar-gym {
   font-size: 14px; }
-  /* line 256, stdin */
+  /* line 263, stdin */
   .navbar-gym .btn {
     margin-right: 15px;
     padding: 6px 12px; }
-    /* line 260, stdin */
+    /* line 267, stdin */
     .navbar-gym .btn.btn-primary {
       color: #fff; }
-      /* line 263, stdin */
+      /* line 270, stdin */
       .navbar-gym .btn.btn-primary:hover {
         background-color: #442246;
         color: #fff; }
-    /* line 269, stdin */
+    /* line 276, stdin */
     .navbar-gym .btn.inverse {
       border-width: 1px;
       color: #663368; }
-      /* line 273, stdin */
+      /* line 280, stdin */
       .navbar-gym .btn.inverse:hover {
         background-color: transparent;
         color: #663368; }
-        /* line 277, stdin */
+        /* line 284, stdin */
         .navbar-gym .btn.inverse:hover i::before {
           content: "\f164"; }
-  /* line 285, stdin */
+  /* line 292, stdin */
   .navbar-gym .navbar-right .btn {
     margin-left: 15px;
     margin-right: 0; }
 
-/* line 292, stdin */
+/* line 299, stdin */
 .card-overview {
   position: relative; }
 
-/* line 296, stdin */
+/* line 303, stdin */
 .dropdown-rates {
   position: absolute;
   right: 0;
   top: 20px; }
-  /* line 301, stdin */
+  /* line 308, stdin */
   .dropdown-rates button {
     background-color: #99CCCC;
     border: none;

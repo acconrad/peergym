@@ -1,4 +1,4 @@
-<section class="hero">
+<section class="hero" style="<%= if @gym.photos, do: "background-image: url(#{img_url(@gym)})" %>">
   <div class="container">
     <%= render "breadcrumb.html", state: @gym.state, city: @gym.city, name: @gym.name %>
 
