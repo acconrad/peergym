@@ -48,7 +48,7 @@
 
   <h3>Photos</h3>
   <p class="lead">Add photos to show us what your gym looks like.</p>
-  <%= if @gym.photos do %>
+  <%= if @gym && @gym.photos do %>
     <img src="<%= img_url(@gym) %>" alt="Here's what it looks like to work out here">
   <% else %>
     <p>No photos yet! Click below to add a photo for your gym:</p>
