@@ -50,26 +50,29 @@ defmodule Peergym.GymController do
     max_lng = curr_lng + delta
     min_lat = curr_lat - delta
     max_lat = curr_lat + delta
+    curr_page = String.to_integer(params["page"] || "1")
 
     query = from g in Gym,
       where: g.latitude >= ^min_lat and g.latitude <= ^max_lat and g.longitude >= ^min_lng and g.longitude <= ^max_lng,
       select: g
 
-    gyms = Repo.paginate(query, page: params["page"] || 1, page_size: 10)
-
-    sorted_gyms = gyms.entries
+    gyms = Repo.all(query)
     |> Enum.sort(&(haversine_distance(&1, curr_lat, curr_lng) <= haversine_distance(&2, curr_lat, curr_lng)))
     |> Enum.map(&(Map.put(&1, :distance, haversine_distance(&1, curr_lat, curr_lng) |> Float.round(1))))
+    |> Enum.chunk(10)
+
+    paged_gyms = gyms
+    |> Enum.fetch!(curr_page - 1)
 
     render conn, "index.html",
-      gyms: sorted_gyms,
+      gyms: paged_gyms,
       place: place,
       city: city,
       state: state,
       lat: curr_lat,
       lng: curr_lng,
-      page_number: gyms.page_number,
-      total_pages: gyms.total_pages
+      page_number: curr_page,
+      total_pages: gyms |> Enum.count
   end
 
   def new(conn, _params) do
