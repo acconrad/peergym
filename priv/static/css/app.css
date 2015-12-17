@@ -5344,53 +5344,90 @@ footer {
 .repeat-cta {
   padding: 50px 0; }
 
-@media screen and (min-width: 768px) {
-  .navbar .form-gym-location {
-    min-width: 500px; } }
-/* line 255, stdin */
+/* line 249, stdin */
+.navbar .form-gym-location {
+  min-width: 225px; }
+  @media screen and (min-width: 992px) {
+    .navbar .form-gym-location {
+      min-width: 360px; } }
+  @media screen and (min-width: 1200px) {
+    .navbar .form-gym-location {
+      min-width: 500px; } }
+/* line 261, stdin */
+.navbar .navbar-auth {
+  font-size: 14px; }
+  /* line 264, stdin */
+  .navbar .navbar-auth li > a {
+    padding: 15px 5px; }
+    @media screen and (min-width: 992px) {
+      .navbar .navbar-auth li > a {
+        padding: 15px; } }
+/* line 273, stdin */
 .navbar .btn-primary {
   box-shadow: none; }
 
-/* line 260, stdin */
+/* line 278, stdin */
+.navbar-default .navbar-collapse, .navbar-default .form-gym-search {
+  border: none;
+  margin: -8px -15px; }
+  @media screen and (min-width: 768px) {
+    .navbar-default .navbar-collapse, .navbar-default .form-gym-search {
+      margin: 8px -15px; } }
+
+/* line 288, stdin */
+.mobile-search .form-gym-location {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  display: inline;
+  width: 78%; }
+/* line 295, stdin */
+.mobile-search .btn {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  display: inline;
+  margin-left: -5px;
+  width: 22%; }
+
+/* line 304, stdin */
 .navbar-gym {
   font-size: 14px; }
-  /* line 263, stdin */
+  /* line 307, stdin */
   .navbar-gym .btn {
     margin-right: 15px;
     padding: 6px 12px; }
-    /* line 267, stdin */
+    /* line 311, stdin */
     .navbar-gym .btn.btn-primary {
       color: #fff; }
-      /* line 270, stdin */
+      /* line 314, stdin */
       .navbar-gym .btn.btn-primary:hover {
         background-color: #442246;
         color: #fff; }
-    /* line 276, stdin */
+    /* line 320, stdin */
     .navbar-gym .btn.inverse {
       border-width: 1px;
       color: #663368; }
-      /* line 280, stdin */
+      /* line 324, stdin */
       .navbar-gym .btn.inverse:hover {
         background-color: transparent;
         color: #663368; }
-        /* line 284, stdin */
+        /* line 328, stdin */
         .navbar-gym .btn.inverse:hover i::before {
           content: "\f164"; }
-  /* line 292, stdin */
+  /* line 336, stdin */
   .navbar-gym .navbar-right .btn {
     margin-left: 15px;
     margin-right: 0; }
 
-/* line 299, stdin */
+/* line 343, stdin */
 .card-overview {
   position: relative; }
 
-/* line 303, stdin */
+/* line 347, stdin */
 .dropdown-rates {
   position: absolute;
   right: 0;
   top: 20px; }
-  /* line 308, stdin */
+  /* line 352, stdin */
   .dropdown-rates button {
     background-color: #99CCCC;
     border: none;

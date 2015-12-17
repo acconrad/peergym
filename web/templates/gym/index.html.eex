@@ -1,4 +1,4 @@
-<%= render "breadcrumb.html", state: @state, city: @city, name: nil %>
+<%# render "breadcrumb.html", state: @state, city: @city, name: nil %>
 
 <%= if logged_in?(@conn) && current_user(@conn).admin do %>
   <%= link "Add a Gym »", to: gym_path(@conn, :new), class: "btn btn-lg btn-primary" %>

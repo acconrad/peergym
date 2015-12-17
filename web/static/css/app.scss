@@ -247,13 +247,57 @@ footer {
 
 .navbar {
   .form-gym-location {
-    @media screen and (min-width: $medium) {
+    min-width: 225px;
+
+    @media screen and (min-width: $large) {
+      min-width: 360px;
+    }
+
+    @media screen and (min-width: $xlarge) {
       min-width: 500px;
+    }
+  }
+
+  .navbar-auth {
+    font-size: 14px;
+
+    li > a {
+      padding: 15px 5px;
+
+      @media screen and (min-width: $large) {
+        padding: 15px;
+      }
     }
   }
 
   .btn-primary {
     box-shadow: none;
+  }
+}
+
+.navbar-default .navbar-collapse, .navbar-default .form-gym-search {
+  border: none;
+  margin: -8px -15px;
+
+  @media screen and (min-width: $medium) {
+    margin: 8px -15px;
+  }
+}
+
+.mobile-search {
+  .form-gym-location {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    display: inline;
+    width: 78%;
+  }
+
+  .btn {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    display: inline;
+    margin-left: -5px;
+    width: 22%;
   }
 }
 

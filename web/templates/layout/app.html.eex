@@ -34,17 +34,27 @@
           <%= hidden_input f, :place %>
           <%= hidden_input f, :city %>
           <%= hidden_input f, :state %>
-          <div class="form-group">
-            <%= text_input f, :location, class: "form-control form-gym-location", placeholder: "Enter a location" %>
+
+          <div class="visible-xs mobile-search">
+            <div class="form-group">
+              <%= text_input f, :location, class: "form-control form-gym-location", placeholder: "Enter a location" %>
+              <%= submit "Find »", class: "btn btn-primary" %>
+            </div>
           </div>
-          <%= submit "Find Me a Gym »", class: "btn btn-primary" %>
+
+          <div class="hidden-xs">
+            <div class="form-group">
+              <%= text_input f, :location, class: "form-control form-gym-location", placeholder: "Enter a location" %>
+            </div>
+            <%= submit "Find Me a Gym »", class: "btn btn-primary" %>
+          </div>
         <% end %>
 
         <nav class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <!-- <form class="navbar-form navbar-right" role="search">
             <%= link "List Your Gym", to: gym_path(@conn, :new), class: "btn btn-info" %>
           </form> -->
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right navbar-auth">
             <%= if logged_in?(@conn) do %>
               <li><a><%= current_user(@conn).email %></a></li>
               <li><%= link "Sign Out", to: session_path(@conn, :delete) %></li>
