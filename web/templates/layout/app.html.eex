@@ -35,18 +35,9 @@
           <%= hidden_input f, :city %>
           <%= hidden_input f, :state %>
 
-          <div class="visible-xs mobile-search">
-            <div class="form-group">
-              <%= text_input f, :location, class: "form-control form-gym-location", placeholder: "Enter a location" %>
-              <%= submit "Find »", class: "btn btn-primary" %>
-            </div>
-          </div>
-
-          <div class="hidden-xs">
-            <div class="form-group">
-              <%= text_input f, :location, class: "form-control form-gym-location", placeholder: "Enter a location" %>
-            </div>
-            <%= submit "Find Me a Gym »", class: "btn btn-primary" %>
+          <div class="form-group form-group-search">
+            <%= text_input f, :location, class: "form-control form-gym-location", placeholder: "Enter a location" %>
+            <%= submit "Find »", class: "btn btn-primary" %>
           </div>
         <% end %>
 

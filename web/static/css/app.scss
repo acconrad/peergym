@@ -246,18 +246,6 @@ footer {
 }
 
 .navbar {
-  .form-gym-location {
-    min-width: 225px;
-
-    @media screen and (min-width: $large) {
-      min-width: 360px;
-    }
-
-    @media screen and (min-width: $xlarge) {
-      min-width: 500px;
-    }
-  }
-
   .navbar-auth {
     font-size: 14px;
 
@@ -265,7 +253,7 @@ footer {
       padding: 15px 5px;
 
       @media screen and (min-width: $large) {
-        padding: 15px;
+        padding: 7px 15px 10px;
       }
     }
   }
@@ -280,16 +268,26 @@ footer {
   margin: -8px -15px;
 
   @media screen and (min-width: $medium) {
-    margin: 8px -15px;
+    margin: 8px -15px 0;
   }
 }
 
-.mobile-search {
+.form-group-search {
   .form-gym-location {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     display: inline;
+    min-width: 225px;
     width: 78%;
+
+    @media screen and (min-width: $large) {
+      min-width: 360px;
+      width: auto;
+    }
+
+    @media screen and (min-width: $xlarge) {
+      min-width: 500px;
+    }
   }
 
   .btn {
@@ -298,6 +296,13 @@ footer {
     display: inline;
     margin-left: -5px;
     width: 22%;
+
+    @media screen and (min-width: $large) {
+      &::before {
+        content: "Hello";
+      }
+      width: auto;
+    }
   }
 }
 

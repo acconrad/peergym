@@ -5345,89 +5345,94 @@ footer {
   padding: 50px 0; }
 
 /* line 249, stdin */
-.navbar .form-gym-location {
-  min-width: 225px; }
-  @media screen and (min-width: 992px) {
-    .navbar .form-gym-location {
-      min-width: 360px; } }
-  @media screen and (min-width: 1200px) {
-    .navbar .form-gym-location {
-      min-width: 500px; } }
-/* line 261, stdin */
 .navbar .navbar-auth {
   font-size: 14px; }
-  /* line 264, stdin */
+  /* line 252, stdin */
   .navbar .navbar-auth li > a {
     padding: 15px 5px; }
     @media screen and (min-width: 992px) {
       .navbar .navbar-auth li > a {
-        padding: 15px; } }
-/* line 273, stdin */
+        padding: 7px 15px 10px; } }
+/* line 261, stdin */
 .navbar .btn-primary {
   box-shadow: none; }
 
-/* line 278, stdin */
+/* line 266, stdin */
 .navbar-default .navbar-collapse, .navbar-default .form-gym-search {
   border: none;
   margin: -8px -15px; }
   @media screen and (min-width: 768px) {
     .navbar-default .navbar-collapse, .navbar-default .form-gym-search {
-      margin: 8px -15px; } }
+      margin: 8px -15px 0; } }
 
-/* line 288, stdin */
-.mobile-search .form-gym-location {
+/* line 276, stdin */
+.form-group-search .form-gym-location {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
   display: inline;
+  min-width: 225px;
   width: 78%; }
-/* line 295, stdin */
-.mobile-search .btn {
+  @media screen and (min-width: 992px) {
+    .form-group-search .form-gym-location {
+      min-width: 360px;
+      width: auto; } }
+  @media screen and (min-width: 1200px) {
+    .form-group-search .form-gym-location {
+      min-width: 500px; } }
+/* line 293, stdin */
+.form-group-search .btn {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
   display: inline;
   margin-left: -5px;
   width: 22%; }
+  @media screen and (min-width: 992px) {
+    .form-group-search .btn {
+      width: auto; }
+      /* line 301, stdin */
+      .form-group-search .btn::before {
+        content: "Hello"; } }
 
-/* line 304, stdin */
+/* line 309, stdin */
 .navbar-gym {
   font-size: 14px; }
-  /* line 307, stdin */
+  /* line 312, stdin */
   .navbar-gym .btn {
     margin-right: 15px;
     padding: 6px 12px; }
-    /* line 311, stdin */
+    /* line 316, stdin */
     .navbar-gym .btn.btn-primary {
       color: #fff; }
-      /* line 314, stdin */
+      /* line 319, stdin */
       .navbar-gym .btn.btn-primary:hover {
         background-color: #442246;
         color: #fff; }
-    /* line 320, stdin */
+    /* line 325, stdin */
     .navbar-gym .btn.inverse {
       border-width: 1px;
       color: #663368; }
-      /* line 324, stdin */
+      /* line 329, stdin */
       .navbar-gym .btn.inverse:hover {
         background-color: transparent;
         color: #663368; }
-        /* line 328, stdin */
+        /* line 333, stdin */
         .navbar-gym .btn.inverse:hover i::before {
           content: "\f164"; }
-  /* line 336, stdin */
+  /* line 341, stdin */
   .navbar-gym .navbar-right .btn {
     margin-left: 15px;
     margin-right: 0; }
 
-/* line 343, stdin */
+/* line 348, stdin */
 .card-overview {
   position: relative; }
 
-/* line 347, stdin */
+/* line 352, stdin */
 .dropdown-rates {
   position: absolute;
   right: 0;
   top: 20px; }
-  /* line 352, stdin */
+  /* line 357, stdin */
   .dropdown-rates button {
     background-color: #99CCCC;
     border: none;
