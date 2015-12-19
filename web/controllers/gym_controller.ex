@@ -56,23 +56,22 @@ defmodule Peergym.GymController do
       where: g.latitude >= ^min_lat and g.latitude <= ^max_lat and g.longitude >= ^min_lng and g.longitude <= ^max_lng,
       select: g
 
-    gyms = Repo.all(query)
+    gym_blocks = Repo.all(query)
     |> Enum.sort(&(haversine_distance(&1, curr_lat, curr_lng) <= haversine_distance(&2, curr_lat, curr_lng)))
     |> Enum.map(&(Map.put(&1, :distance, haversine_distance(&1, curr_lat, curr_lng) |> Float.round(1))))
-    |> Enum.chunk(10)
+    |> Enum.chunk(10, 10, [])
 
-    paged_gyms = gyms
-    |> Enum.fetch!(curr_page - 1)
+    gyms = gym_blocks |> Enum.fetch!(curr_page - 1)
 
     render conn, "index.html",
-      gyms: paged_gyms,
+      gyms: gyms,
       place: place,
       city: city,
       state: state,
       lat: curr_lat,
       lng: curr_lng,
       page_number: curr_page,
-      total_pages: gyms |> Enum.count
+      total_pages: gym_blocks |> Enum.count
   end
 
   def new(conn, _params) do
