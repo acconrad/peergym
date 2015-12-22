@@ -13,9 +13,12 @@ export class Maps {
     var doc = document
       , canvas = doc.getElementById( 'map-canvas' )
       , infoWindow = new google.maps.InfoWindow()
+      , geocoderRequest = canvas.dataset.placeId.length ?
+          { 'placeId': canvas.dataset.placeId } :
+          { 'location': { lat: +canvas.dataset.latitude, lng: +canvas.dataset.longitude } }
       , map;
 
-    new google.maps.Geocoder().geocode( { 'placeId': canvas.dataset.placeId }, (results, status) => {
+    new google.maps.Geocoder().geocode( geocoderRequest, (results, status) => {
       if ( status === google.maps.GeocoderStatus.OK ) {
         if ( results[0] ) {
           map = new google.maps.Map( canvas, {

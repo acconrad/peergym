@@ -1170,9 +1170,10 @@ var Maps = (function () {
       var doc = document,
           canvas = doc.getElementById('map-canvas'),
           infoWindow = new google.maps.InfoWindow(),
+          geocoderRequest = canvas.dataset.placeId.length ? { 'placeId': canvas.dataset.placeId } : { 'location': { lat: +canvas.dataset.latitude, lng: +canvas.dataset.longitude } },
           map;
 
-      new google.maps.Geocoder().geocode({ 'placeId': canvas.dataset.placeId }, function (results, status) {
+      new google.maps.Geocoder().geocode(geocoderRequest, function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           if (results[0]) {
             map = new google.maps.Map(canvas, {
