@@ -58,7 +58,7 @@
             <li><i class="fa fa-mobile-phone"></i> <%= @gym.phone %></li>
           <% end %>
           <%= if @gym.url do %>
-            <li><i class="fa fa-globe"></i> <%= link "Gym website", to: @gym.url %></li>
+            <li><i class="fa fa-globe"></i> <%= link "Gym website", to: @gym.url, target: "_blank" %></li>
           <% end %>
           <%= if @gym.hours do %>
             <li><i class="fa fa-clock-o"></i> <%= @gym.hours %></li>
