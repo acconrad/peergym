@@ -1,50 +1,60 @@
 <%# render "breadcrumb.html", state: @state, city: @city, name: nil %>
 
-<%= if logged_in?(@conn) && current_user(@conn).admin do %>
-  <%= link "Add a Gym »", to: gym_path(@conn, :new), class: "btn btn-lg btn-primary" %>
-<% end %>
-
-<h2>Gyms near <%= @city %>, <%= @state %></h2>
 <div class="row">
-  <ol class="col-md-6 list-unstyled" id="gyms-list">
-    <%= for gym <- @gyms do %>
-      <%= render "item.html", item: gym,
-                              to_pay: gym_payment_path(@conn, :new, gym.id),
-                              to_show: gym_path(@conn, :show, slug(gym)),
-                              to_edit: gym_path(@conn, :edit, gym.id),
-                              to_delete: gym_path(@conn, :delete, gym.id),
-                              admin: logged_in?(@conn) && current_user(@conn).admin %>
-    <% end %>
-  </ol>
-  <aside class="col-md-6" data-place-id="<%= @place %>" id="map-canvas"></aside>
-</div>
+  <div class="col-md-6">
+    <h2 class="text-center hidden-md hidden-lg mobile-header">Gyms near <%= @city %>, <%= @state %></h2>
 
-<%= if @total_pages > 1 do %>
-  <nav class="text-center">
-    <ul class="pagination">
-      <%= if @page_number > 1 do %>
-      <li>
-        <%= link to: gym_path(@conn, :index, [page: @page_number - 1, search: [city: @city , state: @state,  place: @place, lat: @lat |> to_string, lng: @lng |> to_string]]), aria_label: "Previous" do %>
-          <span aria-hidden="true">&laquo;</span>
-        <% end %>
-      </li>
+    <ol class="list-unstyled gyms-list" id="gyms-list">
+      <%= for gym <- @gyms do %>
+        <%= render "item.html", item: gym,
+                                to_pay: gym_payment_path(@conn, :new, gym.id),
+                                to_show: gym_path(@conn, :show, slug(gym)),
+                                to_edit: gym_path(@conn, :edit, gym.id),
+                                to_delete: gym_path(@conn, :delete, gym.id),
+                                admin: logged_in?(@conn) && current_user(@conn).admin %>
       <% end %>
-      <%= for page <- (1..@total_pages) do %>
-      <li>
-        <%= if @page_number == page do %>
-          <span><%= page %></span>
-        <% else %>
-          <%= link "#{page}", to: gym_path(@conn, :index, [page: page, search: [city: @city , state: @state,  place: @place, lat: @lat |> to_string, lng: @lng |> to_string]]) %>
-        <% end %>
-      </li>
+
+      <%= if @total_pages > 1 do %>
+        <nav class="text-center">
+          <ul class="pagination">
+            <%= if @page_number > 1 do %>
+            <li>
+              <%= link to: gym_path(@conn, :index, [page: @page_number - 1, search: [city: @city , state: @state,  place: @place, lat: @lat |> to_string, lng: @lng |> to_string]]), aria_label: "Previous" do %>
+                <span aria-hidden="true">&laquo;</span>
+              <% end %>
+            </li>
+            <% end %>
+            <%= for page <- (1..@total_pages) do %>
+            <li>
+              <%= if @page_number == page do %>
+                <span><%= page %></span>
+              <% else %>
+                <%= link "#{page}", to: gym_path(@conn, :index, [page: page, search: [city: @city , state: @state,  place: @place, lat: @lat |> to_string, lng: @lng |> to_string]]) %>
+              <% end %>
+            </li>
+            <% end %>
+            <%= if @page_number != @total_pages do %>
+            <li>
+              <%= link to: gym_path(@conn, :index, [page: @page_number + 1, search: [city: @city , state: @state,  place: @place, lat: @lat |> to_string, lng: @lng |> to_string]]), aria_label: "Next" do %>
+                <span aria-hidden="true">&raquo;</span>
+              <% end %>
+            </li>
+            <% end %>
+          </ul>
+        </nav>
       <% end %>
-      <%= if @page_number != @total_pages do %>
-      <li>
-        <%= link to: gym_path(@conn, :index, [page: @page_number + 1, search: [city: @city , state: @state,  place: @place, lat: @lat |> to_string, lng: @lng |> to_string]]), aria_label: "Next" do %>
-          <span aria-hidden="true">&raquo;</span>
-        <% end %>
-      </li>
+    </ol>
+  </div>
+
+  <aside class="col-md-6 visible-md visible-lg">
+    <h2>
+      Gyms near <%= @city %>, <%= @state %>
+
+      <%= if logged_in?(@conn) && current_user(@conn).admin do %>
+        <%= link "Add a Gym »", to: gym_path(@conn, :new), class: "btn btn-primary pull-right" %>
       <% end %>
-    </ul>
-  </nav>
-<% end %>
+    </h2>
+
+    <div data-place-id="<%= @place %>" id="map-canvas"></div>
+  </aside>
+</div>

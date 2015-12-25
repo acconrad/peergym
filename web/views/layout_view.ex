@@ -12,11 +12,4 @@ defmodule Peergym.LayoutView do
   def controller_name(conn) do
     Phoenix.Naming.resource_name Phoenix.Controller.controller_module(conn), "Controller"
   end
-
-  def use_container(conn) do
-    case body_class conn do
-      "gym show" -> ""
-      _ -> "container"
-    end
-  end
 end

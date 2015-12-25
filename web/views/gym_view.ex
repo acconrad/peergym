@@ -21,7 +21,11 @@ defmodule Peergym.GymView do
   end
 
   def img_url(gym) do
-    "https://d2ohrei45269ks.cloudfront.net/uploads/gyms/photos/#{gym.id}/#{gym.id}_original_#{gym.photos.file_name}"
+    if gym.photos do
+      "https://d2ohrei45269ks.cloudfront.net/uploads/gyms/photos/#{gym.id}/#{gym.id}_original_#{gym.photos.file_name}"
+    else
+      "/images/background.jpg"
+    end
   end
 
   def markdown(body) do
@@ -43,6 +47,15 @@ defmodule Peergym.GymView do
       :index -> "The 10 Best #{assigns.city} CrossFit Gyms"
       :show -> "#{assigns.gym.name} in (#{assigns.gym.state}) - Gym Reviews"
       _ -> "PeerGym: Discover the best gyms in your area, read reviews, and compare membership rates"
+    end
+  end
+
+  def list_rate(gym) do
+    cond do
+      gym.monthly_rate > 0 -> "#{number_to_currency(gym.monthly_rate, precision: 0)} / mo"
+      gym.day_rate > 0 -> "#{number_to_currency(gym.day_rate, precision: 0)} / day"
+      gym.annual_rate > 0 -> "#{number_to_currency(gym.annual_rate, precision: 0)} / yr"
+      true -> ""
     end
   end
 

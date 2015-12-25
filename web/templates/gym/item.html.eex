@@ -1,14 +1,19 @@
 <li class="gym-item" data-latitude="<%= @item.latitude %>" data-longitude="<%= @item.longitude %>" data-slug="<%= slug(@item) %>">
-  <h3><%= link @item.name, to: @to_show %></h3>
-  <p>
-    <%= @item.address %><%= if @item.hours do %> / <strong><%= @item.hours %></strong><% end %><br>
-    <%= @item.distance %> mi. away
-  </p>
+  <a href="<%= @to_show %>">
+    <div class="text-bg-gradient">
+      <img src="<%= img_url(@item) %>" alt="<%= @item.name %>">
+    </div>
+    <h3><%= @item.name %></h3>
+    <span class="distance"><%= @item.distance %> mi. away</span>
+    <strong class="price">
+      <%= list_rate(@item) %>
+    </strong>
+  </a>
 
   <%= if @admin do %>
-    <div class="well well-sm">
-      <strong>Admin:</strong>
-      <%= link 'Edit', to: @to_edit %> | <%= link 'Delete', to: @to_delete, method: :delete, data: [confirm: "Are you sure?"] %>
-    </div>
+    <span class="admin-options">
+      <%= link 'Edit', to: @to_edit, class: "label" %>
+      <%= link 'Delete', to: @to_delete, method: :delete, data: [confirm: "Are you sure?"], class: "label" %>
+    </span>
   <% end %>
 </li>

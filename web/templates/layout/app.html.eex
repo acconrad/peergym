@@ -10,95 +10,56 @@
 
     <link rel="icon" href="/favicon.ico">
 
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
-
 
   <body class="<%= body_class @conn %>">
     <header class="navbar navbar-default navbar-static-top">
-      <div class="container">
+      <div class="fluid-container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            Menu
-          </button>
           <%= link to: gym_path(@conn, :index), class: "navbar-brand" do %>
-            <span class="logo logo-small">Peer<span class="logo-accent">Gym</span></span>
+            <span class="logo">Peer<strong>Gym</strong></span>
+          <% end %>
+
+          <%= form_for @conn, gym_path(@conn, :index), [class: "navbar-form form-gym-search", role: "search", as: :search, method: "get"], fn f -> %>
+            <%= hidden_input f, :lng %>
+            <%= hidden_input f, :lat %>
+            <%= hidden_input f, :place %>
+            <%= hidden_input f, :city %>
+            <%= hidden_input f, :state %>
+
+            <div class="form-control-w-icon">
+              <i class="fa fa-search"></i>
+              <%= text_input f, :location, class: "form-control form-gym-location", placeholder: "Find a gym…" %>
+            </div>
           <% end %>
         </div>
-
-        <%= form_for @conn, gym_path(@conn, :index), [class: "navbar-form navbar-left form-gym-search", role: "search", as: :search, method: "get"], fn f -> %>
-          <%= hidden_input f, :lng %>
-          <%= hidden_input f, :lat %>
-          <%= hidden_input f, :place %>
-          <%= hidden_input f, :city %>
-          <%= hidden_input f, :state %>
-
-          <div class="form-group form-group-search">
-            <%= text_input f, :location, class: "form-control form-gym-location", placeholder: "Enter a location" %>
-            <%= submit "Find »", class: "btn btn-primary" %>
-          </div>
-        <% end %>
-
-        <nav class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <!-- <form class="navbar-form navbar-right" role="search">
-            <%= link "List Your Gym", to: gym_path(@conn, :new), class: "btn btn-info" %>
-          </form> -->
-          <ul class="nav navbar-nav navbar-right navbar-auth">
-            <%= if logged_in?(@conn) do %>
-              <li><a><%= current_user(@conn).email %></a></li>
-              <li><%= link "Sign Out", to: session_path(@conn, :delete) %></li>
-            <% else %>
-              <li><%= link "Sign Up", to: user_path(@conn, :new) %></li>
-              <li><%= link "Sign In", to: session_path(@conn, :new) %></li>
-            <% end %>
-          </ul>
-        </nav>
       </div>
     </header>
 
     <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
     <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
-    <main class="<%= use_container(@conn) %>">
+    <ul class="nav-auth">
+      <%= if logged_in?(@conn) do %>
+        <li><a><%= current_user(@conn).email %></a></li>
+        <li><%= link "Sign Out", to: session_path(@conn, :delete) %></li>
+      <% else %>
+        <li><%= link "Sign Up", to: user_path(@conn, :new) %></li>
+        <li><%= link "Sign In", to: session_path(@conn, :new) %></li>
+      <% end %>
+      <li><a><small>© 2015 PeerGym. All rights reserved.</small></a></li>
+    </ul>
+
+    <input type="checkbox" id="nav-trigger" class="nav-trigger">
+    <label for="nav-trigger">
+      <i class="fa fa-user"></i>
+    </label>
+
+    <main class="fluid-container">
       <%= @inner %>
     </main>
-
-    <footer>
-      <!--<div class="container">
-        <div class="row footer-links">
-          <ul class="list-unstyled col-md-2 col-md-offset-3">
-            <li>Company</li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/blog">Blog</a></li>
-            <li><a href="/help">Help</a></li>
-            <li><a href="/policies">Policies</a></li>
-            <li><a href="/terms">Terms &amp; Privacy</a></li>
-          </ul>
-          <ul class="list-unstyled col-md-2">
-            <li>Discover</li>
-            <li><a href="/invite">Invite Friends</a></li>
-            <li><a href="/gift">Gift Cards</a></li>
-            <li><a href="/mobile">Mobile</a></li>
-            <li><a href="/sitemaps">Site Map</a></li>
-            <li><a href="/list">Gym Owners</a></li>
-          </ul>
-          <ul class="list-unstyled col-md-2">
-            <li>Find Us On</li>
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">Google+</a></li>
-            <li><a href="#">LinkedIn</a></li>
-            <li><a href="#">Pinterest</a></li>
-            <li><a href="#">YouTube</a></li>
-            <li><a href="#">Instagram</a></li>
-          </ul>
-        </div>-->
-
-        <div class="text-center">© 2015 PeerGym. All rights reserved.</div>
-      </div>
-    </footer>
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>

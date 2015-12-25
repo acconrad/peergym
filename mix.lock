@@ -18,7 +18,7 @@
   "mailgun": {:hex, :mailgun, "0.0.2"},
   "meck": {:hex, :meck, "0.8.3"},
   "number": {:hex, :number, "0.4.0"},
-  "passport": {:git, "git://github.com/acconrad/passport.git", "d5feaca0be1ea9252976484520a12a0e3dd940d4", []},
+  "passport": {:git, "https://github.com/acconrad/passport.git", "d5feaca0be1ea9252976484520a12a0e3dd940d4", []},
   "phoenix": {:hex, :phoenix, "1.0.3"},
   "phoenix_ecto": {:hex, :phoenix_ecto, "1.2.0"},
   "phoenix_html": {:hex, :phoenix_html, "2.2.0"},
