@@ -19,7 +19,7 @@
           <ul class="pagination">
             <%= if @page_number > 1 do %>
             <li>
-              <%= link to: gym_path(@conn, :index, [page: @page_number - 1, search: [city: @city , state: @state,  place: @place, lat: @lat |> to_string, lng: @lng |> to_string]]), aria_label: "Previous" do %>
+              <%= link to: gym_path(@conn, :index, [page: @page_number - 1, search: [city: @city , state: @state, lat: @lat |> to_string, lng: @lng |> to_string]]), aria_label: "Previous" do %>
                 <span aria-hidden="true">&laquo;</span>
               <% end %>
             </li>
@@ -29,13 +29,13 @@
               <%= if @page_number == page do %>
                 <span><%= page %></span>
               <% else %>
-                <%= link "#{page}", to: gym_path(@conn, :index, [page: page, search: [city: @city , state: @state,  place: @place, lat: @lat |> to_string, lng: @lng |> to_string]]) %>
+                <%= link "#{page}", to: gym_path(@conn, :index, [page: page, search: [city: @city , state: @state, lat: @lat |> to_string, lng: @lng |> to_string]]) %>
               <% end %>
             </li>
             <% end %>
             <%= if @page_number != @total_pages do %>
             <li>
-              <%= link to: gym_path(@conn, :index, [page: @page_number + 1, search: [city: @city , state: @state,  place: @place, lat: @lat |> to_string, lng: @lng |> to_string]]), aria_label: "Next" do %>
+              <%= link to: gym_path(@conn, :index, [page: @page_number + 1, search: [city: @city , state: @state, lat: @lat |> to_string, lng: @lng |> to_string]]), aria_label: "Next" do %>
                 <span aria-hidden="true">&raquo;</span>
               <% end %>
             </li>
@@ -55,6 +55,6 @@
       <% end %>
     </h2>
 
-    <div data-place-id="<%= @place %>" id="map-canvas"></div>
+    <div data-latitude="<%= @lat |> to_string %>" data-longitude="<%= @lng |> to_string %>" id="map-canvas"></div>
   </aside>
 </div>

@@ -1170,7 +1170,7 @@ var Maps = (function () {
       var doc = document,
           canvas = doc.getElementById('map-canvas'),
           infoWindow = new google.maps.InfoWindow(),
-          geocoderRequest = canvas.dataset.placeId.length ? { 'placeId': canvas.dataset.placeId } : { 'location': { lat: +canvas.dataset.latitude, lng: +canvas.dataset.longitude } },
+          geocoderRequest = canvas.dataset.placeId ? { 'placeId': canvas.dataset.placeId } : { 'location': { lat: +canvas.dataset.latitude, lng: +canvas.dataset.longitude } },
           map;
 
       new google.maps.Geocoder().geocode(geocoderRequest, function (results, status) {

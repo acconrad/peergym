@@ -34,7 +34,6 @@ defmodule Peergym.GymController do
     if params["search"] do
       curr_lng = String.to_float(params["search"]["lng"])
       curr_lat = String.to_float(params["search"]["lat"])
-      place = params["search"]["place"]
       city = params["search"]["city"]
       state = params["search"]["state"]
     else
@@ -49,7 +48,6 @@ defmodule Peergym.GymController do
       else
         curr_lat = 42.3600825
         curr_lng = -71.0588801
-        place = "ChIJGzE9DS1l44kRoOhiASS_fHg"
         city = "Boston"
         state = "MA"
       end
@@ -74,7 +72,6 @@ defmodule Peergym.GymController do
 
     render conn, "index.html",
       gyms: gyms,
-      place: place,
       city: city,
       state: state,
       lat: curr_lat,
