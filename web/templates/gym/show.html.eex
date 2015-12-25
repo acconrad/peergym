@@ -13,7 +13,7 @@
 <nav class="navbar navbar-default navbar-gym">
   <ul class="nav navbar-nav">
     <li><a href="#overview">Overview</a></li>
-    <li><a href="#amenities">Amenities & Equipment</a></li>
+    <li><a href="#amenities">Amenities & Gear</a></li>
     <li><a href="#reviews">Reviews</a></li>
   </ul>
 
@@ -81,7 +81,7 @@
 <section class="row" id="amenities">
   <div class="col-md-12">
     <div class="card">
-      <h2>Amenities & Equipment</h2>
+      <h2>Amenities & Gear</h2>
 
       <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a data-tab="strength" href="#amenities">Strength</a></li>

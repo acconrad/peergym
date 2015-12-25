@@ -3,6 +3,7 @@ defmodule Peergym.GymController do
   alias Peergym.Gym
   alias Peergym.Review
   import Passport.AuthenticationPlug
+  require IEx
 
   plug :scrub_params, "gym" when action in [:create, :update]
   plug :require_admin, [
@@ -29,6 +30,7 @@ defmodule Peergym.GymController do
 
   def index(conn, params) do
     delta = 0.0724146667
+
     if params["search"] do
       curr_lng = String.to_float(params["search"]["lng"])
       curr_lat = String.to_float(params["search"]["lat"])
@@ -36,12 +38,21 @@ defmodule Peergym.GymController do
       city = params["search"]["city"]
       state = params["search"]["state"]
     else
-      ip_profile = Geolix.lookup("127.0.0.1")
-      curr_lat = 42.3600825
-      curr_lng = -71.0588801
-      place = "ChIJGzE9DS1l44kRoOhiASS_fHg"
-      city = "Boston"
-      state = "MA"
+      profiled_city = Geolix.lookup(conn.remote_ip |> Tuple.to_list |> Enum.join(".")).city
+
+      if profiled_city do
+        curr_lat = profiled_city.location.latitude
+        curr_lng = profiled_city.location.longitude
+        city = profiled_city.city.names.en
+        [state_iso | _] = profiled_city.subdivisions
+        state = state_iso.iso_code
+      else
+        curr_lat = 42.3600825
+        curr_lng = -71.0588801
+        place = "ChIJGzE9DS1l44kRoOhiASS_fHg"
+        city = "Boston"
+        state = "MA"
+      end
     end
 
     min_lng = curr_lng - delta

@@ -30,10 +30,18 @@ config :arc,
   secret_access_key: "X8/8fgHx2PEzLZHEZ6KxJADNSBZ9dCN+Vo4bHqLS",
   bucket: "peergym-photos"
 
+city_db = [ __DIR__, "../priv/static/profiler/GeoLite2-City.mmdb" ]
+  |> Path.join()
+  |> Path.expand()
+
+country_db = [ __DIR__, "../priv/static/profiler/GeoLite2-Country.mmdb" ]
+  |> Path.join()
+  |> Path.expand()
+
 config :geolix,
   databases: [
-    { :city,    "https://s3-us-west-2.amazonaws.com/ip-profiler/GeoLite2-City.mmdb" },
-    { :country, "https://s3-us-west-2.amazonaws.com/ip-profiler/GeoLite2-Country.mmdb" }
+    { :city,    city_db },
+    { :country, country_db }
   ]
 
 # Import environment specific config. This must remain at the bottom

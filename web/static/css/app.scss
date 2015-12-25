@@ -92,7 +92,7 @@ a {
 
 .navbar-default {
   background-color: #fff;
-  border: 1px solid #9FA8DA;
+  border-bottom: 1px solid map-get($indigo, 200);
   margin-bottom: 0;
 
   .navbar-brand {
@@ -133,6 +133,7 @@ a {
 
   .form-gym-search {
     border: none;
+    box-shadow: none;
     display: inline-block;
     margin: -2px -15px -7px;
     width: 205px;
@@ -168,7 +169,7 @@ a {
   position: fixed;
   right: 0;
   top: 50px;
-  width: 100%;
+  width: 80%;
   z-index: 0;
 
   li {
@@ -189,7 +190,7 @@ label[for="nav-trigger"] {
   border-left: 1px solid map-get($indigo, 200);
   color: map-get($indigo, 400);
   cursor: pointer;
-  height: 51px;
+  height: 50px;
   margin: 0;
   padding: 15px;
   position: absolute;
@@ -248,6 +249,7 @@ main {
 
 .gym.index {
   .mobile-header {
+    font-size: 24px;
     margin-top: 30px;
   }
 
@@ -260,10 +262,14 @@ main {
   .gym-item {
     border-radius: 3px;
     box-shadow: 0 2px 5px 0 rgba(22, 27, 30, .26);
-    height: 25rem;
+    height: 12.5rem;
     margin-bottom: 15px;
     overflow: hidden;
     position: relative;
+
+    @media screen and (min-width: $medium) {
+      height: 25rem;
+    }
 
     &:last-of-type {
       margin-bottom: 0;
@@ -271,10 +277,14 @@ main {
 
     img {
       display: block;
-      height: 25rem;
+      height: 12.5rem;
       position: relative;
       width: 100%;
       z-index: -1;
+
+      @media screen and (min-width: $medium) {
+        height: 25rem;
+      }
     }
 
     h3,
@@ -288,7 +298,21 @@ main {
     }
 
     h3 {
+      font-size: 18px;
       margin-bottom: 40px;
+
+      @media screen and (min-width: $medium) {
+        font-size: 24px;
+      }
+    }
+
+    .distance,
+    .price {
+      font-size: 14px;
+
+      @media screen and (min-width: $medium) {
+        font-size: 16px;
+      }
     }
 
     .price {
@@ -304,10 +328,30 @@ main {
 }
 
 .gym.show {
+  .card h2 {
+    font-size: 24px;
+
+    @media screen and (min-width: $medium) {
+      font-size: 30px;
+    }
+  }
+
+  .card h3 {
+    font-size: 18px;
+
+    @media screen and (min-width: $medium) {
+      font-size: 24px;
+    }
+  }
+
   .hero,
   .navbar-gym {
     margin-left: -15px;
     margin-right: -15px;
+  }
+
+  .navbar-nav {
+    margin: 7.5px 0;
   }
 
   .gym-item {
@@ -320,6 +364,11 @@ main {
 
   .card-vitals ul {
     margin-bottom: 0;
+  }
+
+  .dropdown-menu {
+    left: auto;
+    right: 0;
   }
 }
 
@@ -471,11 +520,7 @@ main {
     float: left;
 
     &:first-of-type {
-      margin-left: 20px;
-
-      @media screen and (min-width: $medium) {
-        margin-left: 0;
-      }
+      margin-left: 0;
     }
 
     > a {
@@ -541,11 +586,13 @@ main {
 }
 
 .nav-tabs > li > a {
-  color: #333;
+  color: map-get($blue-grey, 600);
   font-size: 14px;
+  padding: 10px 7px;
 
   @media screen and (min-width: $medium) {
     font-size: 16px;
+    padding: 10px 15px;
   }
 
   &:hover,
@@ -559,7 +606,7 @@ main {
 .nav-tabs > li.active > a:focus {
   border: none;
   border-bottom: 3px solid map-get($indigo, 400);
-  font-weight: 700;
+  color: #333;
 }
 
 .pac-icon-marker {
