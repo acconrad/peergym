@@ -30,6 +30,12 @@ config :arc,
   secret_access_key: "X8/8fgHx2PEzLZHEZ6KxJADNSBZ9dCN+Vo4bHqLS",
   bucket: "peergym-photos"
 
+config :geolix,
+  databases: [
+    { :city,    "https://s3-us-west-2.amazonaws.com/ip-profiler/GeoLite2-City.mmdb" },
+    { :country, "https://s3-us-west-2.amazonaws.com/ip-profiler/GeoLite2-Country.mmdb" }
+  ]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

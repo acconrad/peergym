@@ -37,8 +37,8 @@ defmodule Peergym.GymController do
       city = params["search"]["city"]
       state = params["search"]["state"]
     else
-      # TODO: geolocate to persons IP
-      # Boston as the default
+      ip_profile = Geolix.lookup("127.0.0.1")
+      IEx.pry
       curr_lat = 42.3600825
       curr_lng = -71.0588801
       place = "ChIJGzE9DS1l44kRoOhiASS_fHg"
