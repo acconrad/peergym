@@ -3,8 +3,6 @@ defmodule Peergym.GymController do
   alias Peergym.Gym
   alias Peergym.Review
   import Passport.AuthenticationPlug
-  require Logger
-  require IEx
 
   plug :scrub_params, "gym" when action in [:create, :update]
   plug :require_admin, [
@@ -38,17 +36,19 @@ defmodule Peergym.GymController do
       city = params["search"]["city"]
       state = params["search"]["state"]
     else
-      Logger.info "IP ADDRESS: #{conn.remote_ip |> Tuple.to_list |> Enum.join(".") }"
-      [ip | port] = conn.peer |> Tuple.to_list
-      Logger.info "ALTERNATE IP ATTEMPT: #{ip |> Tuple.to_list |> Enum.join(".")}"
-      profiled_city = Geolix.lookup(conn.remote_ip).city
-      Logger.info "CITY: #{profiled_city}"
-      Logger.info "FOUND CITY: #{Geolix.lookup("2601:181:c101:575:4d7c:d480:7b50:64cf").city.city.names.en}"
-      if profiled_city do
-        curr_lat = profiled_city.location.latitude
-        curr_lng = profiled_city.location.longitude
-        city = profiled_city.city.names.en
-        [state_iso | _] = profiled_city.subdivisions
+      record = :httpc.request(:get, {'http://myexternalip.com/raw', []}, [], [])
+      |> elem(1)
+      |> elem(2)
+      |> to_string
+      |> String.split("\n")
+      |> List.first
+      |> Geolix.lookup
+
+      if record do
+        curr_lat = record.city.location.latitude
+        curr_lng = record.city.location.longitude
+        city = record.city.city.names.en
+        state_iso = record.city.subdivisions |> List.first
         state = state_iso.iso_code
       else
         curr_lat = 42.3600825
