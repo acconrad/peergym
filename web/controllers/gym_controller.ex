@@ -3,7 +3,7 @@ defmodule Peergym.GymController do
   alias Peergym.Gym
   alias Peergym.Review
   import Passport.AuthenticationPlug
-  require IEx
+  require Logger
 
   plug :scrub_params, "gym" when action in [:create, :update]
   plug :require_admin, [
@@ -37,8 +37,9 @@ defmodule Peergym.GymController do
       city = params["search"]["city"]
       state = params["search"]["state"]
     else
-      profiled_city = Geolix.lookup(conn.remote_ip |> Tuple.to_list |> Enum.join(".")).city
-
+      Logger.debug "IP ADDRESS: #{conn.remote_ip |> Tuple.to_list |> Enum.join(".") }"
+      profiled_city = Geolix.lookup(conn.remote_ip).city
+      Logger.debug "CITY: #{profiled_city}"
       if profiled_city do
         curr_lat = profiled_city.location.latitude
         curr_lng = profiled_city.location.longitude
