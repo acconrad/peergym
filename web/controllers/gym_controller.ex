@@ -37,9 +37,9 @@ defmodule Peergym.GymController do
       city = params["search"]["city"]
       state = params["search"]["state"]
     else
-      Logger.debug "IP ADDRESS: #{conn.remote_ip |> Tuple.to_list |> Enum.join(".") }"
+      Logger.info "IP ADDRESS: #{conn.remote_ip |> Tuple.to_list |> Enum.join(".") }"
       profiled_city = Geolix.lookup(conn.remote_ip).city
-      Logger.debug "CITY: #{profiled_city}"
+      Logger.info "CITY: #{profiled_city}"
       if profiled_city do
         curr_lat = profiled_city.location.latitude
         curr_lng = profiled_city.location.longitude
