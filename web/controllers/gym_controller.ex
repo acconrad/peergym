@@ -3,7 +3,9 @@ defmodule Peergym.GymController do
   alias Peergym.Gym
   alias Peergym.Review
   import Passport.AuthenticationPlug
+  require Logger
 
+  plug PlugForwardedPeer
   plug :scrub_params, "gym" when action in [:create, :update]
   plug :require_admin, [
       flash_key: :info,
@@ -36,6 +38,7 @@ defmodule Peergym.GymController do
       city = params["search"]["city"]
       state = params["search"]["state"]
     else
+      Logger.info "REMOTE IP: #{conn.remote_ip}"
       record = :httpc.request(:get, {'http://myexternalip.com/raw', []}, [], [])
       |> elem(1)
       |> elem(2)

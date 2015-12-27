@@ -44,6 +44,7 @@ defmodule Peergym.Mixfile do
      {:arc_ecto, "~> 0.2.0"},
      {:credo, "~> 0.1.9", only: [:dev, :test]},
      {:earmark, "~> 0.1.19"},
-     {:geolix, "~> 0.9"}]
+     {:geolix, "~> 0.9"},
+     {:plug_forwarded_peer, "~> 0.0.2" }]
   end
 end
