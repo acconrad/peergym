@@ -32,24 +32,19 @@ defmodule Peergym.GymController do
     delta = 0.0724146667
 
     if params["search"] do
+      searched = true
       curr_lng = String.to_float(params["search"]["lng"])
       curr_lat = String.to_float(params["search"]["lat"])
       city = params["search"]["city"]
       state = params["search"]["state"]
     else
-      # record = :httpc.request(:get, {'http://myexternalip.com/raw', []}, [], [])
-      # |> elem(1)
-      # |> elem(2)
-      # |> to_string
-      # |> String.split("\n")
-      # |> List.first
-      # |> Geolix.lookup
-      record = Geolix.lookup(conn.remote_ip)
+      searched = false
+      record = Geolix.lookup(conn.remote_ip).city
       if record do
-        curr_lat = record.city.location.latitude
-        curr_lng = record.city.location.longitude
-        city = record.city.city.names.en
-        state_iso = record.city.subdivisions |> List.first
+        curr_lat = record.location.latitude
+        curr_lng = record.location.longitude
+        city = record.city.names.en
+        state_iso = record.subdivisions |> List.first
         state = state_iso.iso_code
       else
         curr_lat = 42.3600825
@@ -83,7 +78,8 @@ defmodule Peergym.GymController do
       lat: curr_lat,
       lng: curr_lng,
       page_number: curr_page,
-      total_pages: gym_blocks |> Enum.count
+      total_pages: gym_blocks |> Enum.count,
+      searched: searched
   end
 
   def new(conn, _params) do

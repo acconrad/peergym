@@ -37,24 +37,24 @@ defmodule Peergym.GymView do
   def render("meta_description", assigns) do
     case Phoenix.Controller.action_name assigns.conn do
       :indow -> "Discover the best gyms in #{assigns.gym.city}, #{assigns.gym.state} with PeerGym."
-      :show -> "Book #{assigns.gym.name}, #{assigns.gym.city} on PeerGym: See reviews, photos, and great deals for #{assigns.gym.name}."
-      _ -> "Discover the best gyms in your area. Read real reviews and search over 4000+ gyms to find the best equipment, amenities, and membership rates."
+      :show -> "Book #{assigns.gym.name}, #{assigns.gym.city} on PeerGym: See amenities, photos, and great deals for #{assigns.gym.name}."
+      _ -> "Discover the best gyms in your area. Search over 4000+ gyms to find the best equipment, amenities, and membership rates."
     end
   end
 
   def render("title", assigns) do
     case Phoenix.Controller.action_name assigns.conn do
-      :index -> "The 10 Best #{assigns.city} CrossFit Gyms"
+      :index -> if assigns.searched, do: "The Best #{assigns.city} Gyms", else: "PeerGym: Discover the best gyms in your area and compare membership rates"
       :show -> "#{assigns.gym.name} in (#{assigns.gym.state}) - Gym Reviews"
-      _ -> "PeerGym: Discover the best gyms in your area, read reviews, and compare membership rates"
+      _ -> "PeerGym: Discover the best gyms in your area and compare membership rates"
     end
   end
 
   def list_rate(gym) do
     cond do
-      gym.monthly_rate > 0 -> "#{number_to_currency(gym.monthly_rate, precision: 0)} / mo"
-      gym.day_rate > 0 -> "#{number_to_currency(gym.day_rate, precision: 0)} / day"
-      gym.annual_rate > 0 -> "#{number_to_currency(gym.annual_rate, precision: 0)} / yr"
+      gym.monthly_rate > 0 -> "<span class=\"amount\">#{number_to_currency(gym.monthly_rate, precision: 0)}</span> / mo"
+      gym.day_rate > 0 -> "<span class=\"amount\">#{number_to_currency(gym.day_rate, precision: 0)}</span> / day"
+      gym.annual_rate > 0 -> "<span class=\"amount\">#{number_to_currency(gym.annual_rate, precision: 0)}</span> / yr"
       true -> ""
     end
   end

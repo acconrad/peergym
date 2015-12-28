@@ -136,11 +136,7 @@ a {
     box-shadow: none;
     display: inline-block;
     margin: -2px -15px -7px;
-    width: 205px;
-
-    @media screen and (min-width: $small) {
-      width: 410px;
-    }
+    width: calc(100% - 113px);
 
     @media screen and (min-width: $medium) {
       margin: 8px auto 0;
@@ -169,7 +165,7 @@ a {
   position: fixed;
   right: 0;
   top: 50px;
-  width: 80%;
+  width: 100%;
   z-index: 0;
 
   li {
@@ -214,7 +210,6 @@ main {
   background-color: map-get($blue-grey, 50);
   bottom: 100%;
   left: 0;
-  margin-top: -20px;
   min-height: 100%;
   min-width: 100%;
   padding-left: 15px;
@@ -235,6 +230,14 @@ main {
   width: 100%;
 
   &:empty { display: none; }
+}
+
+.well-intro {
+  background-color: #fff;
+  border-left: 6px solid map-get($indigo, 400);
+  border-radius: 0;
+  box-shadow: 0 2px 5px 0 rgba(22, 27, 30, .26);
+  margin-top: 15px;
 }
 
 .gyms-list {
@@ -300,6 +303,11 @@ main {
     h3 {
       font-size: 18px;
       margin-bottom: 40px;
+      overflow: hidden;
+      padding-bottom: 3px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 90%;
 
       @media screen and (min-width: $medium) {
         font-size: 24px;
@@ -315,8 +323,20 @@ main {
       }
     }
 
+    .distance {
+      color: map-get($blue-grey, 300);
+    }
+
     .price {
       right: 0;
+
+      .amount {
+        font-size: 18px;
+
+        @media screen and (min-width: $medium) {
+          font-size: 24px;
+        }
+      }
     }
 
     .text-bg-gradient {
@@ -325,6 +345,10 @@ main {
       width: 100%;
     }
   }
+}
+
+.result-title {
+  text-shadow: 0 -1px 1px #fff;
 }
 
 .gym.show {
