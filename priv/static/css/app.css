@@ -5293,20 +5293,22 @@ main {
   font-weight: 700;
   position: absolute;
   top: 50px;
-  width: 100%; }
-  /* line 232, stdin */
+  width: 100%;
+  z-index: 1000; }
+  /* line 233, stdin */
   .alert:empty {
     display: none; }
 
-/* line 235, stdin */
+/* line 236, stdin */
 .well-intro {
   background-color: #fff;
-  border-left: 6px solid #5C6BC0;
+  border-left-color: #5C6BC0;
   border-radius: 0;
+  border-width: 0 0 0 10px;
   box-shadow: 0 2px 5px 0 rgba(22, 27, 30, 0.26);
   margin-top: 15px; }
 
-/* line 243, stdin */
+/* line 245, stdin */
 .gyms-list {
   margin-bottom: 15px;
   margin-top: 15px; }
@@ -5315,16 +5317,16 @@ main {
       height: 90vh;
       overflow-y: scroll; } }
 
-/* line 254, stdin */
+/* line 256, stdin */
 .gym.index .mobile-header {
   font-size: 24px;
   margin-top: 30px; }
-/* line 259, stdin */
+/* line 261, stdin */
 .gym.index #map-canvas {
   border-radius: 3px;
   box-shadow: 0 2px 5px 0 rgba(22, 27, 30, 0.26);
   height: 75vh; }
-/* line 265, stdin */
+/* line 267, stdin */
 .gym.index .gym-item {
   border-radius: 3px;
   box-shadow: 0 2px 5px 0 rgba(22, 27, 30, 0.26);
@@ -5335,10 +5337,10 @@ main {
   @media screen and (min-width: 768px) {
     .gym.index .gym-item {
       height: 25rem; } }
-  /* line 277, stdin */
+  /* line 279, stdin */
   .gym.index .gym-item:last-of-type {
     margin-bottom: 0; }
-  /* line 281, stdin */
+  /* line 283, stdin */
   .gym.index .gym-item img {
     display: block;
     height: 12.5rem;
@@ -5348,14 +5350,14 @@ main {
     @media screen and (min-width: 768px) {
       .gym.index .gym-item img {
         height: 25rem; } }
-  /* line 295, stdin */
+  /* line 297, stdin */
   .gym.index .gym-item h3, .gym.index .gym-item .distance, .gym.index .gym-item .price {
     bottom: 0;
     color: #fff;
     margin: 12.5px;
     position: absolute;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
-  /* line 303, stdin */
+  /* line 305, stdin */
   .gym.index .gym-item h3 {
     font-size: 18px;
     margin-bottom: 40px;
@@ -5367,104 +5369,104 @@ main {
     @media screen and (min-width: 768px) {
       .gym.index .gym-item h3 {
         font-size: 24px; } }
-  /* line 318, stdin */
+  /* line 320, stdin */
   .gym.index .gym-item .distance, .gym.index .gym-item .price {
     font-size: 14px; }
     @media screen and (min-width: 768px) {
       .gym.index .gym-item .distance, .gym.index .gym-item .price {
         font-size: 16px; } }
-  /* line 326, stdin */
+  /* line 328, stdin */
   .gym.index .gym-item .distance {
     color: #90A4AE; }
-  /* line 330, stdin */
+  /* line 332, stdin */
   .gym.index .gym-item .price {
     right: 0; }
-    /* line 333, stdin */
+    /* line 335, stdin */
     .gym.index .gym-item .price .amount {
       font-size: 18px; }
       @media screen and (min-width: 768px) {
         .gym.index .gym-item .price .amount {
           font-size: 24px; } }
-  /* line 342, stdin */
+  /* line 344, stdin */
   .gym.index .gym-item .text-bg-gradient {
     background: linear-gradient(transparent, #000 110%);
     display: inline-block;
     width: 100%; }
 
-/* line 350, stdin */
+/* line 352, stdin */
 .result-title {
   text-shadow: 0 -1px 1px #fff; }
 
-/* line 355, stdin */
+/* line 357, stdin */
 .gym.show .card h2 {
   font-size: 24px; }
   @media screen and (min-width: 768px) {
     .gym.show .card h2 {
       font-size: 30px; } }
-/* line 363, stdin */
+/* line 365, stdin */
 .gym.show .card h3 {
   font-size: 18px; }
   @media screen and (min-width: 768px) {
     .gym.show .card h3 {
       font-size: 24px; } }
-/* line 372, stdin */
+/* line 374, stdin */
 .gym.show .hero, .gym.show .navbar-gym {
   margin-left: -15px;
   margin-right: -15px; }
-/* line 377, stdin */
+/* line 379, stdin */
 .gym.show .navbar-nav {
   margin: 7.5px 0; }
-/* line 381, stdin */
+/* line 383, stdin */
 .gym.show .gym-item {
   margin: -10px -20px 20px; }
-/* line 385, stdin */
+/* line 387, stdin */
 .gym.show #map-canvas {
   height: 25vh; }
-/* line 389, stdin */
+/* line 391, stdin */
 .gym.show .card-vitals ul {
   margin-bottom: 0; }
-/* line 393, stdin */
+/* line 395, stdin */
 .gym.show .dropdown-menu {
   left: auto;
   right: 0; }
 
-/* line 399, stdin */
+/* line 401, stdin */
 .admin-options {
   position: absolute;
   right: 10px;
   top: 25px; }
-  /* line 404, stdin */
+  /* line 406, stdin */
   .admin-options form {
     display: inline; }
-  /* line 408, stdin */
+  /* line 410, stdin */
   .admin-options .label {
     background-color: #5C6BC0; }
 
-/* line 413, stdin */
+/* line 415, stdin */
 .payment.new {
   background: linear-gradient(to top right, #5C6BC0, #0D47A1 50%, #42A5F5 100%);
   height: 100vh; }
-  /* line 417, stdin */
+  /* line 419, stdin */
   .payment.new h1 {
     color: #fff;
     padding: 40px 0 60px;
     text-align: center;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
-  /* line 424, stdin */
+  /* line 426, stdin */
   .payment.new .navbar-default {
     display: none; }
-  /* line 428, stdin */
+  /* line 430, stdin */
   .payment.new .card {
     margin-bottom: 40px; }
-  /* line 432, stdin */
+  /* line 434, stdin */
   .payment.new footer {
     color: #fff; }
 
-/* line 437, stdin */
+/* line 439, stdin */
 .ask-payment {
   min-height: 60vh; }
 
-/* line 441, stdin */
+/* line 443, stdin */
 .hero {
   background-image: url("/images/background.jpg");
   background-position: 25% center;
@@ -5478,7 +5480,7 @@ main {
   @media screen and (min-width: 768px) {
     .hero {
       min-height: 300px; } }
-  /* line 456, stdin */
+  /* line 458, stdin */
   .hero h1 {
     background-color: rgba(0, 0, 0, 0.67);
     bottom: 10px;
@@ -5491,53 +5493,53 @@ main {
     @media screen and (min-width: 768px) {
       .hero h1 {
         font-size: 36px; } }
-  /* line 471, stdin */
+  /* line 473, stdin */
   .hero a {
     color: #fff; }
-  /* line 476, stdin */
+  /* line 478, stdin */
   .hero h1, .hero a {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
-  /* line 480, stdin */
+  /* line 482, stdin */
   .hero .breadcrumbs > li {
     background-color: rgba(0, 0, 0, 0.67);
     margin-right: -5px; }
 
-/* line 486, stdin */
+/* line 488, stdin */
 .bg-primary-gradient {
   background: linear-gradient(to top right, #5C6BC0, #0D47A1 50%, #42A5F5 100%);
   color: #fff;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 492, stdin */
+/* line 494, stdin */
 .btn {
   font-weight: 700; }
 
-/* line 497, stdin */
+/* line 499, stdin */
 .btn, .input-lg {
   border-radius: 3px;
   font-family: -apple-system, ".SFNSDisplay-Bold", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif; }
 
-/* line 502, stdin */
+/* line 504, stdin */
 .btn-primary {
   background-color: #5C6BC0;
   border-color: #3F51B5;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45); }
-  /* line 509, stdin */
+  /* line 511, stdin */
   .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
     background-color: #3F51B5;
     border-color: #3F51B5; }
-  /* line 514, stdin */
+  /* line 516, stdin */
   .btn-primary.inverse {
     background-color: transparent;
     border-width: 2px;
     box-shadow: none;
     color: #5C6BC0; }
 
-/* line 522, stdin */
+/* line 524, stdin */
 .shadow {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
 
-/* line 526, stdin */
+/* line 528, stdin */
 .card {
   background-color: #fff;
   border-radius: 3px;
@@ -5545,71 +5547,71 @@ main {
   margin-bottom: 15px;
   padding: 10px 20px 20px; }
 
-/* line 534, stdin */
+/* line 536, stdin */
 .repeat-cta {
   padding: 50px 0; }
 
-/* line 538, stdin */
+/* line 540, stdin */
 .navbar-gym {
   border-radius: 0;
   font-size: 14px;
   margin-bottom: 15px; }
-  /* line 543, stdin */
+  /* line 545, stdin */
   .navbar-gym .nav > li {
     float: left; }
-    /* line 546, stdin */
+    /* line 548, stdin */
     .navbar-gym .nav > li:first-of-type {
       margin-left: 0; }
-    /* line 550, stdin */
+    /* line 552, stdin */
     .navbar-gym .nav > li > a {
       margin-left: 5px;
       padding: 5px; }
       @media screen and (min-width: 768px) {
         .navbar-gym .nav > li > a {
           padding: 15px; } }
-  /* line 560, stdin */
+  /* line 562, stdin */
   .navbar-gym .btn {
     margin-right: 15px;
     padding: 6px 12px; }
-    /* line 564, stdin */
+    /* line 566, stdin */
     .navbar-gym .btn.btn-primary {
       color: #fff; }
-      /* line 567, stdin */
+      /* line 569, stdin */
       .navbar-gym .btn.btn-primary:hover {
         background-color: #3F51B5;
         color: #fff; }
-    /* line 573, stdin */
+    /* line 575, stdin */
     .navbar-gym .btn.inverse {
       border-width: 1px;
       color: #5C6BC0; }
-      /* line 577, stdin */
+      /* line 579, stdin */
       .navbar-gym .btn.inverse:hover {
         background-color: transparent;
         color: #5C6BC0; }
-        /* line 581, stdin */
+        /* line 583, stdin */
         .navbar-gym .btn.inverse:hover i::before {
           content: "\f164"; }
-  /* line 589, stdin */
+  /* line 591, stdin */
   .navbar-gym .navbar-right .btn {
     margin-left: 15px;
     margin-right: 0; }
 
-/* line 596, stdin */
+/* line 598, stdin */
 .card-overview {
   position: relative; }
 
-/* line 600, stdin */
+/* line 602, stdin */
 .dropdown-rates {
   position: absolute;
   right: 0;
   top: 20px; }
-  /* line 605, stdin */
+  /* line 607, stdin */
   .dropdown-rates button {
     background-color: #42A5F5;
     border: none;
     color: #fff; }
 
-/* line 612, stdin */
+/* line 614, stdin */
 .nav-tabs > li > a {
   color: #546E7A;
   font-size: 14px;
@@ -5618,28 +5620,28 @@ main {
     .nav-tabs > li > a {
       font-size: 16px;
       padding: 10px 15px; } }
-  /* line 623, stdin */
+  /* line 625, stdin */
   .nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
     border-radius: 0; }
 
-/* line 630, stdin */
+/* line 632, stdin */
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   border: none;
   border-bottom: 3px solid #5C6BC0;
   color: #333; }
 
-/* line 636, stdin */
+/* line 638, stdin */
 .pac-icon-marker {
   display: none; }
 
-/* line 640, stdin */
+/* line 642, stdin */
 .pac-item:nth-child(odd) {
   background-color: #ECEFF1; }
 
-/* line 645, stdin */
+/* line 647, stdin */
 .pac-item-selected, .pac-item-selected:nth-child(odd) {
   background-color: #5C6BC0; }
-  /* line 650, stdin */
+  /* line 652, stdin */
   .pac-item-selected .pac-matched, .pac-item-selected .pac-item-query, .pac-item-selected span, .pac-item-selected:nth-child(odd) .pac-matched, .pac-item-selected:nth-child(odd) .pac-item-query, .pac-item-selected:nth-child(odd) span {
     color: #fff; }
 

@@ -228,14 +228,16 @@ main {
   position: absolute;
   top: 50px;
   width: 100%;
+  z-index: 1000;
 
   &:empty { display: none; }
 }
 
 .well-intro {
   background-color: #fff;
-  border-left: 6px solid map-get($indigo, 400);
+  border-left-color: map-get($indigo, 400);
   border-radius: 0;
+  border-width: 0 0 0 10px;
   box-shadow: 0 2px 5px 0 rgba(22, 27, 30, .26);
   margin-top: 15px;
 }

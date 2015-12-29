@@ -31,7 +31,7 @@
 
             <div class="form-control-w-icon">
               <i class="fa fa-search"></i>
-              <%= text_input f, :location, class: "form-control form-gym-location", placeholder: "Find a gym…", value: form_location_prefill(@city, @state) %>
+              <%= text_input f, :location, class: "form-control form-gym-location", placeholder: "Find a gym…", value: form_location_prefill(assigns) %>
             </div>
           <% end %>
         </div>
