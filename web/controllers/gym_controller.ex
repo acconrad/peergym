@@ -29,7 +29,7 @@ defmodule Peergym.GymController do
   end
 
   def index(conn, params) do
-    delta = 0.0724146667
+    delta = 0.1448293334
 
     if params["search"] do
       searched = true
