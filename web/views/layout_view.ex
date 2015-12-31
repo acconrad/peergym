@@ -15,7 +15,11 @@ defmodule Peergym.LayoutView do
 
   def form_location_prefill(assigns) do
     if assigns[:city] && assigns[:state] do
-      "#{assigns.city}, #{assigns.state}"
+      if String.length(assigns[:city]) > 0 do
+        "#{assigns.city}, #{assigns.state}"
+      else
+        assigns.state
+      end
     else
       ""
     end

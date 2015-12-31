@@ -12,13 +12,21 @@
     <% end %>
 
     <ol class="list-unstyled gyms-list" id="gyms-list">
-      <%= for gym <- @gyms do %>
-        <%= render "item.html", item: gym,
-                                to_pay: gym_payment_path(@conn, :new, gym.id),
-                                to_show: gym_path(@conn, :show, slug(gym)),
-                                to_edit: gym_path(@conn, :edit, gym.id),
-                                to_delete: gym_path(@conn, :delete, gym.id),
-                                admin: logged_in?(@conn) && current_user(@conn).admin %>
+      <%= if @gyms do %>
+        <%= for gym <- @gyms do %>
+          <%= render "item.html", item: gym,
+                                  to_pay: gym_payment_path(@conn, :new, gym.id),
+                                  to_show: gym_path(@conn, :show, slug(gym)),
+                                  to_edit: gym_path(@conn, :edit, gym.id),
+                                  to_delete: gym_path(@conn, :delete, gym.id),
+                                  admin: logged_in?(@conn) && current_user(@conn).admin %>
+        <% end %>
+      <% else %>
+        <li>
+          <div class="card">
+            <h3>Sorry bro! We couldn't find any gyms in your area, so head up to search bar and try again.</h3>
+          </div>
+        </li>
       <% end %>
 
       <%= if @total_pages > 1 do %>
@@ -55,13 +63,13 @@
 
   <aside class="col-md-6 visible-md visible-lg">
     <h3>
-      <span class="result-title">Gyms near <%= @city %>, <%= @state %></span>
+      <span class="result-title">Gyms <%= if String.length(@city) > 0, do: "near " <> @city <> ",", else: "in" %> <%= @state %></span>
 
       <%= if logged_in?(@conn) && current_user(@conn).admin do %>
         <%= link "Add a Gym »", to: gym_path(@conn, :new), class: "btn btn-primary pull-right" %>
       <% end %>
     </h3>
 
-    <div data-latitude="<%= @lat |> to_string %>" data-longitude="<%= @lng |> to_string %>" id="map-canvas"></div>
+    <div data-latitude="<%= @lat |> to_string %>" data-longitude="<%= @lng |> to_string %>" data-skyview="<%= String.length(@city) == 0 %>"  id="map-canvas"></div>
   </aside>
 </div>

@@ -43,9 +43,19 @@ defmodule Peergym.GymController do
       if record do
         curr_lat = record.location.latitude
         curr_lng = record.location.longitude
-        city = record.city.names.en
-        state_iso = record.subdivisions |> List.first
-        state = state_iso.iso_code
+
+        if record.city do
+          city = record.city.names.en
+        else
+          city = ""
+        end
+
+        if record.subdivisions do
+          state_iso = record.subdivisions |> List.first
+          state = state_iso.iso_code
+        else
+          state = record.country.names.en
+        end
       else
         curr_lat = 42.3600825
         curr_lng = -71.0588801
@@ -54,22 +64,36 @@ defmodule Peergym.GymController do
       end
     end
 
-    min_lng = curr_lng - delta
-    max_lng = curr_lng + delta
-    min_lat = curr_lat - delta
-    max_lat = curr_lat + delta
     curr_page = String.to_integer(params["page"] || "1")
 
-    query = from g in Gym,
-      where: g.latitude >= ^min_lat and g.latitude <= ^max_lat and g.longitude >= ^min_lng and g.longitude <= ^max_lng,
-      select: g
+    if state == "United States" do
+      query = from g in Gym,
+        where: g.country == "US" and (g.city == "New York" or g.city == "Los Angeles" or g.city == "Chicago" or g.city == "Houston" or g.city == "Philadelphia" or g.city == "Phoenix" or g.city == "San Francisco" or g.city == "Boston" or g.city == "Seattle" or g.city == "Las Vegas"),
+        limit: 50,
+        select: g
 
-    gym_blocks = Repo.all(query)
-    |> Enum.sort(&(haversine_distance(&1, curr_lat, curr_lng) <= haversine_distance(&2, curr_lat, curr_lng)))
-    |> Enum.map(&(Map.put(&1, :distance, haversine_distance(&1, curr_lat, curr_lng) |> Float.round(1))))
-    |> Enum.chunk(10, 10, [])
+      gym_blocks = Repo.all(query)
+      |> Enum.map(&(Map.put(&1, :distance, 0)))
+      |> Enum.chunk(10, 10, [])
+    else
+      min_lng = curr_lng - delta
+      max_lng = curr_lng + delta
+      min_lat = curr_lat - delta
+      max_lat = curr_lat + delta
 
-    gyms = gym_blocks |> Enum.fetch!(curr_page - 1)
+      query = from g in Gym,
+        where: g.latitude >= ^min_lat and g.latitude <= ^max_lat and g.longitude >= ^min_lng and g.longitude <= ^max_lng,
+        select: g
+
+      gym_blocks = Repo.all(query)
+      |> Enum.sort(&(haversine_distance(&1, curr_lat, curr_lng) <= haversine_distance(&2, curr_lat, curr_lng)))
+      |> Enum.map(&(Map.put(&1, :distance, haversine_distance(&1, curr_lat, curr_lng) |> Float.round(1))))
+      |> Enum.chunk(10, 10, [])
+    end
+
+    if gym_blocks |> Enum.any? do
+      gyms = gym_blocks |> Enum.fetch!(curr_page - 1)
+    end
 
     render conn, "index.html",
       gyms: gyms,

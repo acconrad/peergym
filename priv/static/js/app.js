@@ -1178,7 +1178,7 @@ var Maps = (function () {
           if (results[0]) {
             map = new google.maps.Map(canvas, {
               center: results[0].geometry.location,
-              zoom: doc.body.className === 'gym show' ? 16 : 13,
+              zoom: doc.body.className === 'gym show' ? 16 : canvas.dataset.skyview === 'true' ? 4 : 13,
               disableDefaultUI: true,
               draggable: true,
               zoomControl: true,
