@@ -31,7 +31,7 @@ defmodule Peergym.Router do
     end
     get "/:slug", GymController, :index
 
-    get "/.well-known/acme-challenge/MEDhNkkRS_hT7hfMUY6rgV9O8ORm_Z7MpAS1Oheh9yE", PageController, :ssl
+    get "/.well-known/acme-challenge/anZ6cAz6NL80HOG2A2zYdofckE-qhn-gMxCbgMp_FJc", PageController, :ssl
     get "/.well-known/acme-challenge/1yIc6C_eORUTSvBNErsGqhHo2SPVGb1ikrN1H9xQ0ko", PageController, :sslx
   end
 
