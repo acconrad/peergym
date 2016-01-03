@@ -30,6 +30,8 @@ defmodule Peergym.Router do
       resources "reviews", ReviewController
     end
     get "/:slug", GymController, :index
+
+    get "/.well-known/acme-challenge/MEDhNkkRS_hT7hfMUY6rgV9O8ORm_Z7MpAS1Oheh9yE", PageController, :ssl
   end
 
   # Other scopes may use custom stacks.
