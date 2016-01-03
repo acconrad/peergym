@@ -12,6 +12,6 @@ defmodule Peergym.PageController do
 
   def sslx(conn, _params) do
     conn
-    |> send_resp(200, "1yIc6C_eORUTSvBNErsGqhHo2SPVGb1ikrN1H9xQ0ko.EStPalDZwLiI26y7DYKCPHtMvNn5jm6pBrM8cSTwDCQ")
+    |> send_resp(200, "QM1QqSDFZjNLDJXR5Hc_6QQO7KIymfnvrc9wllkjkeA.EStPalDZwLiI26y7DYKCPHtMvNn5jm6pBrM8cSTwDCQ")
   end
 end

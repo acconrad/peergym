@@ -32,7 +32,7 @@ defmodule Peergym.Router do
     get "/:slug", GymController, :index
 
     get "/.well-known/acme-challenge/anZ6cAz6NL80HOG2A2zYdofckE-qhn-gMxCbgMp_FJc", PageController, :ssl
-    get "/.well-known/acme-challenge/1yIc6C_eORUTSvBNErsGqhHo2SPVGb1ikrN1H9xQ0ko", PageController, :sslx
+    get "/.well-known/acme-challenge/QM1QqSDFZjNLDJXR5Hc_6QQO7KIymfnvrc9wllkjkeA", PageController, :sslx
   end
 
   # Other scopes may use custom stacks.
