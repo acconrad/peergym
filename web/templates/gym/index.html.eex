@@ -11,6 +11,15 @@
       </div>
     <% end %>
 
+    <%= if @gyms do %>
+      <h4>Sort by:</h4>
+      <div class="btn-group" role="group" aria-label="...">
+        <%= link raw("<i class=\"fa fa-search\"></i> Location"), to: gym_path(@conn, :index, [page: 1, search: [city: @city , state: @state, lat: @lat |> to_string, lng: @lng |> to_string]]), class: "btn btn-sm btn-primary" %>
+        <%= link raw("<i class=\"fa fa-dollar\"></i> Price"), to: gym_path(@conn, :index, [page: 1, order_by: "price", search: [city: @city , state: @state, lat: @lat |> to_string, lng: @lng |> to_string]]), class: "btn btn-sm btn-primary" %>
+        <%# link raw("<i class=\"fa fa-star\"></i> Rating"), to: gym_path(@conn, :index, [page: 1, order_by: "rating", search: [city: @city , state: @state, lat: @lat |> to_string, lng: @lng |> to_string]]), class: "btn btn-sm btn-primary" %>
+      </div>
+    <% end %>
+
     <ol class="list-unstyled gyms-list" id="gyms-list">
       <%= if @gyms do %>
         <%= for gym <- @gyms do %>
