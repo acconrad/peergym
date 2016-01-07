@@ -1,0 +1,111 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below:</p>
+      <ul>
+        <%= for {attr, message} <- f.errors do %>
+          <li><%= humanize(attr) %> <%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :name, "Name", class: "control-label" %>
+    <%= text_input f, :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :address, "Address", class: "control-label" %>
+    <%= text_input f, :address, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :city, "City", class: "control-label" %>
+    <%= text_input f, :city, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :state, "State", class: "control-label" %>
+    <%= text_input f, :state, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :zip, "Zip", class: "control-label" %>
+    <%= text_input f, :zip, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :email, "Email", class: "control-label" %>
+    <%= text_input f, :email, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :phone, "Phone", class: "control-label" %>
+    <%= text_input f, :phone, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :url, "Url", class: "control-label" %>
+    <%= text_input f, :url, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :description, "Description", class: "control-label" %>
+    <%= text_input f, :description, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :hours, "Hours", class: "control-label" %>
+    <%= text_input f, :hours, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :size, "Size", class: "control-label" %>
+    <%= number_input f, :size, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :coaches, "Coaches", class: "control-label" %>
+    <%= number_input f, :coaches, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :class_size, "Class size", class: "control-label" %>
+    <%= number_input f, :class_size, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :day_rate, "Day rate", class: "control-label" %>
+    <%= number_input f, :day_rate, step: "any", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :monthly_rate, "Monthly rate", class: "control-label" %>
+    <%= number_input f, :monthly_rate, step: "any", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :annual_rate, "Annual rate", class: "control-label" %>
+    <%= number_input f, :annual_rate, step: "any", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :is_owner, "Is owner", class: "control-label" %>
+    <%= checkbox f, :is_owner, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :submitter_email, "Submitter email", class: "control-label" %>
+    <%= text_input f, :submitter_email, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :closed, "Closed", class: "control-label" %>
+    <%= checkbox f, :closed, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

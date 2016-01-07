@@ -72,6 +72,7 @@
           <%= if @gym.class_size do %>
             <li><strong>Avg class size:</strong> <%= @gym.class_size %></li>
           <% end %>
+          <li><strong><%= raw("<i class=\"fa fa-edit\"></i> Edit"), to: gym_gym_edit_path(@conn, :new, @gym) %></strong></li>
         </ul>
       </small>
     </div>

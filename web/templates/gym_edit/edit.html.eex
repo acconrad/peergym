@@ -1,0 +1,5 @@
+<h1>Update Gym Details</h1>
+<p>Any suggested changes to a gym page must first be verified by PeerGym’s moderators.</p>
+
+<%= render "form.html", changeset: @changeset,
+                        action: gym_gym_edit_path(@conn, :update, @gym_edit, @gym) %>

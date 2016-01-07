@@ -1,4 +1,4 @@
-<h1>Add your gym to our network</h1>
+<h1>Add a gym</h1>
 
 <%= render "form.html", changeset: @changeset,
                         action: gym_path(@conn, :create),

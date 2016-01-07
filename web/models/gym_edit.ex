@@ -1,31 +1,31 @@
-defmodule Peergym.Gym do
+defmodule Peergym.GymEdit do
   use Peergym.Web, :model
   use Arc.Ecto.Model
 
-  schema "gyms" do
+  schema "gym_edits" do
     field :name, :string
     field :address, :string
-    field :street, :string
     field :city, :string
     field :state, :string
     field :zip, :string
-    field :country, :string
-    field :latitude, :float
-    field :longitude, :float
     field :email, :string
     field :phone, :string
     field :url, :string
-    field :description, :string
     field :hours, :string
-    field :google_place_id, :string
     field :size, :integer
     field :coaches, :integer
     field :class_size, :integer
+    field :closed, :boolean, default: false
 
     # prices
     field :day_rate, :float
     field :monthly_rate, :float
     field :annual_rate, :float
+
+    # verification
+    field :is_owner, :boolean, default: false
+    field :submitter_email, :string
+    field :description, :string
 
     # bars and plates
     field :barbells, :integer
@@ -81,14 +81,13 @@ defmodule Peergym.Gym do
     field :other, :string
     field :photos, Peergym.Avatar.Type
 
-    has_many :reviews, Peergym.Review
-    has_many :gym_edits, Peergym.GymEdit
+    belongs_to :gym, Peergym.Gym
 
     timestamps
   end
 
-  @required_fields ~w(name address latitude longitude)
-  @optional_fields ~w(reviews street city state zip country email phone url description hours google_place_id size day_rate monthly_rate annual_rate coaches class_size barbells womens_barbells trap_bars safety_squat_bars log_bars bandbell_bars camber_bars bumper_plates gym_chalk squat_racks power_racks pull_up_rigs monolifts benches ghds reverse_hypers platforms bands jerk_blocks bench_press_boards chains tires kegs atlas_stones kettlebells dumbbells sleds medicine_balls slam_balls sand_bags plyo_boxes ergs bikes treadmills ellipticals stair_climbers jump_ropes agility bodyweight boxing_mma climbing gymnastic other)
+  @required_fields ~w(name address city)
+  @optional_fields ~w(state zip email phone url description hours size coaches class_size day_rate monthly_rate annual_rate is_owner submitter_email closed barbells womens_barbells trap_bars safety_squat_bars log_bars bandbell_bars camber_bars bumper_plates gym_chalk squat_racks power_racks pull_up_rigs monolifts benches ghds reverse_hypers platforms bands jerk_blocks bench_press_boards chains tires kegs atlas_stones kettlebells dumbbells sleds medicine_balls slam_balls sand_bags plyo_boxes ergs bikes treadmills ellipticals stair_climbers jump_ropes agility bodyweight boxing_mma climbing gymnastic other)
 
   @required_file_fields ~w()
   @optional_file_fields ~w(photos)
@@ -96,39 +95,12 @@ defmodule Peergym.Gym do
   @doc """
   Creates a changeset based on the `model` and `params`.
 
-  If `params` are nil, an invalid changeset is returned
+  If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> cast_attachments(params, @required_file_fields, @optional_file_fields)
-    |> unique_constraint(:google_place_id)
-    |> strip_unsafe_description(params)
-  end
-
-  defp strip_unsafe_description(model, %{"description" => nil}) do
-    model
-  end
-
-  defp strip_unsafe_body(model, %{"description" => description}) do
-    {:safe, clean_description} = Phoenix.HTML.html_escape(description)
-    model |> put_change(:description, clean_description)
-  end
-
-  defp strip_unsafe_description(model, _) do
-    model
-  end
-
-  defp strip_tags(description) do
-    description
-    |> strip_tag("script")
-    |> strip_tag("iframe")
-    |> strip_tag("link")
-  end
-
-  defp strip_tag(description, tag) do
-    strip_regex = ~r{<#{tag}[^>]*>[^<>]*(</#{tag}>)*}i
-    description |> String.replace(strip_regex, "")
   end
 end
