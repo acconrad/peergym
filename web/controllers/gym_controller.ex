@@ -2,6 +2,7 @@ defmodule Peergym.GymController do
   use Peergym.Web, :controller
   alias Peergym.Gym
   alias Peergym.Review
+  alias Peergym.GymEdit
   import Passport.AuthenticationPlug
 
   plug PlugForwardedPeer
@@ -154,7 +155,6 @@ defmodule Peergym.GymController do
 
     gym = Repo.one!(query)
     |> Repo.preload(:reviews)
-    |> Repo.preload(:gym_edits)
 
     review_query = from review in Review,
       where: review.gym_id == ^gym.id,
@@ -179,7 +179,6 @@ defmodule Peergym.GymController do
   def update(conn, %{"id" => id, "gym" => gym_params}) do
     gym = Repo.get(Gym, id)
     |> Repo.preload(:reviews)
-    |> Repo.preload(:gym_edits)
 
     changeset = Gym.changeset(gym, gym_params)
 

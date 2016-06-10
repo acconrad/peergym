@@ -33,7 +33,7 @@
       <% else %>
         <li>
           <div class="card">
-            <h3>Sorry bro! We couldn't find any gyms in your area, so head up to search bar and try again.</h3>
+            <h3>Dang! We couldn't find any gyms in your area, so head up to the search bar and try again.</h3>
           </div>
         </li>
       <% end %>
@@ -80,6 +80,6 @@
     </h3>
 
     <div data-latitude="<%= @lat |> to_string %>" data-longitude="<%= @lng |> to_string %>" data-skyview="<%= String.length(@city) == 0 %>"  id="map-canvas"></div>
-    <p><small>Found a gym that isn't listed? <%= link "Submit it here", to: gym_gym_edit_path(@conn, :new, 0) %>!</small></p>
+    <p><small>Found a gym that isn't listed? <%= link "Submit it here", to: gym_edit_path(@conn, :new) %>!</small></p>
   </aside>
 </div>

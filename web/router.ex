@@ -26,10 +26,10 @@ defmodule Peergym.Router do
 
     get "/", GymController, :index
     resources "gyms", GymController do
-      resources "gym_edits", GymEditController
       resources "payments", PaymentController
       resources "reviews", ReviewController
     end
+    resources "gym_edits", GymEditController
     get "/:slug", GymController, :index
 
     get "/.well-known/acme-challenge/anZ6cAz6NL80HOG2A2zYdofckE-qhn-gMxCbgMp_FJc", PageController, :ssl

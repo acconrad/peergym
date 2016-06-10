@@ -8,21 +8,9 @@
       <th>City</th>
       <th>State</th>
       <th>Zip</th>
-      <th>Email</th>
-      <th>Phone</th>
       <th>Url</th>
-      <th>Description</th>
-      <th>Hours</th>
-      <th>Size</th>
-      <th>Coaches</th>
-      <th>Class size</th>
-      <th>Day rate</th>
-      <th>Monthly rate</th>
-      <th>Annual rate</th>
-      <th>Is owner</th>
       <th>Submitter email</th>
       <th>Closed</th>
-      <th>Gym</th>
 
       <th></th>
     </tr>
@@ -35,24 +23,12 @@
       <td><%= gym_edit.city %></td>
       <td><%= gym_edit.state %></td>
       <td><%= gym_edit.zip %></td>
-      <td><%= gym_edit.email %></td>
-      <td><%= gym_edit.phone %></td>
       <td><%= gym_edit.url %></td>
-      <td><%= gym_edit.description %></td>
-      <td><%= gym_edit.hours %></td>
-      <td><%= gym_edit.size %></td>
-      <td><%= gym_edit.coaches %></td>
-      <td><%= gym_edit.class_size %></td>
-      <td><%= gym_edit.day_rate %></td>
-      <td><%= gym_edit.monthly_rate %></td>
-      <td><%= gym_edit.annual_rate %></td>
-      <td><%= gym_edit.is_owner %></td>
       <td><%= gym_edit.submitter_email %></td>
       <td><%= gym_edit.closed %></td>
-      <td><%= gym_edit.gym_id %></td>
 
       <td class="text-right">
-        <%= link "Edit", to: gym_gym_edit_path(@conn, :edit, gym_edit, gym_edit.gym), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: gym_edit_path(@conn, :edit, gym_edit, gym_id: gym_edit.gym_id), class: "btn btn-default btn-sm" %>
       </td>
     </tr>
 <% end %>

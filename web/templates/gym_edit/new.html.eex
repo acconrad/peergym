@@ -1,5 +1,12 @@
-<h1>Add Your Gym to Our Network</h1>
-<p>Any suggested changes to a gym page must first be verified by PeerGym’s moderators.</p>
+<%= if @gym.id do %>
+  <h1>Submit an Edit for <%= @gym.name %></h1>
+  <p>Any suggested changes to a gym page must first be verified by PeerGym’s moderators.</p>
+<% else %>
+  <h1>Add a Gym to Our Network</h1>
+  <p>All submissions must first be verified by PeerGym’s moderators.</p>
+<% end %>
 
 <%= render "form.html", changeset: @changeset,
-                        action: gym_gym_edit_path(@conn, :create, @gym) %>
+                        action: gym_edit_path(@conn, :create),
+                        gym: @gym,
+                        user: current_user(@conn) %>

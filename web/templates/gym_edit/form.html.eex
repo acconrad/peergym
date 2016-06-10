@@ -1,4 +1,4 @@
-<%= form_for @changeset, @action, fn f -> %>
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below:</p>
@@ -10,99 +10,497 @@
     </div>
   <% end %>
 
+  <%= hidden_input f, :gym_id, value: @gym_edit.gym_id || @gym.id %>
+
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <%= checkbox f, :is_owner %> I am the gym owner
+      </label>
+    </div>
+  </div>
+
+  <h2>Basic info</h2>
+  <p class="lead">Basic information we need about your gym.</p>
+
   <div class="form-group">
     <%= label f, :name, "Name", class: "control-label" %>
-    <%= text_input f, :name, class: "form-control" %>
+    <%= text_input f, :name, class: "form-control", required: true, placeholder: "Boston Crossfit", value: @gym_edit.name || @gym.name %>
   </div>
 
   <div class="form-group">
     <%= label f, :address, "Address", class: "control-label" %>
-    <%= text_input f, :address, class: "form-control" %>
+    <%= text_input f, :address, class: "form-control", required: true, placeholder: "123 Main St", value: @gym_edit.address || @gym.address %>
   </div>
 
   <div class="form-group">
     <%= label f, :city, "City", class: "control-label" %>
-    <%= text_input f, :city, class: "form-control" %>
+    <%= text_input f, :city, class: "form-control", required: true, placeholder: "Boston", value: @gym_edit.city || @gym.city %>
   </div>
 
   <div class="form-group">
-    <%= label f, :state, "State", class: "control-label" %>
-    <%= text_input f, :state, class: "form-control" %>
+    <%= label f, :state, "State / Province", class: "control-label" %>
+    <%= text_input f, :state, class: "form-control", required: true, placeholder: "MA", value: @gym_edit.state || @gym.state %>
   </div>
 
   <div class="form-group">
-    <%= label f, :zip, "Zip", class: "control-label" %>
-    <%= text_input f, :zip, class: "form-control" %>
+    <%= label f, :zip, "Zip Code", class: "control-label" %>
+    <%= text_input f, :zip, class: "form-control", required: true, placeholder: "02210", value: @gym_edit.zip || @gym.zip %>
   </div>
 
-  <div class="form-group">
-    <%= label f, :email, "Email", class: "control-label" %>
-    <%= text_input f, :email, class: "form-control" %>
-  </div>
+  <h3>Photo</h3>
+  <p class="lead">Add a photo to show us what the gym looks like.</p>
+  <%= if @changeset && @changeset.model && @changeset.model.photos do %>
+    <img src="<%= img_url(@changeset.gym) %>" alt="Here's what it looks like to work out here">
+  <% end %>
+  <%= file_input f, :photos, class: "form-control" %>
 
-  <div class="form-group">
-    <%= label f, :phone, "Phone", class: "control-label" %>
-    <%= text_input f, :phone, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :url, "Url", class: "control-label" %>
-    <%= text_input f, :url, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :description, "Description", class: "control-label" %>
-    <%= text_input f, :description, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :hours, "Hours", class: "control-label" %>
-    <%= text_input f, :hours, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :size, "Size", class: "control-label" %>
-    <%= number_input f, :size, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :coaches, "Coaches", class: "control-label" %>
-    <%= number_input f, :coaches, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= label f, :class_size, "Class size", class: "control-label" %>
-    <%= number_input f, :class_size, class: "form-control" %>
-  </div>
+  <h3>Rates</h3>
+  <p class="lead">How much does it cost to work out at the gym?</p>
 
   <div class="form-group">
     <%= label f, :day_rate, "Day rate", class: "control-label" %>
-    <%= number_input f, :day_rate, step: "any", class: "form-control" %>
+    <%= number_input f, :day_rate, min: 0, max: 50000, step: 0.01, value: @gym_edit.day_rate || @gym.day_rate %>
+    <small class="help-block">Use "0" if they don't offer day passes.</small>
   </div>
 
   <div class="form-group">
     <%= label f, :monthly_rate, "Monthly rate", class: "control-label" %>
-    <%= number_input f, :monthly_rate, step: "any", class: "form-control" %>
+    <%= number_input f, :monthly_rate, min: 0, max: 50000, step: 0.01, value: @gym_edit.monthly_rate || @gym.monthly_rate %>
+    <small class="help-block">Use "0" if they don't offer monthly passes.</small>
   </div>
 
   <div class="form-group">
     <%= label f, :annual_rate, "Annual rate", class: "control-label" %>
-    <%= number_input f, :annual_rate, step: "any", class: "form-control" %>
+    <%= number_input f, :annual_rate, min: 0, max: 50000, step: 0.01, value: @gym_edit.annual_rate || @gym.annual_rate %>
+    <small class="help-block">Use "0" if they don't offer annual passes.</small>
+  </div>
+
+  <h3>Other info</h3>
+
+  <div class="form-group">
+    <%= label f, :email, "Email", class: "control-label" %>
+    <%= email_input f, :email, class: "form-control", placeholder: "owner@gym.com", value: @gym_edit.email || @gym.email %>
   </div>
 
   <div class="form-group">
-    <%= label f, :is_owner, "Is owner", class: "control-label" %>
-    <%= checkbox f, :is_owner, class: "form-control" %>
+    <%= label f, :phone, "Phone", class: "control-label" %>
+    <%= telephone_input f, :phone, class: "form-control", placeholder: "555-555-1234", value: @gym_edit.phone || @gym.phone %>
   </div>
 
   <div class="form-group">
-    <%= label f, :submitter_email, "Submitter email", class: "control-label" %>
-    <%= text_input f, :submitter_email, class: "form-control" %>
+    <%= label f, :url, "Url", class: "control-label" %>
+    <%= url_input f, :url, class: "form-control", placeholder: "http://www.gymwebsite.com", value: @gym_edit.url || @gym.url %>
   </div>
 
   <div class="form-group">
-    <%= label f, :closed, "Closed", class: "control-label" %>
-    <%= checkbox f, :closed, class: "form-control" %>
+    <%= label f, :hours, "Hours", class: "control-label" %>
+    <%= text_input f, :hours, class: "form-control", placeholder: "e.g. 9a-5p Mon-Fri, 10a-2p Sat-Sun", value: @gym_edit.hours || @gym.hours %>
+  </div>
+
+  <h3>Staff and facility</h3>
+  <p class="lead">Tell us more about the people and the space.</p>
+
+  <div class="form-group">
+    <%= label f, :size, "Size (sq. ft)", class: "control-label" %>
+    <%= number_input f, :size, class: "form-control", min: 0, max: 100000, step: 1, placeholder: "20000", value: @gym_edit.size || @gym.size %>
+    <small class="help-block">In square feet (sq ft)</small>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :coaches, "# Trainers", class: "control-label" %>
+    <%= number_input f, :coaches, class: "form-control", min: 0, max: 500, step: 1, placeholder: "20", value: @gym_edit.coaches || @gym.coaches %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :class_size, "Avg. Class Size", class: "control-label" %>
+    <%= number_input f, :class_size, class: "form-control", min: 0, max: 500, step: 1, placeholder: "20", value: @gym_edit.class_size || @gym.class_size %>
+  </div>
+
+  <h2>Strengh equipment</h2>
+
+  <h3>Bars and plates</h3>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Barbells (20kg)</label>
+        <%= number_input f, :barbells, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5", value: @gym_edit.barbells || @gym.barbells %>
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Women's Barbells (15kg)</label>
+        <%= number_input f, :womens_barbells, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5", value: @gym_edit.womens_barbells || @gym.womens_barbells %>
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Trap Bars</label>
+        <%= number_input f, :trap_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "2", value: @gym_edit.trap_bars || @gym.trap_bars %>
+      </div>
+    </div>
+  </div>
+
+  <h3>Racks and Rigs</h3>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Power Racks</label>
+        <%= number_input f, :power_racks, class: "form-control", min: 0, max: 500, step: 1, placeholder: "3", value: @gym_edit.power_racks || @gym.power_racks %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Squat Racks</label>
+        <%= number_input f, :squat_racks, class: "form-control", min: 0, max: 500, step: 1, placeholder: "3", value: @gym_edit.squat_racks || @gym.squat_racks %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Pull Up Rigs</label>
+        <%= number_input f, :pull_up_rigs, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1", value: @gym_edit.pull_up_rigs || @gym.pull_up_rigs %>
+      </div>
+    </div>
+  </div>
+
+  <h3>Strength training</h3>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Benches</label>
+        <%= number_input f, :benches, class: "form-control", min: 0, max: 500, step: 1, placeholder: "3", value: @gym_edit.benches || @gym.benches %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>GHDs (Glute Ham)</label>
+        <%= number_input f, :ghds, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1", value: @gym_edit.ghds || @gym.ghds %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Reverse Hypers</label>
+        <%= number_input f, :reverse_hypers, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1", value: @gym_edit.reverse_hypers || @gym.reverse_hypers %>
+      </div>
+    </div>
+  </div>
+
+  <h3>Accessories</h3>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Bands</label>
+        <%= number_input f, :bands, class: "form-control", min: 0, max: 500, step: 1, placeholder: "10", value: @gym_edit.bands || @gym.bands %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <%= checkbox f, :gym_chalk, checked: @gym_edit.gym_chalk || @gym.gym_chalk %> Gym Chalk?
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Conditioning</h2>
+
+  <h3>Strength equipment</h3>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Kettlebells</label>
+        <%= number_input f, :kettlebells, class: "form-control", min: 0, max: 500, step: 1, placeholder: "150", value: @gym_edit.kettlebells || @gym.kettlebells %>
+        <small class="help-block">Heaviest weight in lbs.</small>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Dumbbells</label>
+        <%= number_input f, :dumbbells, class: "form-control", min: 0, max: 500, step: 1, placeholder: "150", value: @gym_edit.dumbbells || @gym.dumbbells %>
+        <small class="help-block">Heaviest weight in lbs.</small>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Sleds</label>
+        <%= number_input f, :sleds, class: "form-control", min: 0, max: 500, step: 1, placeholder: "2", value: @gym_edit.sleds || @gym.sleds %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Medicine Balls</label>
+        <%= number_input f, :medicine_balls, class: "form-control", min: 0, max: 500, step: 1, placeholder: "10", value: @gym_edit.medicine_balls || @gym.medicine_balls %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Slam Balls</label>
+        <%= number_input f, :slam_balls, class: "form-control", min: 0, max: 500, step: 1, placeholder: "10", value: @gym_edit.slam_balls || @gym.slam_balls %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Sand Bags</label>
+        <%= number_input f, :sand_bags, class: "form-control", min: 0, max: 500, step: 1, placeholder: "3", value: @gym_edit.sand_bags || @gym.sand_bags %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Tires</label>
+        <%= number_input f, :tires, class: "form-control", min: 0, max: 500, step: 1, placeholder: "2", value: @gym_edit.tires || @gym.tires %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Plyo / Jump Boxes</label>
+        <%= number_input f, :plyo_boxes, class: "form-control", min: 0, max: 500, step: 1, placeholder: "10", value: @gym_edit.plyo_boxes || @gym.plyo_boxes %>
+      </div>
+    </div>
+  </div>
+
+  <h3>Endurance</h3>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Rowers / Ergs</label>
+        <%= number_input f, :ergs, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5", value: @gym_edit.ergs || @gym.ergs %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Stationary Bicycles</label>
+        <%= number_input f, :bikes, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5", value: @gym_edit.bikes || @gym.bikes %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Jump Ropes</label>
+        <%= number_input f, :jump_ropes, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5", value: @gym_edit.jump_ropes || @gym.jump_ropes %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Treadmills</label>
+        <%= number_input f, :treadmills, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5", value: @gym_edit.treadmills || @gym.treadmills %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Ellipticals</label>
+        <%= number_input f, :ellipticals, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5", value: @gym_edit.ellipticals || @gym.ellipticals %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Stair Climbers</label>
+        <%= number_input f, :stair_climbers, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5", value: @gym_edit.stair_climbers || @gym.stair_climbers %>
+      </div>
+    </div>
+  </div>
+
+  <h2>Misc Equipment</h2>
+  <p class="lead">Do you have any other special kind of equipment we should know about?</p>
+
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <%= checkbox f, :agility, checked: @gym_edit.agility || @gym.agility %> Agility (e.g. cones, ladders, hurdles, etc.)?
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <%= checkbox f, :bodyweight, checked: @gym_edit.bodyweight || @gym.bodyweight %> Bodyweight (e.g. abmats, weighted vests, dip bars, etc.)?
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <%= checkbox f, :boxing_mma, checked: @gym_edit.boxing_mma || @gym.boxing_mma %> Boxing / MMA (e.g. ring, gloves, protection, heavy bags, speed bags)?
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <%= checkbox f, :climbing, checked: @gym_edit.climbing || @gym.climbing %> Climbing (e.g. ropes, rock wall, bouldering)?
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <%= checkbox f, :gymnastic, checked: @gym_edit.gymnastic || @gym.gymnastic %> Gymnastic (e.g. rings, parallettes)?
+      </label>
+    </div>
+  </div>
+
+  <h3>Powerlifting</h3>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Safety Squat Bars</label>
+        <%= number_input f, :safety_squat_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1", value: @gym_edit.safety_squat_bars || @gym.safety_squat_bars %>
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Bandbell Bars</label>
+        <%= number_input f, :bandbell_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1", value: @gym_edit.bandbell_bars || @gym.bandbell_bars %>
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Camber Bars</label>
+        <%= number_input f, :camber_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1", value: @gym_edit.camber_bars || @gym.camber_bars %>
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Monolifts</label>
+        <%= number_input f, :monolifts, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1", value: @gym_edit.monolifts || @gym.monolifts %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Bench Boards</label>
+        <%= number_input f, :bench_press_boards, class: "form-control", min: 0, max: 500, step: 1, placeholder: "5", value: @gym_edit.bench_press_boards || @gym.bench_press_boards %>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Chains</label>
+        <%= number_input f, :chains, class: "form-control", min: 0, max: 500, step: 1, placeholder: "4", value: @gym_edit.chains || @gym.chains %>
+      </div>
+    </div>
+  </div>
+
+  <h3>Weightlifitng</h3>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Olympic Platforms</label>
+        <%= number_input f, :platforms, class: "form-control", min: 0, max: 500, step: 1, placeholder: "3", value: @gym_edit.platforms || @gym.platforms %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Jerk Blocks</label>
+        <%= number_input f, :jerk_blocks, class: "form-control", min: 0, max: 500, step: 1, placeholder: "8", value: @gym_edit.jerk_blocks || @gym.jerk_blocks %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Bumper Plates</label>
+        <%= number_input f, :bumper_plates, class: "form-control", min: 0, max: 500, step: 1, placeholder: "100", value: @gym_edit.bumper_plates || @gym.bumper_plates %>
+        <small class="help-block">Highest plate weight</small>
+      </div>
+    </div>
+  </div>
+
+  <h3>Strongman</h3>
+
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Log Bars</label>
+        <%= number_input f, :log_bars, class: "form-control", min: 0, max: 500, step: 1, placeholder: "1", value: @gym_edit.log_bars || @gym.log_bars %>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Kegs</label>
+        <%= number_input f, :kegs, class: "form-control", min: 0, max: 500, step: 1, placeholder: "50", value: @gym_edit.kegs || @gym.kegs %>
+        <small class="help-block">Heaviest weight in lbs.</small>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Atlas Stones</label>
+        <%= number_input f, :atlas_stones, class: "form-control", min: 0, max: 500, step: 1, placeholder: "200", value: @gym_edit.atlas_stones || @gym.atlas_stones %>
+        <small class="help-block">Heaviest weight in lbs.</small>
+      </div>
+    </div>
+  </div>
+
+  <%= if @user do %>
+    <%= hidden_input f, :submitter_email, value: @user.email %>
+  <% else %>
+    <h2>Verification</h2>
+
+    <div class="form-group">
+      <%= label f, :submitter_email, "Your email", class: "control-label" %>
+      <%= text_input f, :submitter_email, required: true, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= label f, :password, "Password", class: "control-label" %>
+      <%= password_input f, :password, class: "form-control" %>
+      <small class="help-block">Optional; providing a password will create an account and give you credit for the edit.</small>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <%= checkbox f, :closed %> This gym is no longer open
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :description, "Description", class: "control-label" %>
+    <%= text_input f, :description, class: "form-control", value: @gym_edit.description || @gym.description %>
+    <small class="help-block">Tell us more about what it's like to work out at your gym. What's the vibe / attitude? Any restrictions? Are walk-ins or drop-ins allowed? What is the management like? Try and be as descriptive as possible.</small>
   </div>
 
   <div class="form-group">
