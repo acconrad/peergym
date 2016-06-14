@@ -1,6 +1,5 @@
-<h2>Edit review</h2>
+<h2>Edit your review of <%= @gym.name %></h2>
 
 <%= render "form.html", changeset: @changeset,
-                        action: gym_review_path(@conn, :update, @gym, @review) %>
-
-<%= link "Back", to: gym_review_path(@conn, :index, @gym) %>
+                        action: gym_review_path(@conn, :update, @gym, @review),
+                        user: current_user(@conn) %>

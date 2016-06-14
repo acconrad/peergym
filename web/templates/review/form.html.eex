@@ -10,14 +10,25 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= label f, :body, "Body", class: "control-label" %>
-    <%= textarea f, :body, class: "form-control" %>
+  <%= hidden_input f, :user_id, value: @user.id %>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= label f, :body, "Body", class: "control-label" %>
+        <%= textarea f, :body, rows: 8, class: "form-control" %>
+      </div>
+    </div>
   </div>
 
-  <div class="form-group">
-    <%= label f, :rating, "Rating", class: "control-label" %>
-    <%= number_input f, :rating, class: "form-control" %>
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="form-group">
+        <%= label f, :rating, "Rating", class: "control-label" %>
+        <%= number_input f, :rating, class: "form-control", min: 1, max: 5, step: 1 %>
+        <small>1 = Worst, 5 = Best</small>
+      </div>
+    </div>
   </div>
 
   <div class="form-group">

@@ -14,13 +14,12 @@
   <ul class="nav navbar-nav">
     <li><a href="#overview">Overview</a></li>
     <li><a href="#amenities">Amenities & Gear</a></li>
-    <!--<li><a href="#reviews">Reviews</a></li>-->
+    <li><a href="#reviews">Reviews</a></li>
   </ul>
 
-  <!--<ul class="nav navbar-nav navbar-right">
-     <li><%# link raw("<i class="fa fa-thumbs-o-up"></i> I work out here!"), to: gym_review_path(@conn, :new, @gym), class: "btn btn-primary navbar-btn inverse" %></li>
-    <li><%# link "Write a review", to: gym_review_path(@conn, :new, @gym), class: "btn btn-primary navbar-btn" %></li>
-  </ul>-->
+  <ul class="nav navbar-nav navbar-right">
+    <li><%= link "Write a review", to: gym_review_path(@conn, :new, @gym) %></li>
+  </ul>
 </nav>
 
 <section class="row" id="overview">
@@ -231,9 +230,13 @@
           <ul class="gym-reviews list-unstyled">
           <%= for review <- @gym.reviews do %>
             <li class="gym-review-item">
-              <%= review.rating %> / 5
+              <blockquote>
+                <%= review.body %> - <strong><%= review.rating %> out of 5</strong>
+              </blockquote>
 
-              <%= review.body %>
+              <%= if review.user_id == current_user(@conn).id do %>
+                <%= link raw("<i class=\"fa fa-edit\"></i> Edit"), to: gym_review_path(@conn, :edit, review, @gym) %>
+              <% end %>
             </li>
           <% end %>
           </ul>

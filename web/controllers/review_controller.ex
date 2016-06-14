@@ -5,12 +5,8 @@ defmodule Peergym.ReviewController do
 
   plug :scrub_params, "review" when action in [:create, :update]
   plug :assign_gym
-  plug :authorize_user when action in [:new, :create, :update, :edit, :delete]
-
-  def index(conn, _params) do
-    reviews = Repo.all(Review)
-    render(conn, "index.html", reviews: reviews)
-  end
+  plug :authorize_user when action in [:new, :create]
+  plug :authorize_same_user when action in [:update, :edit, :delete]
 
   def new(conn, _params) do
     changeset = conn.assigns[:gym]
@@ -29,15 +25,10 @@ defmodule Peergym.ReviewController do
       {:ok, _review} ->
         conn
         |> put_flash(:info, "Review created successfully.")
-        |> redirect(to: gym_review_path(conn, :index, conn.assigns[:gym]))
+        |> redirect(to: gym_path(conn, :show, slug(conn.assigns[:gym])))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
-  end
-
-  def show(conn, %{"id" => id}) do
-    review = Repo.get!(assoc(conn.assigns[:gym], :reviews), id)
-    render(conn, "show.html", review: review)
   end
 
   def edit(conn, %{"id" => id}) do
@@ -54,7 +45,7 @@ defmodule Peergym.ReviewController do
       {:ok, review} ->
         conn
         |> put_flash(:info, "Review updated successfully.")
-        |> redirect(to: gym_review_path(conn, :show, conn.assigns[:gym], review))
+        |> redirect(to: gym_path(conn, :show, slug(conn.assigns[:gym])))
       {:error, changeset} ->
         render(conn, "edit.html", review: review, changeset: changeset)
     end
@@ -67,7 +58,7 @@ defmodule Peergym.ReviewController do
     Repo.delete!(review)
     conn
     |> put_flash(:info, "Review deleted successfully.")
-    |> redirect(to: gym_review_path(conn, :index, conn.assigns[:gym]))
+    |> redirect(to: gym_path(conn, :show, slug(conn.assigns[:gym])))
   end
 
   defp assign_gym(conn, _) do
@@ -82,8 +73,8 @@ defmodule Peergym.ReviewController do
     end
   end
 
-  defp authorize_user(conn, _) do
-    user = get_session(conn, :current_user)
+  defp authorize_same_user(conn, _) do
+    user = Repo.get(Peergym.User, get_session(conn, :current_user))
 
     if user && Integer.to_string(user.id) == conn.params["user_id"] do
       conn
@@ -93,5 +84,22 @@ defmodule Peergym.ReviewController do
       |> redirect(to: gym_path(conn, :index))
       |> halt()
     end
+  end
+
+  defp authorize_user(conn, _) do
+    if Repo.get(Peergym.User, get_session(conn, :current_user)) do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be logged in to leave a review!")
+      |> redirect(to: user_path(conn, :new))
+      |> halt()
+    end
+  end
+
+  defp slug(gym) do
+    gym.name
+    |> String.downcase
+    |> String.replace(" ", "-")
   end
 end
