@@ -1,5 +1,5 @@
 <section class="hero" style="<%= if @gym.photos, do: "background-image: url('#{img_url(@gym)}')" %>">
-  <%# render "breadcrumb.html", state: @gym.state, city: @gym.city, name: @gym.name %>
+  <%= render "breadcrumb.html", state: @gym.state, city: @gym.city, name: @gym.name %>
   <h1><%= @gym.name %></h1>
 
   <%= if logged_in?(@conn) && current_user(@conn).admin do %>

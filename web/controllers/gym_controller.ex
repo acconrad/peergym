@@ -13,6 +13,8 @@ defmodule Peergym.GymController do
       redirect_to: "/"
     ] when action in [:new, :edit, :create, :update, :delete]
 
+  @delta 0.1448293334
+
   def index(conn, %{"slug" => slug}) do
     slug_keywords = String.split(slug, "-")
 
@@ -30,8 +32,6 @@ defmodule Peergym.GymController do
   end
 
   def index(conn, params) do
-    delta = 0.1448293334
-
     if params["search"] do
       searched = true
       curr_lng = String.to_float(params["search"]["lng"])
@@ -85,10 +85,10 @@ defmodule Peergym.GymController do
       |> Enum.map(&(Map.put(&1, :distance, 0)))
       |> Enum.chunk(10, 10, [])
     else
-      min_lng = curr_lng - delta
-      max_lng = curr_lng + delta
-      min_lat = curr_lat - delta
-      max_lat = curr_lat + delta
+      min_lng = curr_lng - @delta
+      max_lng = curr_lng + @delta
+      min_lat = curr_lat - @delta
+      max_lat = curr_lat + @delta
 
       if params["order_by"] do
         query = from g in Gym,
@@ -215,8 +215,8 @@ defmodule Peergym.GymController do
     dlat = lat2 - lat1
     dlon = lon2 - lon1
 
-    a  = :math.pow(:math.sin(dlat/2),2) + :math.cos(lat1) * :math.cos(lat2) * :math.pow(:math.sin(dlon/2),2)
-    c  = 2 * :math.atan2(:math.sqrt(a),:math.sqrt(1-a))
+    a = :math.pow(:math.sin(dlat/2),2) + :math.cos(lat1) * :math.cos(lat2) * :math.pow(:math.sin(dlon/2),2)
+    c = 2 * :math.atan2(:math.sqrt(a),:math.sqrt(1-a))
     c * 3961.0
   end
 

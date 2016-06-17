@@ -11,8 +11,8 @@ defmodule Peergym.Avatar do
   end
 
   def filename(version, {file, scope}) do
-    [filename, _] = file.file_name |> String.split(~r{\.(jpg|png|jpeg|gif)})
-    "#{scope.id}_#{version}_#{filename}"
+    [name, _] = file.file_name |> String.split(~r{\.(jpg|png|jpeg|gif)})
+    "#{scope.id}_#{version}_#{name}"
   end
 
   def storage_dir(version, {file, scope}) do
