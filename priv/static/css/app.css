@@ -5386,10 +5386,10 @@ main {
   .gym.index .gym-item .price {
     right: 0; }
     /* line 341, stdin */
-    .gym.index .gym-item .price .amount {
+    .gym.index .gym-item .price .amt {
       font-size: 18px; }
       @media screen and (min-width: 768px) {
-        .gym.index .gym-item .price .amount {
+        .gym.index .gym-item .price .amt {
           font-size: 24px; } }
   /* line 350, stdin */
   .gym.index .gym-item .text-bg-gradient {

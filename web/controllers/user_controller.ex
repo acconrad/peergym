@@ -1,5 +1,6 @@
 defmodule Peergym.UserController do
   use Peergym.Web, :controller
+  alias Peergym.Registration
   alias Peergym.User
   import Passport.AuthenticationPlug
 
@@ -24,7 +25,7 @@ defmodule Peergym.UserController do
     changeset = User.changeset(%User{}, user_params)
 
     if changeset.valid? do
-      Peergym.Registration.create(changeset, Peergym.Repo)
+      Registration.create(changeset, Peergym.Repo)
 
       conn
       |> put_flash(:info, "Your account was created!")

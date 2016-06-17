@@ -55,13 +55,14 @@ defmodule Peergym.GymEditController do
   def update(conn, %{"id" => id, "gym_edit" => gym_edit_params}) do
     gym_edit = Repo.get!(GymEdit, id)
 
-    gym = Repo.get!(Gym, gym_edit_params["gym_id"])
+    gym = Gym
+    |> Repo.get!(gym_edit_params["gym_id"])
     |> Repo.preload(:reviews)
 
     changeset = Gym.changeset(gym, gym_edit_params)
 
     case Repo.update(changeset) do
-      {:ok, gym} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, "Gym updated!")
         |> redirect(to: gym_edit_path(conn, :index))

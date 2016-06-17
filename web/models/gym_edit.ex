@@ -1,4 +1,10 @@
 defmodule Peergym.GymEdit do
+  @moduledoc """
+  A module to allow Users to edit information about Gyms.
+  These are essentially temporary, ephemeral snapshots of a Gym that can be used
+  to quickly update a Gym via User input rather than manually updating as an admin.
+  """
+
   use Peergym.Web, :model
   use Arc.Ecto.Model
 
@@ -86,7 +92,12 @@ defmodule Peergym.GymEdit do
   end
 
   @required_fields ~w(name address city)
-  @optional_fields ~w(state zip email phone url description hours size coaches class_size day_rate monthly_rate annual_rate is_owner submitter_email closed barbells womens_barbells trap_bars safety_squat_bars log_bars bandbell_bars camber_bars bumper_plates gym_chalk squat_racks power_racks pull_up_rigs monolifts benches ghds reverse_hypers platforms bands jerk_blocks bench_press_boards chains tires kegs atlas_stones kettlebells dumbbells sleds medicine_balls slam_balls sand_bags plyo_boxes ergs bikes treadmills ellipticals stair_climbers jump_ropes agility bodyweight boxing_mma climbing gymnastic gym_id)
+  @optional_fields ~w(state zip email phone url description hours size coaches class_size day_rate monthly_rate
+    annual_rate is_owner submitter_email closed barbells womens_barbells trap_bars safety_squat_bars log_bars
+    bandbell_bars camber_bars bumper_plates gym_chalk squat_racks power_racks pull_up_rigs monolifts benches ghds
+    reverse_hypers platforms bands jerk_blocks bench_press_boards chains tires kegs atlas_stones kettlebells dumbbells
+    sleds medicine_balls slam_balls sand_bags plyo_boxes ergs bikes treadmills ellipticals stair_climbers jump_ropes
+    agility bodyweight boxing_mma climbing gymnastic gym_id)
 
   @required_file_fields ~w()
   @optional_file_fields ~w(photos)

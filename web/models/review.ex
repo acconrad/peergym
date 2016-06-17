@@ -1,4 +1,8 @@
 defmodule Peergym.Review do
+  @moduledoc """
+  A module for writing user reviews about the gyms.
+  """
+
   use Peergym.Web, :model
 
   schema "reviews" do

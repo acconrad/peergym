@@ -1,4 +1,8 @@
 defmodule Peergym.User do
+  @moduledoc """
+  Basic module for storing User information.
+  """
+
   use Peergym.Web, :model
   use Arc.Ecto.Model
 

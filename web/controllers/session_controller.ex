@@ -26,7 +26,8 @@ defmodule Peergym.SessionController do
   end
 
   def delete(conn, _params) do
-    SessionManager.logout(conn)
+    conn
+    |> SessionManager.logout
     |> put_flash(:info, "Signed out succesfully.")
     |> redirect(to: gym_path(conn, :index))
   end

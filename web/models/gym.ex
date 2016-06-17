@@ -1,6 +1,11 @@
 defmodule Peergym.Gym do
+  @moduledoc """
+  Stores all information about the gyms.
+  """
+
   use Peergym.Web, :model
   use Arc.Ecto.Model
+  alias Phoenix.HTML
 
   schema "gyms" do
     field :name, :string
@@ -88,7 +93,12 @@ defmodule Peergym.Gym do
   end
 
   @required_fields ~w(name address latitude longitude)
-  @optional_fields ~w(reviews street city state zip country email phone url description hours google_place_id size day_rate monthly_rate annual_rate coaches class_size barbells womens_barbells trap_bars safety_squat_bars log_bars bandbell_bars camber_bars bumper_plates gym_chalk squat_racks power_racks pull_up_rigs monolifts benches ghds reverse_hypers platforms bands jerk_blocks bench_press_boards chains tires kegs atlas_stones kettlebells dumbbells sleds medicine_balls slam_balls sand_bags plyo_boxes ergs bikes treadmills ellipticals stair_climbers jump_ropes agility bodyweight boxing_mma climbing gymnastic other)
+  @optional_fields ~w(reviews street city state zip country email phone url description hours google_place_id size
+    day_rate monthly_rate annual_rate coaches class_size barbells womens_barbells trap_bars safety_squat_bars log_bars
+    bandbell_bars camber_bars bumper_plates gym_chalk squat_racks power_racks pull_up_rigs monolifts benches ghds
+    reverse_hypers platforms bands jerk_blocks bench_press_boards chains tires kegs atlas_stones kettlebells dumbbells
+    sleds medicine_balls slam_balls sand_bags plyo_boxes ergs bikes treadmills ellipticals stair_climbers jump_ropes
+    agility bodyweight boxing_mma climbing gymnastic other)
 
   @required_file_fields ~w()
   @optional_file_fields ~w(photos)
@@ -104,31 +114,89 @@ defmodule Peergym.Gym do
     |> cast(params, @required_fields, @optional_fields)
     |> cast_attachments(params, @required_file_fields, @optional_file_fields)
     |> unique_constraint(:google_place_id)
-    |> strip_unsafe_description(params)
+    |> strip_tags(params)
+    |> strip_unsafe(params)
   end
 
-  defp strip_unsafe_description(model, %{"description" => nil}) do
-    model
+  def by_city(query, city) do
+    from g in query,
+    where: g.city == ^city
   end
 
-  defp strip_unsafe_body(model, %{"description" => description}) do
-    {:safe, clean_description} = Phoenix.HTML.html_escape(description)
-    model |> put_change(:description, clean_description)
+  def by_state(query ,state) do
+    from g in query,
+    where: g.state == ^state
   end
 
-  defp strip_unsafe_description(model, _) do
-    model
+  def by_type(query, type) do
+    case type do
+      "crossfit" -> crossfit(query)
+      "strongman" -> strongman(query)
+      "powerlifting" -> powerlifting(query)
+      "weightlifting" -> weightlifting(query)
+      "olympic-lifting" -> weightlifting(query)
+    end
   end
 
-  defp strip_tags(description) do
-    description
-    |> strip_tag("script")
-    |> strip_tag("iframe")
-    |> strip_tag("link")
+  def crossfit(query) do
+    from g in query,
+    where: ilike(g.name, "crossfit%")
+  end
+
+  def in_major_us_cities(query) do
+    from g in query,
+    where: g.country == "US" and
+      g.city == "New York" or
+      g.city == "Los Angeles" or
+      g.city == "Chicago" or
+      g.city == "Houston" or
+      g.city == "Philadelphia" or
+      g.city == "Phoenix" or
+      g.city == "San Francisco" or
+      g.city == "Boston",
+    limit: 50
+  end
+
+  def powerlifting(query) do
+    from g in query,
+    where: g.id > 0
+  end
+
+  def strongman(query) do
+    from g in query,
+    where: g.atlas_stones > 1 or g.log_bars > 1 or g.kegs > 1
+  end
+
+  def weightlifting(query) do
+    from g in query,
+    where: g.platforms > 1 and g.jerk_blocks > 1 and g.bumper_plates > 1
+  end
+
+  def with_rates(query) do
+    from g in query,
+    where: g.monthly_rate > 0,
+    order_by: [g.monthly_rate]
+  end
+
+  def within_bounding_box(query, max_lat, max_lng, min_lat, min_lng) do
+    from g in query,
+    where: g.latitude >= ^min_lat and g.latitude <= ^max_lat and g.longitude >= ^min_lng and g.longitude <= ^max_lng
   end
 
   defp strip_tag(description, tag) do
-    strip_regex = ~r{<#{tag}[^>]*>[^<>]*(</#{tag}>)*}i
-    description |> String.replace(strip_regex, "")
+    description |> String.replace(~r{<#{tag}[^>]*>[^<>]*(</#{tag}>)*}i, "")
+  end
+
+  defp strip_tags(model, %{"description" => description}) do
+    strip_descr = description
+    |> strip_tag("script")
+    |> strip_tag("iframe")
+    |> strip_tag("link")
+    model |> put_change(:description, strip_descr)
+  end
+
+  defp strip_unsafe(model, %{"description" => description}) do
+    {:safe, clean_descr} = HTML.html_escape(description)
+    model |> put_change(:description, clean_descr)
   end
 end

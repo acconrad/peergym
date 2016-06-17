@@ -1,5 +1,6 @@
 defmodule Peergym.GymView do
   use Peergym.Web, :view
+  alias Phoenix.Controller
   import Number.Currency
   import Number.Delimit
 
@@ -88,16 +89,22 @@ defmodule Peergym.GymView do
   end
 
   def render("meta_description", assigns) do
-    case Phoenix.Controller.action_name assigns.conn do
+    case Controller.action_name assigns.conn do
       :indow -> "Discover the best gyms in #{assigns.gym.city}, #{assigns.gym.state} with PeerGym."
-      :show -> "Book #{assigns.gym.name}, #{assigns.gym.city} on PeerGym: See amenities, photos, and great deals for #{assigns.gym.name}."
-      _ -> "Discover the best gyms in your area. Search over 4000+ gyms to find the best equipment, amenities, and membership rates."
+      :show  -> "Book #{assigns.gym.name}, #{assigns.gym.city} on PeerGym: " <>
+                "See amenities, photos, and great deals for #{assigns.gym.name}."
+      _      -> "Discover the best gyms in your area. " <>
+                "Search over 4000+ gyms to find the best equipment, amenities, and membership rates."
     end
   end
 
   def render("title", assigns) do
-    case Phoenix.Controller.action_name assigns.conn do
-      :index -> if assigns.searched, do: "The Best #{assigns.city} Gyms", else: "PeerGym: Discover the best gyms in your area and compare membership rates"
+    case Controller.action_name assigns.conn do
+      :index -> if assigns.searched do
+          "The Best #{assigns.city} Gyms"
+        else
+          "PeerGym: Discover the best gyms in your area and compare membership rates"
+        end
       :show -> "#{assigns.gym.name} in (#{assigns.gym.state}) - Gym Reviews"
       _ -> "PeerGym: Discover the best gyms in your area and compare membership rates"
     end
@@ -105,9 +112,9 @@ defmodule Peergym.GymView do
 
   def list_rate(gym) do
     cond do
-      gym.monthly_rate > 0 -> "<span class=\"amount\">#{number_to_currency(gym.monthly_rate, precision: 0)}</span> / mo"
-      gym.day_rate > 0 -> "<span class=\"amount\">#{number_to_currency(gym.day_rate, precision: 0)}</span> / day"
-      gym.annual_rate > 0 -> "<span class=\"amount\">#{number_to_currency(gym.annual_rate, precision: 0)}</span> / yr"
+      gym.monthly_rate > 0 -> "<span class=\"amt\">#{number_to_currency(gym.monthly_rate, precision: 0)}</span> / mo"
+      gym.day_rate > 0 -> "<span class=\"amt\">#{number_to_currency(gym.day_rate, precision: 0)}</span> / day"
+      gym.annual_rate > 0 -> "<span class=\"amt\">#{number_to_currency(gym.annual_rate, precision: 0)}</span> / yr"
       true -> ""
     end
   end

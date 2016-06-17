@@ -2,7 +2,6 @@ defmodule Peergym.GymController do
   use Peergym.Web, :controller
   alias Peergym.Gym
   alias Peergym.Review
-  alias Peergym.GymEdit
   import Passport.AuthenticationPlug
 
   plug PlugForwardedPeer
@@ -19,8 +18,8 @@ defmodule Peergym.GymController do
     slug_keywords = String.split(slug, "-")
 
     if List.last(slug_keywords) == "gyms" do
-      query = filter_gyms(conn, slug_keywords)
-      gyms = Repo.paginate(query)
+      gyms = Gym |> Gym.by_type(slug_keywords) |> Repo.paginate
+
       render conn, "landing-page.html",
         gyms: gyms.entries,
         page_number: gyms.page_number,
@@ -69,21 +68,16 @@ defmodule Peergym.GymController do
 
     if state == "United States" do
       if params["order_by"] do
-        query = from g in Gym,
-          where: g.country == "US" and g.monthly_rate > 0 and (g.city == "New York" or g.city == "Los Angeles" or g.city == "Chicago" or g.city == "Houston" or g.city == "Philadelphia" or g.city == "Phoenix" or g.city == "San Francisco" or g.city == "Boston" or g.city == "Seattle" or g.city == "Las Vegas"),
-          order_by: [g.monthly_rate],
-          limit: 50,
-          select: g
+        query = Gym |> Gym.in_major_us_cities |> Gym.with_rates
       else
-        query = from g in Gym,
-          where: g.country == "US" and (g.city == "New York" or g.city == "Los Angeles" or g.city == "Chicago" or g.city == "Houston" or g.city == "Philadelphia" or g.city == "Phoenix" or g.city == "San Francisco" or g.city == "Boston" or g.city == "Seattle" or g.city == "Las Vegas"),
-          limit: 50,
-          select: g
+        query = Gym |> Gym.in_major_us_cities
       end
 
-      gym_blocks = Repo.all(query)
-      |> Enum.map(&(Map.put(&1, :distance, 0)))
-      |> Enum.chunk(10, 10, [])
+      gym_blocks =
+        query
+        |> Repo.all
+        |> Enum.map(&(Map.put(&1, :distance, 0)))
+        |> Enum.chunk(10, 10, [])
     else
       min_lng = curr_lng - @delta
       max_lng = curr_lng + @delta
@@ -91,23 +85,21 @@ defmodule Peergym.GymController do
       max_lat = curr_lat + @delta
 
       if params["order_by"] do
-        query = from g in Gym,
-          where: g.monthly_rate > 0 and g.latitude >= ^min_lat and g.latitude <= ^max_lat and g.longitude >= ^min_lng and g.longitude <= ^max_lng,
-          order_by: [g.monthly_rate],
-          select: g
-
-        gym_blocks = Repo.all(query)
-        |> Enum.map(&(Map.put(&1, :distance, haversine_distance(&1, curr_lat, curr_lng) |> Float.round(1))))
-        |> Enum.chunk(10, 10, [])
+        gym_blocks =
+          Gym
+          |> Gym.with_rates
+          |> Gym.within_bounding_box(max_lat, max_lng, min_lat, min_lng)
+          |> Repo.all
+          |> Enum.map(&(Map.put(&1, :distance, Float.round(haversine_distance(&1, curr_lat, curr_lng), 1))))
+          |> Enum.chunk(10, 10, [])
       else
-        query = from g in Gym,
-          where: g.latitude >= ^min_lat and g.latitude <= ^max_lat and g.longitude >= ^min_lng and g.longitude <= ^max_lng,
-          select: g
-
-        gym_blocks = Repo.all(query)
-        |> Enum.sort(&(haversine_distance(&1, curr_lat, curr_lng) <= haversine_distance(&2, curr_lat, curr_lng)))
-        |> Enum.map(&(Map.put(&1, :distance, haversine_distance(&1, curr_lat, curr_lng) |> Float.round(1))))
-        |> Enum.chunk(10, 10, [])
+        gym_blocks =
+          Gym
+          |> Gym.within_bounding_box(max_lat, max_lng, min_lat, min_lng)
+          |> Repo.all
+          |> Enum.sort(&(haversine_distance(&1, curr_lat, curr_lng) <= haversine_distance(&2, curr_lat, curr_lng)))
+          |> Enum.map(&(Map.put(&1, :distance, Float.round(haversine_distance(&1, curr_lat, curr_lng), 1))))
+          |> Enum.chunk(10, 10, [])
       end
     end
 
@@ -146,15 +138,13 @@ defmodule Peergym.GymController do
   end
 
   def show(conn, %{"id" => slug}) do
-    name_slug = slug
-    |> String.replace("-", " ")
+    name_slug = slug |> String.replace("-", " ")
 
     query = from gym in Gym,
       where: fragment("lower(?)", gym.name) == ^name_slug,
       select: gym
 
-    gym = Repo.one!(query)
-    |> Repo.preload(:reviews)
+    gym = query |> Repo.one! |> Repo.preload(:reviews)
 
     review_query = from review in Review,
       where: review.gym_id == ^gym.id,
@@ -177,8 +167,7 @@ defmodule Peergym.GymController do
   end
 
   def update(conn, %{"id" => id, "gym" => gym_params}) do
-    gym = Repo.get(Gym, id)
-    |> Repo.preload(:reviews)
+    gym = Gym |> Repo.get(id) |> Repo.preload(:reviews)
 
     changeset = Gym.changeset(gym, gym_params)
 
@@ -215,61 +204,8 @@ defmodule Peergym.GymController do
     dlat = lat2 - lat1
     dlon = lon2 - lon1
 
-    a = :math.pow(:math.sin(dlat/2),2) + :math.cos(lat1) * :math.cos(lat2) * :math.pow(:math.sin(dlon/2),2)
-    c = 2 * :math.atan2(:math.sqrt(a),:math.sqrt(1-a))
+    a = :math.pow(:math.sin(dlat / 2), 2) + :math.cos(lat1) * :math.cos(lat2) * :math.pow(:math.sin(dlon / 2), 2)
+    c = 2 * :math.atan2(:math.sqrt(a),:math.sqrt(1 - a))
     c * 3961.0
-  end
-
-  defp gyms_by_city(city) do
-    from g in Gym,
-      where: g.city == ^city,
-      select: g
-  end
-
-  defp gyms_by_state(state) do
-    from g in Gym,
-      where: g.state == ^state,
-      select: g
-  end
-
-  defp strongman_gyms do
-    from g in Gym,
-      where: g.atlas_stones > 1 or g.log_bars > 1 or g.kegs > 1,
-      select: g
-  end
-
-  defp weightlifting_gyms do
-    from g in Gym,
-      where: g.platforms > 1 and g.jerk_blocks > 1 and g.bumper_plates > 1,
-      select: g
-  end
-
-  defp powerlifting_gyms do
-    from g in Gym,
-      select: g
-  end
-
-  defp crossfit_gyms do
-    from g in Gym,
-      where: ilike(g.name, "crossfit%"),
-      select: g
-  end
-
-  defp gyms_by_type(type) do
-    case type do
-      "crossfit" -> crossfit_gyms
-      "strongman" -> strongman_gyms
-      "powerlifting" -> powerlifting_gyms
-      "weightlifting" -> weightlifting_gyms
-      "olympic-lifting" -> weightlifting_gyms
-    end
-  end
-
-  defp filter_gyms(conn, slug_keywords) do
-    # /TYPE-gyms
-    # /STATE-gyms
-    # /STATE-TYPE-gyms
-    # /CITY-gyms
-    # /CITY-TYPE-gyms
   end
 end

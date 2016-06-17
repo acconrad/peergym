@@ -1,4 +1,9 @@
 defmodule Peergym.Payment do
+  @moduledoc """
+  A tentative module for storing payment information.
+  TODO: use Stripe to handle this, this is probably not secure.
+  """
+
   use Peergym.Web, :model
 
   schema "payments" do
