@@ -7,7 +7,7 @@ defmodule Peergym.UserControllerTest do
   @invalid_attrs %{email: "thing"}
 
   setup do
-    conn = conn()
+    conn = build_conn()
     {:ok, conn: conn}
   end
 

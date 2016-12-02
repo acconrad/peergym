@@ -4,7 +4,7 @@ defmodule Peergym.SessionControllerTest do
   setup do
     changeset = Peergym.User.changeset(%Peergym.User{}, %{password: "test1234", email: "test@test.com"})
     Peergym.Registration.create(changeset, Peergym.Repo)
-    conn = conn()
+    conn = build_conn()
     {:ok, conn: conn}
   end
 

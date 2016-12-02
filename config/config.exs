@@ -11,6 +11,7 @@ config :peergym, Peergym.Endpoint,
   root: Path.dirname(__DIR__),
   secret_key_base: "8vNwY7LhcY3hqsBLAP/m44potAU1CrR9f1dbqK1B7VgrMc3w6yFECjUbb2xBjHfi",
   debug_errors: false,
+  ecto_repos: [Peergym.Repo],
   pubsub: [name: Peergym.PubSub,
            adapter: Phoenix.PubSub.PG2]
 

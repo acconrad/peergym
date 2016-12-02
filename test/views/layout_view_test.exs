@@ -7,7 +7,7 @@ defmodule Peergym.LayoutViewTest do
 
   setup do
     Peergym.Registration.create(User.changeset(%User{}, @valid_attrs), Peergym.Repo)
-    conn = conn()
+    conn = build_conn()
     {:ok, conn: conn}
   end
 

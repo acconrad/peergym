@@ -9,17 +9,11 @@ defmodule Peergym.ReviewController do
   plug :authorize_same_user when action in [:update, :edit, :delete]
 
   def new(conn, _params) do
-    changeset = conn.assigns[:gym]
-    |> build(:reviews)
-    |> Review.changeset()
-
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: Review.changeset(%Review{}))
   end
 
   def create(conn, %{"review" => review_params}) do
-    changeset = conn.assigns[:gym]
-    |> build(:reviews)
-    |> Review.changeset(review_params)
+    changeset = Review.changeset(review_params)
 
     case Repo.insert(changeset) do
       {:ok, _review} ->
@@ -42,7 +36,7 @@ defmodule Peergym.ReviewController do
     changeset = Review.changeset(review, review_params)
 
     case Repo.update(changeset) do
-      {:ok, review} ->
+      {:ok, _review} ->
         conn
         |> put_flash(:info, "Review updated successfully.")
         |> redirect(to: gym_path(conn, :show, slug(conn.assigns[:gym])))

@@ -42,11 +42,12 @@ defmodule Peergym.GymEditController do
   def edit(conn, %{"id" => id}) do
     gym_edit = Repo.get!(GymEdit, id)
 
-    if gym_edit.gym_id do
-      gym = Repo.get(Gym, gym_edit.gym_id)
-    else
-      gym = %Gym{}
-    end
+    gym =
+      if gym_edit.gym_id do
+        Repo.get(Gym, gym_edit.gym_id)
+      else
+        %Gym{}
+      end
 
     changeset = GymEdit.changeset(gym_edit)
     render(conn, "edit.html", gym_edit: gym_edit, gym: gym, changeset: changeset)

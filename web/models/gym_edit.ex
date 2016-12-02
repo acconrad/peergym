@@ -6,7 +6,7 @@ defmodule Peergym.GymEdit do
   """
 
   use Peergym.Web, :model
-  use Arc.Ecto.Model
+  use Arc.Ecto.Schema
 
   schema "gym_edits" do
     field :name, :string
@@ -98,9 +98,7 @@ defmodule Peergym.GymEdit do
     reverse_hypers platforms bands jerk_blocks bench_press_boards chains tires kegs atlas_stones kettlebells dumbbells
     sleds medicine_balls slam_balls sand_bags plyo_boxes ergs bikes treadmills ellipticals stair_climbers jump_ropes
     agility bodyweight boxing_mma climbing gymnastic gym_id)
-
-  @required_file_fields ~w()
-  @optional_file_fields ~w(photos)
+  @file_fields ~w(photos)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -111,6 +109,6 @@ defmodule Peergym.GymEdit do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
-    |> cast_attachments(params, @required_file_fields, @optional_file_fields)
+    |> cast_attachments(params, @file_fields)
   end
 end

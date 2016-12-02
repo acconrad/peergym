@@ -8,7 +8,7 @@ defmodule Peergym.PaymentControllerTest do
   setup do
     Gym.changeset(%Gym{}, %{name: "Gym", address: "1 Main St", latitude: 70.0, longitude: -42.0})
     |> Repo.insert
-    conn = conn()
+    conn = build_conn()
     {:ok, conn: conn}
   end
 

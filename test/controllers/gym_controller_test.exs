@@ -22,7 +22,7 @@ defmodule Peergym.GymControllerTest do
   @invalid_attrs %{latitude: "abc"}
 
   setup do
-    conn = conn()
+    conn = build_conn()
     {:ok, conn: conn}
   end
 

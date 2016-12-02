@@ -16,7 +16,7 @@ defmodule Peergym.Router do
   scope "/", Peergym do
     pipe_through :browser # Use the default browser stack
 
-    resources "users", UserController
+    resources "/users", UserController
     get  "/signup", UserController, :new
     post "/signup", UserController, :create
 
@@ -25,11 +25,11 @@ defmodule Peergym.Router do
     get  "/signout", SessionController, :delete
 
     get "/", GymController, :index
-    resources "gyms", GymController do
-      resources "payments", PaymentController
-      resources "reviews", ReviewController
+    resources "/gyms", GymController do
+      resources "/payments", PaymentController
+      resources "/reviews", ReviewController
     end
-    resources "gym_edits", GymEditController
+    resources "/gym_edits", GymEditController
     get "/:slug", GymController, :index
 
     get "/.well-known/acme-challenge/anZ6cAz6NL80HOG2A2zYdofckE-qhn-gMxCbgMp_FJc", PageController, :ssl

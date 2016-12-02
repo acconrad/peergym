@@ -25,8 +25,10 @@ defmodule Peergym.ModelCase do
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Peergym.Repo)
+
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Peergym.Repo, [])
+      Ecto.Adapters.SQL.Sandbox.mode(Peergym.Repo, {:shared, self()})
     end
 
     :ok
@@ -47,7 +49,9 @@ defmodule Peergym.ModelCase do
 
       assert {:password, "is unsafe"} in errors_on(%User{}, password: "password")
   """
-  def errors_on(model, data) do
-    model.__struct__.changeset(model, data).errors
+  def errors_on(struct, data) do
+    struct.__struct__.changeset(struct, data)
+    |> Ecto.Changeset.traverse_errors(&MyApp.ErrorHelpers.translate_error/1)
+    |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
   end
 end

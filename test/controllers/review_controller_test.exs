@@ -8,7 +8,7 @@ defmodule Peergym.ReviewControllerTest do
   @invalid_attrs %{}
 
   setup do
-    conn = conn()
+    conn = build_conn()
     conn = post conn, session_path(conn, :create), session: loggedin_user
     gym = create(:gym)
     {:ok, conn: conn, gym: gym}
