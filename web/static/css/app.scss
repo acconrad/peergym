@@ -245,11 +245,6 @@ main {
 .gyms-list {
   margin-bottom: 15px;
   margin-top: 15px;
-
-  @media screen and (min-width: $large) {
-    height: calc(100vh - 165px);
-    overflow-y: scroll;
-  }
 }
 
 .gym_edit {
@@ -351,6 +346,14 @@ main {
       background: linear-gradient(transparent, #000 110%);
       display: inline-block;
       width: 100%;
+    }
+  }
+
+  @media screen and (min-width: $large) {
+    aside {
+      position: fixed;
+      right: 0;
+      top: 51px;
     }
   }
 }
