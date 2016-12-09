@@ -2,8 +2,8 @@ defmodule Peergym.Navigation do
   @moduledoc """
   Helper functions for calculating global navigation.
   """
-  @boston_lat 42.3600825  # Latitude of the center of Boston, MA
-  @boston_lng -71.0588801 # Longitude of the center of Boston, MA
+  @boston_lat "42.3600825"  # Latitude of the center of Boston, MA
+  @boston_lng "-71.0588801" # Longitude of the center of Boston, MA
   @earth_radius 6372.8    # Approximation of the radius of the average circumference of the Earth
   @radians :math.pi / 180 # Degrees to radians conversion
 

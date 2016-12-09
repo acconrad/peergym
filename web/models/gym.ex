@@ -159,7 +159,7 @@ defmodule Peergym.Gym do
       g.city == "Phoenix" or
       g.city == "San Francisco" or
       g.city == "Boston" and
-      g.monthly_rate > 0,
+      g.monthly_rate > 0.0,
     order_by: [g.monthly_rate],
     limit: 50
   end
@@ -199,7 +199,7 @@ defmodule Peergym.Gym do
       g.latitude <= ^bb.max_lat and
       g.longitude >= ^bb.min_lng and
       g.longitude <= ^bb.max_lng and
-      g.monthly_rate > 0,
+      g.monthly_rate > 0.0,
     order_by: [g.monthly_rate]
   end
   def within_bounding_box(query, %{"lat" => lat, "lng" => lng}) do
