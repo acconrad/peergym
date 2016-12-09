@@ -6,8 +6,6 @@ defmodule Peergym.Gym do
   use Peergym.Web, :model
   use Arc.Ecto.Schema
   alias Peergym.Avatar
-  alias Peergym.GymEdit
-  alias Peergym.Review
   alias Phoenix.HTML
 
   schema "gyms" do
@@ -89,8 +87,8 @@ defmodule Peergym.Gym do
     field :other, :string
     field :photos, Avatar.Type
 
-    has_many :reviews, Review
-    has_many :gym_edits, GymEdit
+    has_many :reviews, Peergym.Review
+    has_many :gym_edits, Peergym.GymEdit
 
     timestamps
   end
@@ -151,7 +149,7 @@ defmodule Peergym.Gym do
     where: ilike(g.name, "crossfit%")
   end
 
-  def in_major_us_cities(query, ordered) do
+  def in_major_us_cities(query, _ordered) do
     from g in query,
     where: g.city == "New York" or
       g.city == "Los Angeles" or
@@ -193,25 +191,25 @@ defmodule Peergym.Gym do
     where: g.platforms > 1 and g.jerk_blocks > 1 and g.bumper_plates > 1
   end
 
-  def within_bounding_box(query, %{"lat" => lat, "lng" => lng}, ordered) do
-    bounding_box = bounding_box(lat, lng)
+  def within_bounding_box(query, %{"lat" => lat, "lng" => lng}, _ordered) do
+    bb = bounding_box(lat, lng)
 
     from g in query,
-    where: g.latitude >= bounding_box.min_lat and
-      g.latitude <= bounding_box.max_lat and
-      g.longitude >= bounding_box.min_lng and
-      g.longitude <= bounding_box.max_lng and
+    where: g.latitude >= ^bb.min_lat and
+      g.latitude <= ^bb.max_lat and
+      g.longitude >= ^bb.min_lng and
+      g.longitude <= ^bb.max_lng and
       g.monthly_rate > 0,
     order_by: [g.monthly_rate]
   end
   def within_bounding_box(query, %{"lat" => lat, "lng" => lng}) do
-    bounding_box = bounding_box(lat, lng)
+    bb = bounding_box(lat, lng)
 
     from g in query,
-    where: g.latitude >= bounding_box.min_lat and
-      g.latitude <= bounding_box.max_lat and
-      g.longitude >= bounding_box.min_lng and
-      g.longitude <= bounding_box.max_lng
+    where: g.latitude >= ^bb.min_lat and
+      g.latitude <= ^bb.max_lat and
+      g.longitude >= ^bb.min_lng and
+      g.longitude <= ^bb.max_lng
   end
 
   defp bounding_box(lat, lng) do

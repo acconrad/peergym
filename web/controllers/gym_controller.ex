@@ -41,7 +41,7 @@ defmodule Peergym.GymController do
   end
   def index(conn, %{"page" => page, "search" => location}) do
     page_number = String.to_integer(page)
-    gyms_chunk = unordered_gym_chunks(location, nil)
+    gyms_chunk = gym_chunks(location, nil)
 
     render conn, "index.html",
       gyms: gyms_chunk |> Enum.fetch!(page_number - 1),
@@ -51,7 +51,7 @@ defmodule Peergym.GymController do
   end
   def index(conn, _params) do
     location = Navigation.find_location(conn.remote_ip)
-    gyms_chunk = unordered_gym_chunks(location, nil)
+    gyms_chunk = gym_chunks(location, nil)
 
     render conn, "index.html",
       gyms: gyms_chunk |> Enum.fetch!(0),
@@ -94,7 +94,8 @@ defmodule Peergym.GymController do
   end
 
   def edit(conn, %{"id" => id}) do
-    render(conn, "edit.html", gym: Repo.get(Gym, id), changeset: Gym.changeset(gym))
+    gym = Repo.get(Gym, id)
+    render(conn, "edit.html", gym: gym, changeset: Gym.changeset(gym))
   end
 
   def update(conn, %{"id" => id, "gym" => gym_params}) do

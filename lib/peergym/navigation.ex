@@ -13,20 +13,22 @@ defmodule Peergym.Navigation do
   def find_location(ip_address) do
     case Geolix.lookup(ip_address).city do
       %{city: city, location: location, subdivisions: state} ->
+        first_state = state |> List.first
         %{"lat"   => location.latitude,
           "lng"   => location.longitude,
           "city"  => city.names.en,
-          "state" => state |> List.first.iso_code}
+          "state" => first_state.iso_code}
       %{city: city, country: country, location: location} ->
         %{"lat"   => location.latitude,
           "lng"   => location.longitude,
           "city"  => city.names.en,
           "state" => country.names.en}
       %{location: location, subdivisions: state} ->
+        first_state = state |> List.first
         %{"lat"   => location.latitude,
           "lng"   => location.longitude,
           "city"  => "",
-          "state" => state |> List.first.iso_code}
+          "state" => first_state.iso_code}
       %{country: country, location: location} ->
         %{"lat"   => location.latitude,
           "lng"   => location.longitude,
