@@ -5,6 +5,9 @@ defmodule Peergym.Gym do
 
   use Peergym.Web, :model
   use Arc.Ecto.Schema
+  alias Peergym.Avatar
+  alias Peergym.GymEdit
+  alias Peergym.Review
   alias Phoenix.HTML
 
   schema "gyms" do
@@ -84,10 +87,10 @@ defmodule Peergym.Gym do
     field :kegs, :integer
     field :atlas_stones, :integer
     field :other, :string
-    field :photos, Peergym.Avatar.Type
+    field :photos, Avatar.Type
 
-    has_many :reviews, Peergym.Review
-    has_many :gym_edits, Peergym.GymEdit
+    has_many :reviews, Review
+    has_many :gym_edits, GymEdit
 
     timestamps
   end
@@ -100,6 +103,7 @@ defmodule Peergym.Gym do
     sleds medicine_balls slam_balls sand_bags plyo_boxes ergs bikes treadmills ellipticals stair_climbers jump_ropes
     agility bodyweight boxing_mma climbing gymnastic other)
   @file_fields ~w(photos)
+  @delta 0.1448293334 # approx. 5 mi in lat/lng
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -122,6 +126,11 @@ defmodule Peergym.Gym do
     where: g.city == ^city
   end
 
+  def by_slug(query, slug) do
+    from g in query,
+    where: fragment("lower(?)", g.name) == ^slug
+  end
+
   def by_state(query ,state) do
     from g in query,
     where: g.state == ^state
@@ -142,10 +151,23 @@ defmodule Peergym.Gym do
     where: ilike(g.name, "crossfit%")
   end
 
+  def in_major_us_cities(query, ordered) do
+    from g in query,
+    where: g.city == "New York" or
+      g.city == "Los Angeles" or
+      g.city == "Chicago" or
+      g.city == "Houston" or
+      g.city == "Philadelphia" or
+      g.city == "Phoenix" or
+      g.city == "San Francisco" or
+      g.city == "Boston" and
+      g.monthly_rate > 0,
+    order_by: [g.monthly_rate],
+    limit: 50
+  end
   def in_major_us_cities(query) do
     from g in query,
-    where: g.country == "US" and
-      g.city == "New York" or
+    where: g.city == "New York" or
       g.city == "Los Angeles" or
       g.city == "Chicago" or
       g.city == "Houston" or
@@ -171,15 +193,35 @@ defmodule Peergym.Gym do
     where: g.platforms > 1 and g.jerk_blocks > 1 and g.bumper_plates > 1
   end
 
-  def with_rates(query) do
+  def within_bounding_box(query, %{"lat" => lat, "lng" => lng}, ordered) do
+    bounding_box = bounding_box(lat, lng)
+
     from g in query,
-    where: g.monthly_rate > 0,
+    where: g.latitude >= bounding_box.min_lat and
+      g.latitude <= bounding_box.max_lat and
+      g.longitude >= bounding_box.min_lng and
+      g.longitude <= bounding_box.max_lng and
+      g.monthly_rate > 0,
     order_by: [g.monthly_rate]
   end
+  def within_bounding_box(query, %{"lat" => lat, "lng" => lng}) do
+    bounding_box = bounding_box(lat, lng)
 
-  def within_bounding_box(query, max_lat, max_lng, min_lat, min_lng) do
     from g in query,
-    where: g.latitude >= ^min_lat and g.latitude <= ^max_lat and g.longitude >= ^min_lng and g.longitude <= ^max_lng
+    where: g.latitude >= bounding_box.min_lat and
+      g.latitude <= bounding_box.max_lat and
+      g.longitude >= bounding_box.min_lng and
+      g.longitude <= bounding_box.max_lng
+  end
+
+  defp bounding_box(lat, lng) do
+    latf = String.to_float(lat)
+    lngf = String.to_float(lng)
+
+    %{min_lat: latf - @delta,
+      max_lat: latf + @delta,
+      min_lng: lngf - @delta,
+      max_lng: lngf + @delta}
   end
 
   defp strip_tag(description, tag) do
@@ -187,10 +229,11 @@ defmodule Peergym.Gym do
   end
 
   defp strip_tags(model, %{"description" => description}) do
-    strip_descr = description
-    |> strip_tag("script")
-    |> strip_tag("iframe")
-    |> strip_tag("link")
+    strip_descr =
+      description
+      |> strip_tag("script")
+      |> strip_tag("iframe")
+      |> strip_tag("link")
     model |> put_change(:description, strip_descr)
   end
 

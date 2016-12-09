@@ -29,4 +29,10 @@ defmodule Peergym.Review do
     |> validate_number(:rating, greater_than_or_equal_to: 1, less_than_or_equal_to: 5)
     |> validate_length(:body, max: 1000)
   end
+
+  def count(query, gym) do
+    from r in query,
+    where: r.gym_id == ^gym.id,
+    select: count(r.id)
+  end
 end

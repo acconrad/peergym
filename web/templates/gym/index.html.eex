@@ -1,8 +1,8 @@
-<%# render "breadcrumb.html", state: @state, city: @city, name: nil %>
+<%# render "breadcrumb.html", state: @location["state"], city: @location["city"], name: nil %>
 
 <div class="row">
   <div class="col-md-6">
-    <%= unless @searched || logged_in?(@conn) do %>
+    <%= unless seen_intro_message(@conn, @params) do %>
       <div class="well well-intro text-center">
         <h2>PeerGym is the best way to find great gyms</h2>
         <p class="lead">People use PeerGym to search over 4000+ gyms to find the best equipment, amenities, and membership rates.</p>
@@ -14,9 +14,9 @@
     <%= if @gyms do %>
       <h4>Sort by:</h4>
       <div class="btn-group" role="group" aria-label="...">
-        <%= link raw("<i class=\"fa fa-search\"></i> Location"), to: gym_path(@conn, :index, [page: 1, search: [city: @city , state: @state, lat: @lat |> to_string, lng: @lng |> to_string]]), class: "btn btn-sm btn-primary" %>
-        <%= link raw("<i class=\"fa fa-dollar\"></i> Price"), to: gym_path(@conn, :index, [page: 1, order_by: "price", search: [city: @city , state: @state, lat: @lat |> to_string, lng: @lng |> to_string]]), class: "btn btn-sm btn-primary" %>
-        <%# link raw("<i class=\"fa fa-star\"></i> Rating"), to: gym_path(@conn, :index, [page: 1, order_by: "rating", search: [city: @city , state: @state, lat: @lat |> to_string, lng: @lng |> to_string]]), class: "btn btn-sm btn-primary" %>
+        <%= link raw("<i class=\"fa fa-search\"></i> Location"), to: gym_path(@conn, :index, [page: 1, search: [city: @location["city"] , state: @location["state"], lat: @location["lat"] |> to_string, lng: @location["lng"] |> to_string]]), class: "btn btn-sm btn-primary" %>
+        <%= link raw("<i class=\"fa fa-dollar\"></i> Price"), to: gym_path(@conn, :index, [page: 1, order_by: "price", search: [city: @location["city"] , state: @location["state"], lat: @location["lat"] |> to_string, lng: @location["lng"] |> to_string]]), class: "btn btn-sm btn-primary" %>
+        <%# link raw("<i class=\"fa fa-star\"></i> Rating"), to: gym_path(@conn, :index, [page: 1, order_by: "rating", search: [city: @location["city"] , state: @location["state"], lat: @location["lat"] |> to_string, lng: @location["lng"] |> to_string]]), class: "btn btn-sm btn-primary" %>
       </div>
     <% end %>
 
@@ -38,28 +38,28 @@
         </li>
       <% end %>
 
-      <%= if @total_pages > 1 do %>
+      <%= if @page_count > 1 do %>
         <nav class="text-center">
           <ul class="pagination">
             <%= if @page_number > 1 do %>
             <li>
-              <%= link to: gym_path(@conn, :index, [page: @page_number - 1, search: [city: @city , state: @state, lat: @lat |> to_string, lng: @lng |> to_string]]), aria_label: "Previous" do %>
+              <%= link to: gym_path(@conn, :index, [page: @page_number - 1, search: [city: @location["city"] , state: @location["state"], lat: @location["lat"] |> to_string, lng: @location["lng"] |> to_string]]), aria_label: "Previous" do %>
                 <span aria-hidden="true">&laquo;</span>
               <% end %>
             </li>
             <% end %>
-            <%= for page <- (1..@total_pages) do %>
+            <%= for page <- (1..@page_count) do %>
             <li>
               <%= if @page_number == page do %>
                 <span><%= page %></span>
               <% else %>
-                <%= link "#{page}", to: gym_path(@conn, :index, [page: page, search: [city: @city , state: @state, lat: @lat |> to_string, lng: @lng |> to_string]]) %>
+                <%= link "#{page}", to: gym_path(@conn, :index, [page: page, search: [city: @location["city"] , state: @location["state"], lat: @location["lat"] |> to_string, lng: @location["lng"] |> to_string]]) %>
               <% end %>
             </li>
             <% end %>
-            <%= if @page_number != @total_pages do %>
+            <%= if @page_number != @page_count do %>
             <li>
-              <%= link to: gym_path(@conn, :index, [page: @page_number + 1, search: [city: @city , state: @state, lat: @lat |> to_string, lng: @lng |> to_string]]), aria_label: "Next" do %>
+              <%= link to: gym_path(@conn, :index, [page: @page_number + 1, search: [city: @location["city"] , state: @location["state"], lat: @location["lat"] |> to_string, lng: @location["lng"] |> to_string]]), aria_label: "Next" do %>
                 <span aria-hidden="true">&raquo;</span>
               <% end %>
             </li>
@@ -72,14 +72,14 @@
 
   <aside class="col-md-6 visible-md visible-lg">
     <h3>
-      <span class="result-title">Gyms <%= if String.length(@city) > 0, do: "near " <> @city <> ",", else: "in" %> <%= @state %></span>
+      <span class="result-title">Gyms <%= if String.length(@location["city"]) > 0, do: "near " <> @location["city"] <> ",", else: "in" %> <%= @location["state"] %></span>
 
       <%= if logged_in?(@conn) && current_user(@conn).admin do %>
         <%= link "Add a Gym »", to: gym_path(@conn, :new), class: "btn btn-primary pull-right" %>
       <% end %>
     </h3>
 
-    <div data-latitude="<%= @lat |> to_string %>" data-longitude="<%= @lng |> to_string %>" data-skyview="<%= String.length(@city) == 0 %>"  id="map-canvas"></div>
+    <div data-latitude="<%= @location["lat"] |> to_string %>" data-longitude="<%= @location["lng"] |> to_string %>" data-skyview="<%= String.length(@location["city"]) == 0 %>"  id="map-canvas"></div>
     <p><small>Found a gym that isn't listed? <%= link "Submit it here", to: gym_edit_path(@conn, :new) %>!</small></p>
   </aside>
 </div>

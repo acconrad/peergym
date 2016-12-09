@@ -7,6 +7,8 @@ defmodule Peergym.GymEdit do
 
   use Peergym.Web, :model
   use Arc.Ecto.Schema
+  alias Peergym.Avatar
+  alias Peergym.Gym
 
   schema "gym_edits" do
     field :name, :string
@@ -84,9 +86,9 @@ defmodule Peergym.GymEdit do
     field :gymnastic, :boolean # rings, parallettes
     field :kegs, :integer
     field :atlas_stones, :integer
-    field :photos, Peergym.Avatar.Type
+    field :photos, Avatar.Type
 
-    belongs_to :gym, Peergym.Gym
+    belongs_to :gym, Gym
 
     timestamps
   end

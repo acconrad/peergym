@@ -59,9 +59,9 @@ defmodule Peergym.GymView do
 
   def format_amenity(amenity) do
     cond do
-      amenity == nil -> "N/A"
+      amenity == nil                       -> "N/A"
       (amenity == 0) || (amenity == false) -> "No"
-      (amenity == 1) || (amenity == true) -> "Yes"
+      (amenity == 1) || (amenity == true)  -> "Yes"
       amenity -> amenity
     end
   end
@@ -79,6 +79,15 @@ defmodule Peergym.GymView do
       "https://d2ohrei45269ks.cloudfront.net/uploads/gyms/photos/#{gym.id}/#{gym.id}_original_#{gym.photos.file_name}"
     else
       "/images/background.jpg"
+    end
+  end
+
+  def list_rate(gym) do
+    cond do
+      gym.monthly_rate > 0 -> "<span class=\"amt\">#{number_to_currency(gym.monthly_rate, precision: 0)}</span> / mo"
+      gym.day_rate > 0     -> "<span class=\"amt\">#{number_to_currency(gym.day_rate, precision: 0)}</span> / day"
+      gym.annual_rate > 0  -> "<span class=\"amt\">#{number_to_currency(gym.annual_rate, precision: 0)}</span> / yr"
+      true -> ""
     end
   end
 
@@ -100,23 +109,19 @@ defmodule Peergym.GymView do
 
   def render("title", assigns) do
     case Controller.action_name assigns.conn do
-      :index -> if assigns.searched do
+      :index ->
+        if assigns.city do
           "The Best #{assigns.city} Gyms"
         else
           "PeerGym: Discover the best gyms in your area and compare membership rates"
         end
-      :show -> "#{assigns.gym.name} in (#{assigns.gym.state}) - Gym Reviews"
-      _ -> "PeerGym: Discover the best gyms in your area and compare membership rates"
+      :show  -> "#{assigns.gym.name} in (#{assigns.gym.state}) - Gym Reviews"
+      _      -> "PeerGym: Discover the best gyms in your area and compare membership rates"
     end
   end
 
-  def list_rate(gym) do
-    cond do
-      gym.monthly_rate > 0 -> "<span class=\"amt\">#{number_to_currency(gym.monthly_rate, precision: 0)}</span> / mo"
-      gym.day_rate > 0 -> "<span class=\"amt\">#{number_to_currency(gym.day_rate, precision: 0)}</span> / day"
-      gym.annual_rate > 0 -> "<span class=\"amt\">#{number_to_currency(gym.annual_rate, precision: 0)}</span> / yr"
-      true -> ""
-    end
+  def seen_intro_message(conn, params) do
+    params["search"] || logged_in?(conn)
   end
 
   def slug(gym) do

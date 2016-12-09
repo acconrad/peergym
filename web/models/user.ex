@@ -5,14 +5,17 @@ defmodule Peergym.User do
 
   use Peergym.Web, :model
   use Arc.Ecto.Schema
+  alias Peergym.Avatar
+  alias Peergym.Repo
+  alias Peergym.Review
 
   schema "users" do
     field :email, :string
     field :crypted_password, :string
     field :password, :string, virtual: true
     field :admin, :boolean
-    field :avatar, Peergym.Avatar.Type
-    has_many :reviews, Peergym.Review
+    field :avatar, Avatar.Type
+    has_many :reviews, Review
 
     timestamps
   end
@@ -31,7 +34,7 @@ defmodule Peergym.User do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> cast_attachments(params, @file_fields)
-    |> unique_constraint(:email, on: Peergym.Repo, downcase: true)
+    |> unique_constraint(:email, on: Repo, downcase: true)
     |> validate_format(:email, ~r/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/)
     |> validate_length(:password, min: 8)
   end
