@@ -7,7 +7,6 @@ defmodule Peergym.User do
   use Arc.Ecto.Schema
   alias Peergym.Avatar
   alias Peergym.Repo
-  alias Peergym.Review
 
   schema "users" do
     field :email, :string
@@ -15,7 +14,7 @@ defmodule Peergym.User do
     field :password, :string, virtual: true
     field :admin, :boolean
     field :avatar, Avatar.Type
-    has_many :reviews, Review
+    has_many :reviews, Peergym.Review
 
     timestamps
   end
