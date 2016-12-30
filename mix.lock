@@ -3,7 +3,7 @@
   "arc_ecto": {:hex, :arc_ecto, "0.5.0-rc1", "e03002f2e0decc044d26a8dc8f42813ffa7848e7f68a6a52571caf335b6f18da", [:mix], [{:arc, "~> 0.6.0-rc1", [hex: :arc, optional: false]}, {:ecto, "~> 2.0", [hex: :ecto, optional: false]}]},
   "bunt": {:hex, :bunt, "0.1.6", "5d95a6882f73f3b9969fdfd1953798046664e6f77ec4e486e6fafc7caad97c6f", [:mix], []},
   "certifi": {:hex, :certifi, "0.7.0", "861a57f3808f7eb0c2d1802afeaae0fa5de813b0df0979153cbafcd853ababaf", [:rebar3], []},
-  "comeonin": {:hex, :comeonin, "1.4.0", "899b47e0372eca4a8f09d2a4ca112bd61265a4ea0f3878270cb119bb1e53b15f", [:make, :mix], [{:gettext, "~> 0.7", [hex: :gettext, optional: false]}]},
+  "comeonin": {:hex, :comeonin, "1.6.0", "65d3217bf171feb2600ac639089d1316c5438407a30dfbe9f465d75500db2171", [:make, :mix], [{:comeonin_i18n, "~> 0.1", [hex: :comeonin_i18n, optional: true]}]},
   "connection": {:hex, :connection, "1.0.4", "a1cae72211f0eef17705aaededacac3eb30e6625b04a6117c1b2db6ace7d5976", [:mix], []},
   "cowboy": {:hex, :cowboy, "1.0.4", "a324a8df9f2316c833a470d918aaf73ae894278b8aa6226ce7a9bf699388f878", [:make, :rebar], [{:cowlib, "~> 1.0.0", [hex: :cowlib, optional: false]}, {:ranch, "~> 1.0", [hex: :ranch, optional: false]}]},
   "cowlib": {:hex, :cowlib, "1.0.2", "9d769a1d062c9c3ac753096f868ca121e2730b9a377de23dec0f7e08b1df84ee", [:make], []},
