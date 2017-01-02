@@ -4133,7 +4133,7 @@ a {
     border: none;
     box-shadow: none;
     display: inline-block;
-    margin: -2px -15px -7px;
+    margin: -2px -15px -10px;
     width: calc(100% - 113px); }
     @media screen and (min-width: 900px) {
       .navbar-default .form-gym-search {
@@ -4194,7 +4194,7 @@ main {
   background-color: #ECEFF1;
   bottom: 100%;
   right: 0;
-  min-height: 100%;
+  min-height: calc(100vh - 51px);
   min-width: 100%;
   padding: 0.1px 15px 15px 15px;
   position: relative;
@@ -4398,9 +4398,11 @@ main {
   .hero h1,
   .hero a {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.33); }
-  .hero .breadcrumbs > li {
-    background-color: rgba(0, 0, 0, 0.67);
-    margin-right: -5px; }
+  .hero .breadcrumbs {
+    padding: 5px 0 0 15px; }
+    .hero .breadcrumbs > li {
+      background-color: rgba(0, 0, 0, 0.67);
+      margin-right: -5px; }
 
 .bg-primary-gradient {
   background: linear-gradient(to top right, #5C6BC0, #0D47A1 50%, #42A5F5 100%);

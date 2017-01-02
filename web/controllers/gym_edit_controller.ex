@@ -18,11 +18,12 @@ defmodule Peergym.GymEditController do
 
   def new(conn, params) do
     changeset = GymEdit.changeset(%GymEdit{})
+    gym_edit = changeset.data
 
     if params["gym_id"] do
-      render(conn, "new.html", changeset: changeset, gym: Repo.get(Gym, params["gym_id"]))
+      render(conn, "new.html", changeset: changeset, gym_edit: gym_edit, gym: Repo.get(Gym, params["gym_id"]))
     else
-      render(conn, "new.html", changeset: changeset, gym: %Gym{})
+      render(conn, "new.html", changeset: changeset, gym_edit: gym_edit, gym: %Gym{})
     end
   end
 
@@ -33,7 +34,7 @@ defmodule Peergym.GymEditController do
       {:ok, _gym_edit} ->
         conn
         |> put_flash(:info, "Thank you for your contribution! We'll verify this with our staff.")
-        |> redirect(to: gym_edit_path(conn, :index))
+        |> redirect(to: gym_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end

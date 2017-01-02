@@ -32,29 +32,32 @@ defmodule Peergym.GymController do
   def index(conn, %{"order_by" => order_by, "page" => page, "search" => location}) do
     page_number = String.to_integer(page)
     gyms_chunk = gym_chunks(location, order_by)
+    gyms = fetch_gyms(gyms_chunk, page_number)
 
     render conn, "index.html",
-      gyms: gyms_chunk |> Enum.fetch!(page_number - 1),
+      gyms: gyms,
       location: location,
       page_count: gyms_chunk |> Enum.count,
       page_number: page_number
   end
   def index(conn, %{"page" => page, "search" => location}) do
     page_number = String.to_integer(page)
-    gyms_chunk = gym_chunks(location, nil)
+    gyms_chunk = gym_chunks(location)
+    gyms = fetch_gyms(gyms_chunk, page_number)
 
     render conn, "index.html",
-      gyms: gyms_chunk |> Enum.fetch!(page_number - 1),
+      gyms: gyms,
       location: location,
       page_count: gyms_chunk |> Enum.count,
       page_number: page_number
   end
   def index(conn, _params) do
     location = Navigation.find_location(conn.remote_ip)
-    gyms_chunk = gym_chunks(location, nil)
+    gyms_chunk = gym_chunks(location)
+    gyms = fetch_gyms(gyms_chunk, 0)
 
     render conn, "index.html",
-      gyms: gyms_chunk |> Enum.fetch!(0),
+      gyms: gyms,
       location: location,
       page_count: gyms_chunk |> Enum.count,
       page_number: 1
@@ -121,6 +124,13 @@ defmodule Peergym.GymController do
     |> redirect(to: gym_path(conn, :index))
   end
 
+  defp fetch_gyms(pages, index) do
+    case pages |> Enum.fetch(index - 1) do
+      {:ok, gyms} -> gyms
+      :error      -> nil
+    end
+  end
+
   defp gym_chunks(location, ordered) do
     if location["state"] == "United States" do
       Gym
@@ -131,6 +141,22 @@ defmodule Peergym.GymController do
     else
       Gym
       |> Gym.within_bounding_box(location, ordered)
+      |> Repo.all
+      |> Enum.sort(&(Navigation.haversine(&1, location) <= Navigation.haversine(&2, location)))
+      |> Enum.map(&(Map.put(&1, :distance, Float.round(Navigation.haversine(&1, location), 1))))
+      |> Enum.chunk(10, 10, [])
+    end
+  end
+  defp gym_chunks(location) do
+    if location["state"] == "United States" do
+      Gym
+      |> Gym.in_major_us_cities
+      |> Repo.all
+      |> Enum.map(&(Map.put(&1, :distance, 0)))
+      |> Enum.chunk(10, 10, [])
+    else
+      Gym
+      |> Gym.within_bounding_box(location)
       |> Repo.all
       |> Enum.sort(&(Navigation.haversine(&1, location) <= Navigation.haversine(&2, location)))
       |> Enum.map(&(Map.put(&1, :distance, Float.round(Navigation.haversine(&1, location), 1))))

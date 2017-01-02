@@ -110,18 +110,14 @@ defmodule Peergym.GymView do
   def render("title", assigns) do
     case Controller.action_name assigns.conn do
       :index ->
-        if assigns.city do
-          "The Best #{assigns.city} Gyms"
+        if assigns.location["city"] do
+          "The Best #{assigns.location["city"]} Gyms"
         else
           "PeerGym: Discover the best gyms in your area and compare membership rates"
         end
       :show  -> "#{assigns.gym.name} in (#{assigns.gym.state}) - Gym Reviews"
       _      -> "PeerGym: Discover the best gyms in your area and compare membership rates"
     end
-  end
-
-  def seen_intro_message(conn, params) do
-    params["search"] || logged_in?(conn)
   end
 
   def slug(gym) do

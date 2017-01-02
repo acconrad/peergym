@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-md-6">
-    <%= unless seen_intro_message(@conn, @params) do %>
+    <%= unless logged_in?(@conn) do %>
       <div class="well well-intro text-center">
         <h2>PeerGym is the best way to find great gyms</h2>
         <p class="lead">People use PeerGym to search over 4000+ gyms to find the best equipment, amenities, and membership rates.</p>

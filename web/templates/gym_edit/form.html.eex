@@ -50,9 +50,7 @@
 
   <h3>Photo</h3>
   <p class="lead">Add a photo to show us what the gym looks like.</p>
-  <%= if @changeset && @changeset.model && @changeset.model.photos do %>
-    <img src="<%= img_url(@changeset.gym) %>" alt="Here's what it looks like to work out here">
-  <% end %>
+  <img src="<%= img_url(@changeset) %>" alt="Here's what it looks like to work out here">
   <%= file_input f, :photos, class: "form-control" %>
 
   <h3>Rates</h3>

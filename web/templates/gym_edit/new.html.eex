@@ -9,4 +9,5 @@
 <%= render "form.html", changeset: @changeset,
                         action: gym_edit_path(@conn, :create),
                         gym: @gym,
+                        gym_edit: @gym_edit,
                         user: current_user(@conn) %>

@@ -23,7 +23,7 @@ defmodule Peergym.Review do
   If no params are provided, an invalid changeset is returned
   with no validation performed.
   """
-  def changeset(model, params \\ :empty) do
+  def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> validate_number(:rating, greater_than_or_equal_to: 1, less_than_or_equal_to: 5)

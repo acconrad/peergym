@@ -41,14 +41,14 @@ defmodule Peergym.Mixfile do
      {:ex_machina, "~> 1.0.2"},
      {:scrivener, "~> 2.1.1"},
      {:number, "~> 0.5.0"},
-     {:arc, "~> 0.6.0-rc3"},
+     {:arc, "~> 0.6.0"},
      {:arc_ecto, "~> 0.5.0-rc1"},
      {:credo, "~> 0.5.3", only: [:dev, :test]},
      {:earmark, "~> 1.0.3"},
      {:geolix, "~> 0.10"},
      {:plug_forwarded_peer, "~> 0.0.2"},
-     {:ex_aws, "~> 1.0.0-rc3"},
-     {:hackney, "~> 1.5"},
+     {:ex_aws, "~> 1.0.0"},
+     {:hackney, "1.6.1"},
      {:sweet_xml, "~> 0.5"}]
   end
 end

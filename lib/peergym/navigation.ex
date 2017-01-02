@@ -46,10 +46,12 @@ defmodule Peergym.Navigation do
   The haversine formula calculates great-circle distances between two points on a sphere
   from their longitudes and latitudes.
   """
-  def haversine(%{"latitude" => lat1, "longitude" => long1}, %{"lat" => lat2, "lng" => long2}) do
-    dlat  = :math.sin((lat2 - lat1) * @radians / 2)
-    dlong = :math.sin((long2 - long1) * @radians / 2)
-    a = dlat * dlat + dlong * dlong * :math.cos(lat1 * @radians) * :math.cos(lat2 * @radians)
+  def haversine(%{latitude: lat1, longitude: long1}, %{"lat" => lat2, "lng" => long2}) do
+    flat2 = String.to_float(lat2)
+    flng2 = String.to_float(long2)
+    dlat  = :math.sin((flat2 - lat1) * @radians / 2)
+    dlong = :math.sin((flng2 - long1) * @radians / 2)
+    a = dlat * dlat + dlong * dlong * :math.cos(lat1 * @radians) * :math.cos(flat2 * @radians)
     @earth_radius * 2 * :math.asin(:math.sqrt(a))
   end
 end
