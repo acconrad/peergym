@@ -10,4 +10,4 @@ config :peergym, Peergym.Endpoint,
 config :peergym, Peergym.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
-  pool_size: 18 # The amount of database connections in the pool
+  pool_size: System.get_env("POOL_SIZE") # The amount of database connections in the pool
