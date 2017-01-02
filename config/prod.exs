@@ -28,4 +28,4 @@ config :comeonin, bcrypt_log_rounds: 14
 config :peergym, Peergym.Repo,
   adapter: Ecto.Adapters.Postgres,
   url: System.get_env("DATABASE_URL"),
-  pool_size: System.get_env("POOL_SIZE") # The amount of database connections in the pool
+  pool_size: String.to_integer(System.get_env("POOL_SIZE")) # The amount of database connections in the pool
