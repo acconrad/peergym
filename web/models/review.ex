@@ -14,8 +14,7 @@ defmodule Peergym.Review do
     timestamps
   end
 
-  @required_fields ~w(body rating user_id)
-  @optional_fields ~w()
+  @fields ~w(body rating user_id)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -25,7 +24,7 @@ defmodule Peergym.Review do
   """
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @fields)
     |> validate_number(:rating, greater_than_or_equal_to: 1, less_than_or_equal_to: 5)
     |> validate_length(:body, max: 1000)
   end

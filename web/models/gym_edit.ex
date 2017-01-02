@@ -92,8 +92,7 @@ defmodule Peergym.GymEdit do
     timestamps
   end
 
-  @required_fields ~w(name address city)
-  @optional_fields ~w(state zip email phone url description hours size coaches class_size day_rate monthly_rate
+  @all_fields ~w(name address city state zip email phone url description hours size coaches class_size day_rate monthly_rate
     annual_rate is_owner submitter_email closed barbells womens_barbells trap_bars safety_squat_bars log_bars
     bandbell_bars camber_bars bumper_plates gym_chalk squat_racks power_racks pull_up_rigs monolifts benches ghds
     reverse_hypers platforms bands jerk_blocks bench_press_boards chains tires kegs atlas_stones kettlebells dumbbells
@@ -109,7 +108,7 @@ defmodule Peergym.GymEdit do
   """
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @all_fields)
     |> cast_attachments(params, @file_fields)
   end
 end

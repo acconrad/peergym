@@ -17,8 +17,7 @@ defmodule Peergym.Payment do
     timestamps
   end
 
-  @required_fields ~w(name cc_number month year cvc zip)
-  @optional_fields ~w()
+  @fields ~w(name cc_number month year cvc zip)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -28,6 +27,6 @@ defmodule Peergym.Payment do
   """
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @fields)
   end
 end

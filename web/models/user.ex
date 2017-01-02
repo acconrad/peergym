@@ -19,8 +19,8 @@ defmodule Peergym.User do
     timestamps
   end
 
+  @all_fields ~w(email crypted_password password admin)
   @required_fields ~w(email password)
-  @optional_fields ~w(crypted_password admin)
   @file_fields ~w(avatar)
 
   @doc """
@@ -31,7 +31,8 @@ defmodule Peergym.User do
   """
   def changeset(model, params \\ %{}) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, @all_fields)
+    |> validate_required(@required_fields)
     |> cast_attachments(params, @file_fields)
     |> unique_constraint(:email, on: Repo, downcase: true)
     |> validate_format(:email, ~r/\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/)
