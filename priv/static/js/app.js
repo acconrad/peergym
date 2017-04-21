@@ -1468,130 +1468,95 @@ var _phoenix = require("phoenix");
 
 require("phoenix_html");
 
-var _map = require("./map");
-
 var _tabs = require("./tabs");
 
-document.addEventListener('DOMContentLoaded', function () {
-  if (document.getElementById('map-canvas')) {
-    new _map.Maps();
-  }
+function initMap() {
+  var doc = document,
+      form = doc.querySelector('.form-gym-search');
 
+  new google.maps.places.Autocomplete(form.querySelector('.form-gym-location'));
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    new google.maps.Geocoder().geocode({ 'address': form.querySelector('.form-gym-location').value }, function (results, status) {
+      var result, latlng;
+      if (status === google.maps.GeocoderStatus.OK) {
+        result = results[0];
+        latlng = result.geometry.location.toString().slice(1, -1).split(', ');
+        form.querySelector('#search_lat').value = latlng[0];
+        form.querySelector('#search_lng').value = latlng[1];
+        form.querySelector('#search_place').value = result.place_id;
+        form.querySelector('#search_city').value = result.address_components.filter(function (component) {
+          return component.types[0].match(/locality/);
+        })[0].long_name;
+        form.querySelector('#search_state').value = result.address_components.filter(function (component) {
+          return component.types[0] === 'administrative_area_level_1';
+        })[0].short_name;
+        form.submit();
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  });
+
+  if (doc.body.className.match(/gym index|gym show/)) {
+    google.maps.event.addDomListener(window, 'load', loadMap);
+  }
+}
+
+function loadMap() {
+  var doc = document,
+      canvas = doc.getElementById('map-canvas'),
+      infoWindow = new google.maps.InfoWindow(),
+      geocoderRequest = canvas.dataset.placeId ? { 'placeId': canvas.dataset.placeId } : { 'location': { lat: +canvas.dataset.latitude, lng: +canvas.dataset.longitude } },
+      map;
+
+  new google.maps.Geocoder().geocode(geocoderRequest, function (results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      if (results[0]) {
+        map = new google.maps.Map(canvas, {
+          center: results[0].geometry.location,
+          zoom: doc.body.className === "gym show" ? 16 : canvas.dataset.skyview === "true" ? 4 : 13,
+          disableDefaultUI: true,
+          draggable: true,
+          zoomControl: true,
+          scrollwheel: false,
+          disableDoubleClickZoom: true
+        });
+
+        google.maps.event.addListenerOnce(map, 'bounds_changed', function () {
+          Array.prototype.forEach.call(document.querySelectorAll('.gym-item'), function (gym) {
+            var marker = new google.maps.Marker({
+              map: map,
+              position: { lat: +gym.dataset.latitude, lng: +gym.dataset.longitude } });
+
+            google.maps.event.addListener(marker, 'click', function () {
+              var slug = gym.dataset.slug,
+                  name = slug.replace(/\b\w/g, function (word) {
+                return word.toUpperCase();
+              }).replace(/-/g, ' ');
+              infoWindow.setContent('<a href="/gyms/' + slug + '">' + name + '</a>');
+              infoWindow.open(map, marker);
+            });
+          });
+        });
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
   if (document.querySelector('.nav-tabs')) {
     new _tabs.Tabs();
   }
 });
 });
 
-require.register("web/static/js/map.js", function(exports, require, module) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Maps = exports.Maps = function () {
-  function Maps() {
-    _classCallCheck(this, Maps);
-
-    var pageFolder = document.body.className;
-
-    google.maps.event.addDomListener(window, 'load', this.initializeSearch);
-
-    if (pageFolder.match(/gym index|gym show/)) {
-      google.maps.event.addDomListener(window, 'load', this.initializeMap);
-    }
-  }
-
-  _createClass(Maps, [{
-    key: 'initializeMap',
-    value: function initializeMap() {
-      var doc = document,
-          canvas = doc.getElementById('map-canvas'),
-          infoWindow = new google.maps.InfoWindow(),
-          geocoderRequest = canvas.dataset.placeId ? { 'placeId': canvas.dataset.placeId } : { 'location': { lat: +canvas.dataset.latitude, lng: +canvas.dataset.longitude } },
-          map;
-
-      new google.maps.Geocoder().geocode(geocoderRequest, function (results, status) {
-        if (status === google.maps.GeocoderStatus.OK) {
-          if (results[0]) {
-            map = new google.maps.Map(canvas, {
-              center: results[0].geometry.location,
-              zoom: doc.body.className === "gym show" ? 16 : canvas.dataset.skyview === "true" ? 4 : 13,
-              disableDefaultUI: true,
-              draggable: true,
-              zoomControl: true,
-              scrollwheel: false,
-              disableDoubleClickZoom: true
-            });
-
-            google.maps.event.addListenerOnce(map, 'bounds_changed', function () {
-              Array.prototype.forEach.call(document.querySelectorAll('.gym-item'), function (gym) {
-                var marker = new google.maps.Marker({
-                  map: map,
-                  position: { lat: +gym.dataset.latitude, lng: +gym.dataset.longitude } });
-
-                google.maps.event.addListener(marker, 'click', function () {
-                  var slug = gym.dataset.slug,
-                      name = slug.replace(/\b\w/g, function (word) {
-                    return word.toUpperCase();
-                  }).replace(/-/g, ' ');
-                  infoWindow.setContent('<a href="/gyms/' + slug + '">' + name + '</a>');
-                  infoWindow.open(map, marker);
-                });
-              });
-            });
-          } else {
-            return false;
-          }
-        } else {
-          return false;
-        }
-      });
-    }
-  }, {
-    key: 'initializeSearch',
-    value: function initializeSearch() {
-      var doc = document,
-          location = doc.querySelector('.form-gym-location'),
-          form = doc.querySelector('.form-gym-search');
-
-      new google.maps.places.Autocomplete(location);
-
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        new google.maps.Geocoder().geocode({ 'address': form.querySelector('.form-gym-location').value }, function (results, status) {
-          var result, latlng;
-          if (status === google.maps.GeocoderStatus.OK) {
-            result = results[0];
-            latlng = result.geometry.location.toString().slice(1, -1).split(', ');
-            form.querySelector('#search_lat').value = latlng[0];
-            form.querySelector('#search_lng').value = latlng[1];
-            form.querySelector('#search_place').value = result.place_id;
-            form.querySelector('#search_city').value = result.address_components.filter(function (component) {
-              return component.types[0].match(/locality/);
-            })[0].long_name;
-            form.querySelector('#search_state').value = result.address_components.filter(function (component) {
-              return component.types[0] === 'administrative_area_level_1';
-            })[0].short_name;
-            form.submit();
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-          }
-        });
-      });
-    }
-  }]);
-
-  return Maps;
-}();
-});
-
-;require.register("web/static/js/tabs.js", function(exports, require, module) {
+require.register("web/static/js/tabs.js", function(exports, require, module) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

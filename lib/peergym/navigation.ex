@@ -1,9 +1,10 @@
 defmodule Peergym.Navigation do
+  import Logger
   @moduledoc """
   Helper functions for calculating global navigation.
   """
-  @boston_lat "42.3600825"  # Latitude of the center of Boston, MA
-  @boston_lng "-71.0588801" # Longitude of the center of Boston, MA
+  @boston_lat 42.3600825  # Latitude of the center of Boston, MA
+  @boston_lng -71.0588801 # Longitude of the center of Boston, MA
   @earth_radius 6372.8    # Approximation of the radius of the average circumference of the Earth
   @radians :math.pi / 180 # Degrees to radians conversion
 
@@ -11,7 +12,7 @@ defmodule Peergym.Navigation do
   Given an IP address, find the location to search against.
   """
   def find_location(ip_address) do
-    case Geolix.lookup(ip_address).city do
+    case Geolix.lookup(ip_address, [ where: :city ]) do
       %{city: city, location: location, subdivisions: state} ->
         first_state = state |> List.first
         %{"lat"   => location.latitude,
@@ -47,11 +48,9 @@ defmodule Peergym.Navigation do
   from their longitudes and latitudes.
   """
   def haversine(%{latitude: lat1, longitude: long1}, %{"lat" => lat2, "lng" => long2}) do
-    flat2 = String.to_float(lat2)
-    flng2 = String.to_float(long2)
-    dlat  = :math.sin((flat2 - lat1) * @radians / 2)
-    dlong = :math.sin((flng2 - long1) * @radians / 2)
-    a = dlat * dlat + dlong * dlong * :math.cos(lat1 * @radians) * :math.cos(flat2 * @radians)
+    dlat  = :math.sin((lat2 - lat1) * @radians / 2)
+    dlong = :math.sin((long2 - long1) * @radians / 2)
+    a = dlat * dlat + dlong * dlong * :math.cos(lat1 * @radians) * :math.cos(lat2 * @radians)
     @earth_radius * 2 * :math.asin(:math.sqrt(a))
   end
 end

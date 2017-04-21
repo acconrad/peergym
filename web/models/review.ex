@@ -11,7 +11,7 @@ defmodule Peergym.Review do
     belongs_to :user, Peergym.User
     belongs_to :gym, Peergym.Gym
 
-    timestamps
+    timestamps()
   end
 
   @fields ~w(body rating user_id)

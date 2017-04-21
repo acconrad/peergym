@@ -89,7 +89,7 @@ defmodule Peergym.GymEdit do
 
     belongs_to :gym, Peergym.Gym
 
-    timestamps
+    timestamps()
   end
 
   @all_fields ~w(name address city state zip email phone url description hours size coaches class_size day_rate monthly_rate

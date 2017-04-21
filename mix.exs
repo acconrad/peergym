@@ -4,12 +4,12 @@ defmodule Peergym.Mixfile do
   def project do
     [app: :peergym,
      version: "1.0.0",
-     elixir: "~> 1.3.4",
+     elixir: "~> 1.4",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     deps: deps()]
   end
 
   # Configuration for the OTP application
@@ -29,26 +29,26 @@ defmodule Peergym.Mixfile do
   #
   # Type `mix help deps` for examples and options
   defp deps do
-    [{:phoenix, "~> 1.2.1"},
+    [{:phoenix, "~> 1.2.2"},
      {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_html, "~> 2.3"},
-     {:phoenix_ecto, "~> 3.2.1"},
+     {:phoenix_html, "~> 2.9"},
+     {:phoenix_ecto, "~> 3.2.2"},
      {:postgrex, "~> 0.13"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:cowboy, "~> 1.0"},
-     {:passport, "~> 0.5.3", github: "acconrad/passport", override: true},
+     {:passport, "~> 0.5.6", github: "acconrad/passport", override: true},
      {:poison, "~> 2.0"},
-     {:ex_machina, "~> 1.0.2"},
-     {:scrivener, "~> 2.1.1"},
-     {:number, "~> 0.5.0"},
-     {:arc, "~> 0.6.0"},
-     {:arc_ecto, "~> 0.5.0-rc1"},
-     {:credo, "~> 0.5.3", only: [:dev, :test]},
-     {:earmark, "~> 1.0.3"},
-     {:geolix, "~> 0.10"},
+     {:ex_machina, "~> 2.0"},
+     {:scrivener, "~> 2.3"},
+     {:number, "~> 0.5"},
+     {:arc, "~> 0.8.0"},
+     {:arc_ecto, "~> 0.7.0"},
+     {:credo, "~> 0.7.3", only: [:dev, :test]},
+     {:earmark, "~> 1.2"},
+     {:geolix, "~> 0.13"},
      {:plug_forwarded_peer, "~> 0.0.2"},
-     {:ex_aws, "~> 1.0.0"},
-     {:hackney, "1.6.1"},
-     {:sweet_xml, "~> 0.5"}]
+     {:ex_aws, "~> 1.1"},
+     {:hackney, "~> 1.6"},
+     {:sweet_xml, "~> 0.6"}]
   end
 end

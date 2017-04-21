@@ -90,7 +90,7 @@ defmodule Peergym.Gym do
     has_many :reviews, Peergym.Review
     has_many :gym_edits, Peergym.GymEdit
 
-    timestamps
+    timestamps()
   end
 
   @required_fields ~w(name address latitude longitude)
@@ -214,13 +214,10 @@ defmodule Peergym.Gym do
   end
 
   defp bounding_box(lat, lng) do
-    latf = String.to_float(lat)
-    lngf = String.to_float(lng)
-
-    %{min_lat: latf - @delta,
-      max_lat: latf + @delta,
-      min_lng: lngf - @delta,
-      max_lng: lngf + @delta}
+    %{min_lat: lat - @delta,
+      max_lat: lat + @delta,
+      min_lng: lng - @delta,
+      max_lng: lng + @delta}
   end
 
   defp strip_tag(description, tag) do

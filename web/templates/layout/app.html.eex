@@ -61,7 +61,6 @@
       <%= render @view_module, @view_template, assigns %>
     </main>
 
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -72,6 +71,7 @@
       ga('create', 'UA-71791093-1', 'auto');
       ga('send', 'pageview');
     </script>
-    <script src="//load.sumome.com/" data-sumo-site-id="67571afbf2c3be5b4a065abf8a9b77d2ab4e408790994f11b3337e45a1cc6b01" async="async"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVvyGKfQmhY9lGzqCtCs4vU6EJFXeM6Jo&callback=initMap"></script>
+    <script async src="//load.sumome.com/" data-sumo-site-id="67571afbf2c3be5b4a065abf8a9b77d2ab4e408790994f11b3337e45a1cc6b01"></script>
   </body>
 </html>

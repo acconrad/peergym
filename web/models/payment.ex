@@ -14,7 +14,7 @@ defmodule Peergym.Payment do
     field :cvc, :integer
     field :zip, :integer
 
-    timestamps
+    timestamps()
   end
 
   @fields ~w(name cc_number month year cvc zip)

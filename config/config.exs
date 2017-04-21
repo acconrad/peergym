@@ -31,10 +31,19 @@ config :arc,
   secret_access_key: "X8/8fgHx2PEzLZHEZ6KxJADNSBZ9dCN+Vo4bHqLS",
   bucket: "peergym-photos"
 
-city_db_path = :filename.join(Path.dirname(__DIR__), "priv/static/profiler/GeoLite2-City.mmdb")
-country_db_path = :filename.join(Path.dirname(__DIR__), "priv/static/profiler/GeoLite2-Country.mmdb")
 config :geolix,
-  databases: [{:city, city_db_path}, {:country, country_db_path}]
+  databases: [
+    %{
+      id:      :city,
+      adapter: Geolix.Adapter.MMDB2,
+      source:  :filename.join(Path.dirname(__DIR__), "priv/static/profiler/GeoLite2-City.mmdb")
+    },
+    %{
+      id:      :country,
+      adapter: Geolix.Adapter.MMDB2,
+      source:  :filename.join(Path.dirname(__DIR__), "priv/static/profiler/GeoLite2-Country.mmdb")
+    }
+  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -29,7 +29,7 @@ defmodule Peergym.GymController do
   #     |> redirect(to: gym_path(conn, :index))
   #   end
   # end
-  def index(conn, %{"order_by" => order_by, "page" => page, "search" => location}) do
+  def index(conn, %{"page" => page, "order_by" => order_by, "search" => location}) do
     page_number = String.to_integer(page)
     gyms_chunk = gym_chunks(location, order_by)
     gyms = fetch_gyms(gyms_chunk, page_number)

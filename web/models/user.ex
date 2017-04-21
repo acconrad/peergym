@@ -16,7 +16,7 @@ defmodule Peergym.User do
     field :avatar, Avatar.Type
     has_many :reviews, Peergym.Review
 
-    timestamps
+    timestamps()
   end
 
   @all_fields ~w(email crypted_password password admin)
