@@ -31,7 +31,7 @@
   "mime": {:hex, :mime, "1.1.0", "01c1d6f4083d8aa5c7b8c246ade95139620ef8effb009edde934e0ec3b28090a", [:mix], []},
   "mimerl": {:hex, :mimerl, "1.0.2", "993f9b0e084083405ed8252b99460c4f0563e41729ab42d9074fd5e52439be88", [:rebar3], []},
   "number": {:hex, :number, "0.5.1", "41c41d6437d1bfe33df3c3ba27bd0e72a55d72bc7649882453c3d1ee494157ca", [:mix], [{:decimal, "~> 1.0", [hex: :decimal, optional: false]}]},
-  "passport": {:git, "https://github.com/acconrad/passport.git", "5b8c332c3a8aa28f5f1122c09bbc9e352875f8cf", []},
+  "passport": {:git, "https://github.com/acconrad/passport.git", "6f66e7fdab5c3909d132b92fc3dcc40c773bf684", []},
   "phoenix": {:hex, :phoenix, "1.2.3", "b68dd6a7e6ff3eef38ad59771007d2f3f344988ea6e658e9b2c6ffb2ef494810", [:mix], [{:cowboy, "~> 1.0", [hex: :cowboy, optional: true]}, {:phoenix_pubsub, "~> 1.0", [hex: :phoenix_pubsub, optional: false]}, {:plug, "~> 1.4 or ~> 1.3.3 or ~> 1.2.4 or ~> 1.1.8 or ~> 1.0.5", [hex: :plug, optional: false]}, {:poison, "~> 1.5 or ~> 2.0", [hex: :poison, optional: false]}]},
   "phoenix_ecto": {:hex, :phoenix_ecto, "3.2.3", "450c749876ff1de4a78fdb305a142a76817c77a1cd79aeca29e5fc9a6c630b26", [:mix], [{:ecto, "~> 2.1", [hex: :ecto, optional: false]}, {:phoenix_html, "~> 2.9", [hex: :phoenix_html, optional: true]}, {:plug, "~> 1.0", [hex: :plug, optional: false]}]},
   "phoenix_html": {:hex, :phoenix_html, "2.9.3", "1b5a2122cbf743aa242f54dced8a4f1cc778b8bd304f4b4c0043a6250c58e258", [:mix], [{:plug, "~> 1.0", [hex: :plug, optional: false]}]},
