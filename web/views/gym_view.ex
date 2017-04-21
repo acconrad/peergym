@@ -93,7 +93,7 @@ defmodule Peergym.GymView do
 
   def markdown(body) do
     body
-    |> Earmark.as_html
+    |> Earmark.as_html!
     |> raw
   end
 
