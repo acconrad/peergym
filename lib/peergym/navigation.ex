@@ -1,5 +1,4 @@
 defmodule Peergym.Navigation do
-  import Logger
   @moduledoc """
   Helper functions for calculating global navigation.
   """
