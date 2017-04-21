@@ -17,16 +17,11 @@ defmodule Peergym.Payment do
     timestamps()
   end
 
-  @fields ~w(name cc_number month year cvc zip)
-
   @doc """
-  Creates a changeset based on the `model` and `params`.
-
-  If no params are provided, an invalid changeset is returned
-  with no validation performed.
+  Creates a changeset based on the `struct` and `params`.
   """
-  def changeset(model, params \\ %{}) do
-    model
-    |> cast(params, @fields)
+  def changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:name, :cc_number, :month, :year, :cvc, :zip])
   end
 end

@@ -92,23 +92,21 @@ defmodule Peergym.GymEdit do
     timestamps()
   end
 
-  @all_fields ~w(name address city state zip email phone url description hours size coaches class_size day_rate
-    monthly_rate annual_rate is_owner submitter_email closed barbells womens_barbells trap_bars safety_squat_bars
-    log_bars bandbell_bars camber_bars bumper_plates gym_chalk squat_racks power_racks pull_up_rigs monolifts
-    benches ghds reverse_hypers platforms bands jerk_blocks bench_press_boards chains tires kegs atlas_stones
-    kettlebells dumbbells sleds medicine_balls slam_balls sand_bags plyo_boxes ergs bikes treadmills ellipticals
-    stair_climbers jump_ropes agility bodyweight boxing_mma climbing gymnastic gym_id)
-  @file_fields ~w(photos)
+  @all_fields ~w()
 
   @doc """
-  Creates a changeset based on the `model` and `params`.
-
-  If no params are provided, an invalid changeset is returned
-  with no validation performed.
+  Creates a changeset based on the `struct` and `params`.
   """
-  def changeset(model, params \\ %{}) do
-    model
-    |> cast(params, @all_fields)
-    |> cast_attachments(params, @file_fields)
+  def changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:name, :address, :city, :state, :zip, :email, :phone, :url, :description, :hours, :size,
+                    :coaches, :class_size, :day_rate, :monthly_rate, :annual_rate, :is_owner, :submitter_email,
+                    :closed, :barbells, :womens_barbells, :trap_bars, :safety_squat_bars, :log_bars,
+                    :bandbell_bars, :camber_bars, :bumper_plates, :gym_chalk, :squat_racks, :power_racks,
+                    :pull_up_rigs, :monolifts, :benches, :ghds, :reverse_hypers, :platforms, :bands, :jerk_blocks,
+                    :bench_press_boards, :chains, :tires, :kegs, :atlas_stones, :kettlebells, :dumbbells, :sleds,
+                    :medicine_balls, :slam_balls, :sand_bags, :plyo_boxes, :ergs, :bikes, :treadmills, :ellipticals,
+                    :stair_climbers, :jump_ropes, :agility, :bodyweight, :boxing_mma, :climbing, :gymnastic, :gym_id])
+    |> cast_attachments(params, [:photos])
   end
 end

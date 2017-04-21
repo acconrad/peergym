@@ -14,17 +14,12 @@ defmodule Peergym.Review do
     timestamps()
   end
 
-  @fields ~w(body rating user_id)
-
   @doc """
-  Creates a changeset based on the `model` and `params`.
-
-  If no params are provided, an invalid changeset is returned
-  with no validation performed.
+  Creates a changeset based on the `struct` and `params`.
   """
-  def changeset(model, params \\ %{}) do
-    model
-    |> cast(params, @fields)
+  def changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:body, :rating, :user_id])
     |> validate_number(:rating, greater_than_or_equal_to: 1, less_than_or_equal_to: 5)
     |> validate_length(:body, max: 1000)
   end
