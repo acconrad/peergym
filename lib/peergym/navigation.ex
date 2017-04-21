@@ -12,7 +12,7 @@ defmodule Peergym.Navigation do
   Given an IP address, find the location to search against.
   """
   def find_location(ip_address) do
-    case Geolix.lookup(ip_address, [ where: :city ]) do
+    case Geolix.lookup(ip_address, [where: :city]) do
       %{city: city, location: location, subdivisions: state} ->
         first_state = state |> List.first
         %{"lat"   => location.latitude,

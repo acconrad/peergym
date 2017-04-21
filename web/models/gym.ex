@@ -94,12 +94,13 @@ defmodule Peergym.Gym do
   end
 
   @required_fields ~w(name address latitude longitude)
-  @all_fields ~w(name address latitude longitude street city state zip country email phone url description hours google_place_id size
-    day_rate monthly_rate annual_rate coaches class_size barbells womens_barbells trap_bars safety_squat_bars log_bars
-    bandbell_bars camber_bars bumper_plates gym_chalk squat_racks power_racks pull_up_rigs monolifts benches ghds
-    reverse_hypers platforms bands jerk_blocks bench_press_boards chains tires kegs atlas_stones kettlebells dumbbells
-    sleds medicine_balls slam_balls sand_bags plyo_boxes ergs bikes treadmills ellipticals stair_climbers jump_ropes
-    agility bodyweight boxing_mma climbing gymnastic other)
+  @all_fields ~w(name address latitude longitude street city state zip country email phone url description
+    hours google_place_id size day_rate monthly_rate annual_rate coaches class_size barbells womens_barbells
+    trap_bars safety_squat_bars log_bars bandbell_bars camber_bars bumper_plates gym_chalk squat_racks
+    power_racks pull_up_rigs monolifts benches ghds reverse_hypers platforms bands jerk_blocks bench_press_boards
+    chains tires kegs atlas_stones kettlebells dumbbells sleds medicine_balls slam_balls sand_bags plyo_boxes
+    ergs bikes treadmills ellipticals stair_climbers jump_ropes agility bodyweight boxing_mma climbing gymnastic
+    other)
   @file_fields ~w(photos)
   @delta 0.1448293334 # approx. 5 mi in lat/lng
 
@@ -130,7 +131,7 @@ defmodule Peergym.Gym do
     where: fragment("lower(?)", g.name) == ^slug
   end
 
-  def by_state(query ,state) do
+  def by_state(query, state) do
     from g in query,
     where: g.state == ^state
   end
