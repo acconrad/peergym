@@ -1,5 +1,6 @@
 defmodule Peergym.Endpoint do
   use Phoenix.Endpoint, otp_app: :peergym
+  use ExDebugToolbar.Phoenix
 
   # Serve at "/" the static files from "priv/static" directory.
   #

@@ -112,8 +112,8 @@ defmodule Peergym.Gym do
     |> cast_assoc(:reviews)
     |> cast_attachments(params, [:photos])
     |> unique_constraint(:google_place_id)
-    |> strip_tags(params)
-    |> strip_unsafe(params)
+    |> strip_tags
+    |> strip_unsafe
   end
 
   def by_city(query, city) do
@@ -155,9 +155,8 @@ defmodule Peergym.Gym do
       g.city == "Philadelphia" or
       g.city == "Phoenix" or
       g.city == "San Francisco" or
-      g.city == "Boston" and
-      g.monthly_rate > 0.0,
-    order_by: [g.monthly_rate],
+      g.city == "Boston",
+    order_by: [asc: fragment("? NULLS LAST", g.monthly_rate)],
     limit: 50
   end
   def in_major_us_cities(query) do
@@ -189,18 +188,17 @@ defmodule Peergym.Gym do
   end
 
   def within_bounding_box(query, %{"lat" => lat, "lng" => lng}, _ordered) do
-    bb = bounding_box(lat, lng)
+    bb = bounding_box(lat |> String.to_float, lng |> String.to_float)
 
     from g in query,
     where: g.latitude >= ^bb.min_lat and
       g.latitude <= ^bb.max_lat and
       g.longitude >= ^bb.min_lng and
-      g.longitude <= ^bb.max_lng and
-      g.monthly_rate > 0.0,
-    order_by: [g.monthly_rate]
+      g.longitude <= ^bb.max_lng,
+    order_by: [asc: fragment("? NULLS LAST", g.monthly_rate)]
   end
   def within_bounding_box(query, %{"lat" => lat, "lng" => lng}) do
-    bb = bounding_box(lat, lng)
+    bb = bounding_box(lat |> String.to_float, lng |> String.to_float)
 
     from g in query,
     where: g.latitude >= ^bb.min_lat and
@@ -220,17 +218,17 @@ defmodule Peergym.Gym do
     description |> String.replace(~r{<#{tag}[^>]*>[^<>]*(</#{tag}>)*}i, "")
   end
 
-  defp strip_tags(model, %{"description" => description}) do
+  defp strip_tags(struct) do
     strip_descr =
-      description
+      get_field(struct, :description)
       |> strip_tag("script")
       |> strip_tag("iframe")
       |> strip_tag("link")
-    model |> put_change(:description, strip_descr)
+    struct |> put_change(:description, strip_descr)
   end
 
-  defp strip_unsafe(model, %{"description" => description}) do
-    {:safe, clean_descr} = HTML.html_escape(description)
-    model |> put_change(:description, clean_descr)
+  defp strip_unsafe(struct) do
+    {:safe, clean_descr} = HTML.html_escape(get_field(struct, :description))
+    struct |> put_change(:description, clean_descr)
   end
 end

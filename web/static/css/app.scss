@@ -135,11 +135,10 @@ a {
     border: none;
     box-shadow: none;
     display: inline-block;
-    margin: -2px -15px -10px;
+    margin: 8px auto 0;
     width: calc(100% - 113px);
 
     @media screen and (min-width: $medium) {
-      margin: 8px auto 0;
       width: 615px;
     }
 
@@ -151,53 +150,6 @@ a {
   .btn-primary {
     box-shadow: none;
   }
-}
-
-.nav-auth {
-  background-color: map-get($indigo, 400);
-  bottom: 0;
-  font-size: 14px;
-  height: 100%;
-  left: 0;
-  list-style-type: none;
-  padding-right: 15px;
-  padding-top: 15px;
-  position: fixed;
-  right: 0;
-  top: 50px;
-  width: 100%;
-  z-index: 0;
-
-  li {
-    margin-bottom: 10px;
-    text-align: right;
-  }
-
-  a {
-    color: #fff;
-  }
-}
-
-.nav-trigger {
-  position: absolute;
-  clip: rect(0, 0, 0, 0);
-}
-
-label[for="nav-trigger"] {
-  border-left: 1px solid map-get($indigo, 200);
-  color: map-get($indigo, 400);
-  cursor: pointer;
-  height: 50px;
-  margin: 0;
-  padding: 15px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 1002;
-}
-
-.nav-trigger:checked ~ main {
-  right: 225px;
 }
 
 .logo {

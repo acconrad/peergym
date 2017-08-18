@@ -92,8 +92,6 @@ defmodule Peergym.GymEdit do
     timestamps()
   end
 
-  @all_fields ~w()
-
   @doc """
   Creates a changeset based on the `struct` and `params`.
   """
