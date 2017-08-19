@@ -4134,7 +4134,7 @@ a {
     box-shadow: none;
     display: inline-block;
     margin: 8px auto 0;
-    width: calc(100% - 113px); }
+    width: calc(100% - 150px); }
     @media screen and (min-width: 900px) {
       .navbar-default .form-gym-search {
         width: 615px; } }

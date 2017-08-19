@@ -1,9 +1,5 @@
 use Mix.Config
 
-config :ex_debug_toolbar,
-    enable: true,
-    iex_shell: "/bin/zsh"
-
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
