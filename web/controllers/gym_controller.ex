@@ -4,7 +4,6 @@ defmodule Peergym.GymController do
   alias Peergym.Navigation
   alias Peergym.Review
   import Passport.AuthenticationPlug
-  require IEx
 
   plug PlugForwardedPeer
   plug :scrub_params, "gym" when action in [:create, :update]
@@ -143,7 +142,6 @@ defmodule Peergym.GymController do
     end
   end
   defp gym_chunks(location) do
-    IEx.pry
     if location["location"] == "United States" do
       Gym
       |> Gym.in_major_us_cities

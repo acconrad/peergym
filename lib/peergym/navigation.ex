@@ -14,24 +14,24 @@ defmodule Peergym.Navigation do
     case Geolix.lookup(ip_address, [where: :city]) do
       %{city: city, location: location, subdivisions: state} ->
         first_state = state |> List.first
-        %{"lat"   => location.latitude,
-          "lng"   => location.longitude,
+        %{"lat"   => location.latitude |> to_string,
+          "lng"   => location.longitude |> to_string,
           "city"  => city.names.en,
           "state" => first_state.iso_code}
       %{city: city, country: country, location: location} ->
-        %{"lat"   => location.latitude,
-          "lng"   => location.longitude,
+        %{"lat"   => location.latitude |> to_string,
+          "lng"   => location.longitude |> to_string,
           "city"  => city.names.en,
           "state" => country.names.en}
       %{location: location, subdivisions: state} ->
         first_state = state |> List.first
-        %{"lat"   => location.latitude,
-          "lng"   => location.longitude,
+        %{"lat"   => location.latitude |> to_string,
+          "lng"   => location.longitude |> to_string,
           "city"  => "",
           "state" => first_state.iso_code}
       %{country: country, location: location} ->
-        %{"lat"   => location.latitude,
-          "lng"   => location.longitude,
+        %{"lat"   => location.latitude |> to_string,
+          "lng"   => location.longitude |> to_string,
           "city"  => "",
           "state" => country.names.en}
       _ ->
