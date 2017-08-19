@@ -18,7 +18,7 @@ defmodule Peergym.Mixfile do
   def application do
     [mod: {Peergym, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger,
-                    :phoenix_ecto, :postgrex, :geolix, :ex_aws, :hackney, :poison, :arc_ecto, :ex_debug_toolbar]]
+                    :phoenix_ecto, :postgrex, :geolix, :ex_aws, :hackney, :poison, :arc_ecto]]
   end
 
   # Specifies which paths to compile per environment
@@ -50,7 +50,6 @@ defmodule Peergym.Mixfile do
      {:ex_aws, "~> 1.1"},
      {:hackney, "~> 1.6"},
      {:sweet_xml, "~> 0.6"},
-     {:gettext, "~> 0.11"},
-     {:ex_debug_toolbar, "~> 0.3.0", only: :dev}]
+     {:gettext, "~> 0.11"}]
   end
 end
