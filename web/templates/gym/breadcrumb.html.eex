@@ -1,9 +1,9 @@
 <ul class="list-unstyled list-inline breadcrumbs">
   <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
     <%= if @state do %>
-      <a href="#" itemprop="url">
+      <%= link to: gym_path(@conn, :index, [page: 1, search: [city: "" , state: "", lat: @lat |> to_string, lng: @lng |> to_string]]), itemprop: "url" do %>
         <span itemprop="title">United States</span>
-      </a>
+      <% end %>
       <span class="separator">›</span>
     <% else %>
       United States Gyms
@@ -13,9 +13,9 @@
   <%= if @state do %>
   <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
     <%= if @city do %>
-      <a href="#" itemprop="url">
+      <%= link to: gym_path(@conn, :index, [page: 1, search: [city: "" , state: @state, lat: @lat |> to_string, lng: @lng |> to_string]]), itemprop: "url" do %>
         <span itemprop="title"><%= full_state_name @state %> (<%= @state %>)</span>
-      </a>
+      <% end %>
       <span class="separator">›</span>
     <% else %>
       <%= full_state_name @state %> (<%= @state %>) Gyms
@@ -26,9 +26,9 @@
   <%= if @city do %>
   <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
     <%= if @name do %>
-      <a href="#" itemprop="url">
+      <%= link to: gym_path(@conn, :index, [page: 1, search: [city: @city , state: @state, lat: @lat |> to_string, lng: @lng |> to_string]]), itemprop: "url" do %>
         <span itemprop="title"><%= @city %></span>
-      </a>
+      <% end %>
       <span class="separator">›</span>
     <% else %>
       <%= @city %> Gyms

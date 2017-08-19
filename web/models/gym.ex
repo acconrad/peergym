@@ -187,8 +187,8 @@ defmodule Peergym.Gym do
     where: g.platforms > 1 and g.jerk_blocks > 1 and g.bumper_plates > 1
   end
 
-  def within_bounding_box(query, %{"lat" => lat, "lng" => lng}, _ordered) do
-    bb = bounding_box(lat |> String.to_float, lng |> String.to_float)
+  def within_bounding_box(query, %{"lat" => lat, "lng" => lng}, radius, _ordered) do
+    bb = bounding_box(lat |> String.to_float, lng |> String.to_float, radius)
 
     from g in query,
     where: g.latitude >= ^bb.min_lat and
@@ -197,8 +197,8 @@ defmodule Peergym.Gym do
       g.longitude <= ^bb.max_lng,
     order_by: [asc: fragment("? NULLS LAST", g.monthly_rate)]
   end
-  def within_bounding_box(query, %{"lat" => lat, "lng" => lng}) do
-    bb = bounding_box(lat |> String.to_float, lng |> String.to_float)
+  def within_bounding_box(query, %{"lat" => lat, "lng" => lng}, radius) do
+    bb = bounding_box(lat |> String.to_float, lng |> String.to_float, radius)
 
     from g in query,
     where: g.latitude >= ^bb.min_lat and
@@ -207,11 +207,11 @@ defmodule Peergym.Gym do
       g.longitude <= ^bb.max_lng
   end
 
-  defp bounding_box(lat, lng) do
-    %{min_lat: lat - @delta,
-      max_lat: lat + @delta,
-      min_lng: lng - @delta,
-      max_lng: lng + @delta}
+  defp bounding_box(lat, lng, radius) do
+    %{min_lat: lat - (@delta * radius),
+      max_lat: lat + (@delta * radius),
+      min_lng: lng - (@delta * radius),
+      max_lng: lng + (@delta * radius)}
   end
 
   defp strip_tag(description, tag) do

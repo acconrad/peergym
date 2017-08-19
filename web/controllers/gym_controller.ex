@@ -4,6 +4,7 @@ defmodule Peergym.GymController do
   alias Peergym.Navigation
   alias Peergym.Review
   import Passport.AuthenticationPlug
+  require IEx
 
   plug PlugForwardedPeer
   plug :scrub_params, "gym" when action in [:create, :update]
@@ -13,24 +14,8 @@ defmodule Peergym.GymController do
       redirect_to: "/"
     ] when action in [:new, :edit, :create, :update, :delete]
 
-  ########## SEO landing pages ##########
-  # def index(conn, %{"slug" => slug}) do
-  #   slug_keywords = String.split(slug, "-")
-
-  #   if List.last(slug_keywords) == "gyms" do
-  #     gyms = Gym |> Gym.by_type(slug_keywords) |> Repo.paginate
-
-  #     render conn, "landing-page.html",
-  #       gyms: gyms.entries,
-  #       page_number: gyms.page_number,
-  #       total_pages: gyms.total_pages
-  #   else
-  #     conn
-  #     |> redirect(to: gym_path(conn, :index))
-  #   end
-  # end
   def index(conn, %{"page" => page, "order_by" => order_by, "search" => location}) do
-    page_number = String.to_integer(page)
+    page_number = page |> String.to_integer
     gyms_chunk = gym_chunks(location, order_by)
     gyms = fetch_gyms(gyms_chunk, page_number)
 
@@ -41,7 +26,7 @@ defmodule Peergym.GymController do
       page_number: page_number
   end
   def index(conn, %{"page" => page, "search" => location}) do
-    page_number = String.to_integer(page)
+    page_number = page |> String.to_integer
     gyms_chunk = gym_chunks(location)
     gyms = fetch_gyms(gyms_chunk, page_number)
 
@@ -50,6 +35,16 @@ defmodule Peergym.GymController do
       location: location,
       page_count: gyms_chunk |> Enum.count,
       page_number: page_number
+  end
+  def index(conn, %{"search" => location}) do
+    gyms_chunk = gym_chunks(location)
+    gyms = fetch_gyms(gyms_chunk, 1)
+
+    render conn, "index.html",
+      gyms: gyms,
+      location: location,
+      page_count: gyms_chunk |> Enum.count,
+      page_number: 1
   end
   def index(conn, _params) do
     location = Navigation.find_location(conn.remote_ip)
@@ -132,7 +127,7 @@ defmodule Peergym.GymController do
   end
 
   defp gym_chunks(location, ordered) do
-    if location["state"] == "United States" do
+    if location["location"] == "United States" do
       Gym
       |> Gym.in_major_us_cities(ordered)
       |> Repo.all
@@ -140,7 +135,7 @@ defmodule Peergym.GymController do
       |> Enum.chunk(10, 10, [])
     else
       Gym
-      |> Gym.within_bounding_box(location, ordered)
+      |> Gym.within_bounding_box(location, (if location["city"] == "", do: 10, else: 1), ordered)
       |> Repo.all
       |> Enum.sort(&(Navigation.haversine(&1, location) <= Navigation.haversine(&2, location)))
       |> Enum.map(&(Map.put(&1, :distance, Float.round(Navigation.haversine(&1, location), 1))))
@@ -148,7 +143,8 @@ defmodule Peergym.GymController do
     end
   end
   defp gym_chunks(location) do
-    if location["state"] == "United States" do
+    IEx.pry
+    if location["location"] == "United States" do
       Gym
       |> Gym.in_major_us_cities
       |> Repo.all
@@ -156,7 +152,7 @@ defmodule Peergym.GymController do
       |> Enum.chunk(10, 10, [])
     else
       Gym
-      |> Gym.within_bounding_box(location)
+      |> Gym.within_bounding_box(location, (if location["city"] == "", do: 10, else: 1))
       |> Repo.all
       |> Enum.sort(&(Navigation.haversine(&1, location) <= Navigation.haversine(&2, location)))
       |> Enum.map(&(Map.put(&1, :distance, Float.round(Navigation.haversine(&1, location), 1))))

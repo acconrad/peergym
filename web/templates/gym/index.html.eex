@@ -1,5 +1,3 @@
-<%# render "breadcrumb.html", state: @location["state"], city: @location["city"], name: nil %>
-
 <div class="row">
   <div class="col-md-6">
     <%= unless logged_in?(@conn) do %>
@@ -72,14 +70,21 @@
 
   <aside class="col-md-6 visible-md visible-lg">
     <h3>
-      <span class="result-title">Gyms <%= if String.length(@location["city"]) > 0, do: "near " <> @location["city"] <> ",", else: "in" %> <%= @location["state"] %></span>
+      <span class="result-title">
+        Gyms <%= if String.length(@location["city"]) > 0, do: "near " <> @location["city"] <> ",", else: "in" %> <%= @location["state"] %>
+      </span>
 
       <%= if logged_in?(@conn) && current_user(@conn).admin do %>
         <%= link "Add a Gym »", to: gym_path(@conn, :new), class: "btn btn-primary pull-right" %>
       <% end %>
     </h3>
 
-    <div data-latitude="<%= @location["lat"] |> to_string %>" data-longitude="<%= @location["lng"] |> to_string %>" data-skyview="<%= String.length(@location["city"]) == 0 %>"  id="map-canvas"></div>
+    <div data-latitude="<%= @location["lat"] |> to_string %>"
+         data-longitude="<%= @location["lng"] |> to_string %>"
+         data-state-view="<%= @location["city"] |> String.length == 0 && @location["state"] |> String.length > 0 %>"
+         data-country-view="<%= @location["city"] |> String.length == 0 && @location["state"] |> String.length == 0 %>"
+         id="map-canvas">
+    </div>
     <p><small>Found a gym that isn't listed? <%= link "Submit it here", to: gym_edit_path(@conn, :new) %>!</small></p>
   </aside>
 </div>
