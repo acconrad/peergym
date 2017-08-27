@@ -4328,6 +4328,10 @@ main {
 .ask-payment {
   min-height: 60vh; }
 
+.pagination > li > a,
+.pagination > li > span {
+  color: #0D47A1; }
+
 .hero {
   background-image: url("/images/background.jpg");
   background-position: 25% center;

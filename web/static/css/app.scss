@@ -401,6 +401,11 @@ main {
   min-height: 60vh;
 }
 
+.pagination > li > a,
+.pagination > li > span {
+  color: map-get($blue, 900);
+}
+
 .hero {
   background-image: url("/images/background.jpg");
   background-position: 25% center;

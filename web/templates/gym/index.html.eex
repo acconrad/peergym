@@ -36,36 +36,36 @@
         </li>
       <% end %>
 
-      <%= if @page_count > 1 do %>
-        <nav class="text-center">
-          <ul class="pagination">
-            <%= if @page_number > 1 do %>
-            <li>
-              <%= link to: gym_path(@conn, :index, [page: @page_number - 1, search: [city: @location["city"] , state: @location["state"], lat: @location["lat"] |> to_string, lng: @location["lng"] |> to_string]]), aria_label: "Previous" do %>
-                <span aria-hidden="true">&laquo;</span>
-              <% end %>
-            </li>
-            <% end %>
-            <%= for page <- (1..@page_count) do %>
-            <li>
-              <%= if @page_number == page do %>
-                <span><%= page %></span>
-              <% else %>
-                <%= link "#{page}", to: gym_path(@conn, :index, [page: page, search: [city: @location["city"] , state: @location["state"], lat: @location["lat"] |> to_string, lng: @location["lng"] |> to_string]]) %>
-              <% end %>
-            </li>
-            <% end %>
-            <%= if @page_number != @page_count do %>
-            <li>
-              <%= link to: gym_path(@conn, :index, [page: @page_number + 1, search: [city: @location["city"] , state: @location["state"], lat: @location["lat"] |> to_string, lng: @location["lng"] |> to_string]]), aria_label: "Next" do %>
-                <span aria-hidden="true">&raquo;</span>
-              <% end %>
-            </li>
-            <% end %>
-          </ul>
-        </nav>
-      <% end %>
     </ol>
+    <%= if @page_count > 1 do %>
+      <nav class="text-center">
+        <ul class="pagination">
+          <%= if @page_number > 1 do %>
+          <li>
+            <%= link to: gym_path(@conn, :index, [page: @page_number - 1, search: [city: @location["city"] , state: @location["state"], lat: @location["lat"] |> to_string, lng: @location["lng"] |> to_string]]), aria_label: "Previous" do %>
+              <span aria-hidden="true">&laquo;</span>
+            <% end %>
+          </li>
+          <% end %>
+          <%= for page <- (1..@page_count) do %>
+          <li>
+            <%= if @page_number == page do %>
+              <span><%= page %></span>
+            <% else %>
+              <%= link "#{page}", to: gym_path(@conn, :index, [page: page, search: [city: @location["city"] , state: @location["state"], lat: @location["lat"] |> to_string, lng: @location["lng"] |> to_string]]) %>
+            <% end %>
+          </li>
+          <% end %>
+          <%= if @page_number != @page_count do %>
+          <li>
+            <%= link to: gym_path(@conn, :index, [page: @page_number + 1, search: [city: @location["city"] , state: @location["state"], lat: @location["lat"] |> to_string, lng: @location["lng"] |> to_string]]), aria_label: "Next" do %>
+              <span aria-hidden="true">&raquo;</span>
+            <% end %>
+          </li>
+          <% end %>
+        </ul>
+      </nav>
+    <% end %>
   </div>
 
   <aside class="col-md-6 visible-md visible-lg">
