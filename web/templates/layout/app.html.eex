@@ -92,6 +92,8 @@
       <%= render @view_module, @view_template, assigns %>
     </main>
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
 
     <%= if Mix.env == :prod do %>
