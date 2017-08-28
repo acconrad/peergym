@@ -219,12 +219,8 @@ defmodule Peergym.Gym do
   end
 
   defp strip_tags(struct) do
-    strip_descr =
-      get_field(struct, :description)
-      |> strip_tag("script")
-      |> strip_tag("iframe")
-      |> strip_tag("link")
-    struct |> put_change(:description, strip_descr)
+    descr = get_field(struct, :description)
+    struct |> put_change(:description, descr |> strip_tag("script") |> strip_tag("iframe") |> strip_tag("link"))
   end
 
   defp strip_unsafe(struct) do
