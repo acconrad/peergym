@@ -1,5 +1,4 @@
 _build/* linguist-vendored
 node_modules/* linguist-vendored
 priv/static/* linguist-vendored
-priv/static/css/* linguist-vendored
-priv/static/js/* linguist-vendored
+web/static/vendor/* linguist-vendored

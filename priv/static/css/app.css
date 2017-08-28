@@ -4285,9 +4285,6 @@ main {
   margin-left: -15px;
   margin-right: -15px; }
 
-.gym.show .navbar-nav {
-  margin: 7.5px 0; }
-
 .gym.show .gym-item {
   margin: -10px -20px 20px; }
 
@@ -4440,6 +4437,9 @@ main {
   .navbar-gym .navbar-right .btn {
     margin-left: 15px;
     margin-right: 0; }
+
+.navbar-default .navbar-nav > li > a {
+  color: #5C6BC0; }
 
 .card-overview {
   position: relative; }

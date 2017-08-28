@@ -63,7 +63,11 @@
               <%= text_input f, :location, class: "form-control form-gym-location", placeholder: "Find a gym…", value: form_location_prefill(assigns) %>
             </div>
           <% end %>
+
           <ul class="nav navbar-nav navbar-right">
+            <li>
+              <%= link "Add a Gym", to: gym_edit_path(@conn, :new), class: "btn" %>
+            </li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-user"></i>
