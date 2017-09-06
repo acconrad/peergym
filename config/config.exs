@@ -12,7 +12,7 @@ config :peergym,
 config :peergym, Peergym.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
-  secret_key_base: "8vNwY7LhcY3hqsBLAP/m44potAU1CrR9f1dbqK1B7VgrMc3w6yFECjUbb2xBjHfi",
+  secret_key_base: System.get_env("SECRET_KEY_CONFIG"),
   debug_errors: false,
   pubsub: [name: Peergym.PubSub,
            adapter: Phoenix.PubSub.PG2]
@@ -28,9 +28,9 @@ config :passport,
   user_class: Peergym.User
 
 config :arc,
-  asset_host: "https://d2ohrei45269ks.cloudfront.net",
-  access_key_id: "AKIAILAEHI3SP2ZZ55ZA",
-  secret_access_key: "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",
+  asset_host: System.get_env("ARC_S3_ASSET_HOST"),
+  access_key_id: System.get_env("ARC_S3_KEY_ID"),
+  secret_access_key: System.get_env("ARC_S3_ACCESS_KEY"),
   bucket: "peergym-photos"
 
 config :geolix,
