@@ -99,7 +99,7 @@ defmodule Peergym.GymView do
 
   def render("meta_description", assigns) do
     case Controller.action_name assigns.conn do
-      :indow -> "Discover the best gyms in #{assigns.gym.city}, #{assigns.gym.state} with PeerGym."
+      :index -> "Discover the best gyms in #{assigns.gym.city}, #{assigns.gym.state} with PeerGym."
       :show  -> "Book #{assigns.gym.name}, #{assigns.gym.city} on PeerGym: " <>
                 "See amenities, photos, and great deals for #{assigns.gym.name}."
       _      -> "Discover the best gyms in your area. " <>
